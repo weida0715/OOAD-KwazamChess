@@ -39,16 +39,7 @@ Requirements:
 9. If click Pause, blurs the screen then show the word pause. show a resume button. change the Pause from menu bar dropdown to Resume.
 10. Quit, quits the game. If clicked from menu bar, if game is already going on but pressed quit, ask for confirmation whether to save game or not.
 11. In each move, i can click on a piece to hightlight the available moves, i can also choose to drag the piece or just tap on other piece to capture if possible.
-12. Save game will look someting simmilar to, it is based on the 2d array of the following enum type PieceType(contains R_RAM, B_SAU and so on, if no pieces then is type -1), which then converted to this :
-    | RT | RB | RS | RB | RX |
-    | RR | RR | RR | RR | RR |
-    | .. | .. | .. | .. | .. |
-    | .. | .. | .. | .. | .. |
-    | .. | .. | .. | .. | .. |
-    | .. | .. | .. | .. | .. |
-    | BR | BR | BR | BR | BR |
-    | BT | BB | BS | BB | BX |
-
+12. Save game will look someting simmilar to, it is based on the 2d array of the following enum type PieceType(contains R_RAM, B_SAU and so on, if no pieces then is type -1).
 13. PieceFactory will accept the elements of the above strings to check the type and to generate the pieces accourdingly. Thus there will be two same arrays, one for the model, then controller will update a copy to view
 
 --- Design Patterns ---
@@ -72,44 +63,3 @@ Use the Singleton Pattern for the GameManager to ensure there is only one active
 
 6. Composite Pattern
 Use the Composite Pattern for the board, where the board can aggregate multiple squares, and each square can aggregate pieces.
-
---- Folder Structure ---
-.
-├── App.java                          # Entry point of the application
-├── controller/
-│   ├── KwazamController.java          # Mediates communication between Model and View
-├── model/
-│   ├── KwazamBoard.java              # Composite: Represents the board as a collection of BoardSquares
-│   ├── KwazamBoardSquare.java        # Represents individual squares on the board
-│   ├── KwazamGameManager.java        # Manages game state, player turns, and logic
-│   ├── TurnLogic.java                # Template Method for defining the turn sequence
-│   ├── PlayerTurn.java               # Concrete class for player-specific turn logic
-│   ├── pieces/
-│   │   ├── KwazamPiece.java          # Abstract base class for all pieces
-│   │   ├── Ram.java                  # Specific piece subclass (moves forward, reverses at edge)
-│   │   ├── Biz.java                  # Specific piece subclass (L-shaped movement)
-│   │   ├── Tor.java                  # Switches to Xor after 2 turns (orthogonal movement)
-│   │   ├── Xor.java                  # Switches to Tor after 2 turns (diagonal movement)
-│   │   ├── Sau.java                  # Game-ending piece (moves one step in any direction)
-│   ├── movements/
-│   │   ├── MovementStrategy.java     # Strategy Pattern interface for movement
-│   │   ├── OrthogonalMovement.java   # Movement in orthogonal directions
-│   │   ├── DiagonalMovement.java     # Movement in diagonal directions
-│   │   ├── LShapedMovement.java      # L-shaped (knight-like) movement
-│   │   ├── StepMovement.java         # Single-step movement
-│   ├── utils/
-│   │   ├── KwazamConstants.java      # Static constants like board size, piece types
-│   │   ├── KwazamPieceFactory.java   # Factory Pattern for creating pieces
-│   │   ├── GameFileHandler.java      # Handles saving/loading games
-│   ├── exceptions/
-│   │   ├── InvalidMoveException.java # Exception for invalid moves
-│   │   ├── GameStateException.java   # Exception for illegal game states
-├── view/
-│   ├── KwazamView.java               # Main game window (JFrame)
-│   ├── BoardPanel.java               # Displays the board and pieces
-│   ├── MenuBar.java                  # Contains dropdown menus (e.g., New Game, Quit)
-│   ├── StartGameDialog.java          # Dialog to input player names for a new game
-│   ├── PausePanel.java               # Blurs the screen and shows "Pause" overlay
-│   ├── SavedGamesDialog.java         # Lists saved games to load from
-│   ├── KwazamHelper.java             # Utility to visually highlight valid moves on the board
-├── README.md                         # Instructions and game documentation
