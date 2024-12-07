@@ -16,16 +16,6 @@ Requirements:
 6. For save and load game, the game should be saved into a text file so that it's human-readable.
 7. Let's say if you are now playing Blue player, Red player's pieces should be 90 degree oriented facing you
 
---- Board Layout ---
-    | RT | RB | RS | RB | RX |
-    | RR | RR | RR | RR | RR |
-    | .. | .. | .. | .. | .. |
-    | .. | .. | .. | .. | .. |
-    | .. | .. | .. | .. | .. |
-    | .. | .. | .. | .. | .. |
-    | BR | BR | BR | BR | BR |
-    | BT | BB | BS | BB | BX |
-
 --- How i want it to look like ---
 1. Each class one file. package into model view controller or any other
 2. Resizable freely, chess board remains center and only zoom by scale, if the width or height exceeds chessboard, darken the sides of the chessboard
