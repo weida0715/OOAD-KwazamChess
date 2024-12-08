@@ -8,7 +8,7 @@ import model.utils.KwazamConstants;
 public class KwazamView extends JFrame {
     // private KwazamController controller;
     private final KwazamBoardPanel boardPanel;
-    private KwazamMenuBar menuBar;
+    private final KwazamMenuBar menuBar;
 
     public KwazamView() {
         boardPanel = new KwazamBoardPanel();
