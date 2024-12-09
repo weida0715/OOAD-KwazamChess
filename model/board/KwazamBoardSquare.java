@@ -1,6 +1,6 @@
-package model;
+package model.board;
 
-import model.pieces.KwazamPiece;
+import model.piece.KwazamPiece;
 
 public class KwazamBoardSquare {
     private KwazamPiece piece;

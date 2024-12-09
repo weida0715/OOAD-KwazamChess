@@ -1,13 +1,11 @@
 import controller.KwazamController;
-import model.KwazamBoard;
 import model.KwazamGameManager;
 import view.KwazamView;
 
 public class Main {
     public static void main(String[] args) {
         // Model
-        KwazamBoard board = new KwazamBoard();
-        KwazamGameManager model = new KwazamGameManager(board);
+        KwazamGameManager model = new KwazamGameManager();
 
         // View
         KwazamView view = new KwazamView();

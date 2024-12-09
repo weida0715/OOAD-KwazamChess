@@ -3,10 +3,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import model.utils.KwazamConstants;
+import utils.KwazamConstants;
 
 public class KwazamView extends JFrame {
-    // private KwazamController controller;
     private final KwazamBoardPanel boardPanel;
     private final KwazamMenuBar menuBar;
 
@@ -22,10 +21,6 @@ public class KwazamView extends JFrame {
     public KwazamMenuBar getKwazamMenuBar() {
         return menuBar;
     }
-
-    // public void setController(KwazamController c) {
-    // this.controller = c;
-    // }
 
     public void initView() {
         setTitle(KwazamConstants.TITLE);
