@@ -1,11 +1,11 @@
 package model;
 
 import model.board.KwazamBoard;
-import utils.KwazamConstants;
-import utils.KwazamPieceColor;
+import model.utils.KwazamConstants;
+import model.utils.KwazamPieceColor;
 
 public class KwazamGameManager {
-    private KwazamBoard gameBoard;
+    private final KwazamBoard gameBoard;
     public String[][] gameState;
     private KwazamPieceColor currentColor;
     private boolean running;
@@ -44,11 +44,12 @@ public class KwazamGameManager {
     public void updateGameState() {
         for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
             for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
-                if (gameBoard.getSquare(col, row) != null && gameBoard.getSquare(col, row).getPiece() != null) {
-                    String colorString = gameBoard.getSquare(col, row).getPiece().getColor().name().substring(0, 1);
-                    String typeString = gameBoard.getSquare(col, row).getPiece().getType().name();
+                if (gameBoard.getPiece(col, row) != null) {
+                    String colorString = gameBoard.getPiece(col, row).getColor().name().substring(0, 1);
+                    String typeString = gameBoard.getPiece(col, row).getType().name();
                     gameState[row][col] = colorString + "_" + typeString;
-                }
+                } else
+                    gameState[row][col] = "";
             }
         }
     }

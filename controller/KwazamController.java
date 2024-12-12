@@ -1,22 +1,26 @@
 package controller;
 
+import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import model.KwazamGameManager;
-import utils.KwazamConstants;
-import view.KwazamPiecePanel;
+import model.piece.KwazamPiece;
+import model.utils.KwazamConstants;
+import view.KwazamRenderPiece;
 import view.KwazamView;
 
-public class KwazamController implements Runnable {
+public class KwazamController {
     private static KwazamController instance;
     private final KwazamView view;
     private final KwazamGameManager model;
-    private Thread gameThread;
-    private KwazamMouse mouse;
-    private KwazamPiecePanel holdingPiece;
-
-    private int gameTurn = 1; // Start with turn 1
-    private boolean piecesRendered = false; // Track if pieces have been rendered for this turn
+    private KwazamPiece selectedPiece;
+    private KwazamPiece draggedPiece;
+    private int originalX, originalY; // Original position of dragged piece
+    private int pressX, pressY; // Mouse press coordinates
+    private boolean isDragging = false;
+    // private int offsetX, offsetY; // Offset of the dragged piece relative to the mouse
 
     private KwazamController(KwazamView v, KwazamGameManager m) {
         this.view = v;
@@ -24,183 +28,163 @@ public class KwazamController implements Runnable {
     }
 
     public static KwazamController getInstance(KwazamView v, KwazamGameManager m) {
-        if (instance == null)
+        if (instance == null) {
             instance = new KwazamController(v, m);
-
+        }
         return instance;
     }
 
     public void startGame() {
-        // Initialize the view
         view.initView();
-
-        // Initialize game
         model.initGame();
-
-        // Initialize controller
+        updateView();  // Ensure pieces are displayed at the start
         initController();
-
-        // Start game loop
-        startGameLoop();
     }
 
-    private void initController() {
-        // Add mouse listeners here, in the controller
-        mouse = new KwazamMouse();
-        view.getBoardPanel().addMouseListener(mouse);
-        view.getBoardPanel().addMouseMotionListener(mouse);
-    }
+    public void initController() {
+        // MouseListener for click and drag actions
+        view.getBoardPanel().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / view.getBoardPanel().getSquareSize();
+                int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / view.getBoardPanel().getSquareSize();
 
-    public void updateView() {
-        // Render the board only once per turn
-        if (!piecesRendered) {
-            view.getBoardPanel().renderBoard(model.getGameState());
-            piecesRendered = true; // Mark pieces as rendered for this turn
-        }
+                // Record the press position to detect a click later
+                pressX = e.getX();
+                pressY = e.getY();
 
-        // Simulate move if mouse is pressed and holding a piece
-        if (mouse.pressed && holdingPiece != null) {
-            simulateMove();
-        }
+                draggedPiece = model.getGameBoard().getPiece(gridX, gridY);
+                if (draggedPiece != null) {
+                    // Save original position for drag-and-drop
+                    originalX = draggedPiece.getX();
+                    originalY = draggedPiece.getY();
+                    view.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR)); // Change to grabbing cursor
+                }
+            }
 
-        view.repaint();
-    }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int releaseX = e.getX();
+                int releaseY = e.getY();
+                int tileSize = view.getBoardPanel().getSquareSize();
 
-    public void simulateMove() {
-        // Get the current mouse position
-        int mouseX = mouse.getX();
-        int mouseY = mouse.getY();
+                if (isDragging && draggedPiece != null) {
+                    // Handle drag-and-drop release
+                    int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
+                    int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
 
-        // Update the piece's screen position (make it follow the mouse)
-        holdingPiece.setX(mouseX - mouse.getDragOffsetX());
-        holdingPiece.setY(mouseY - mouse.getDragOffsetY());
+                    if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                        // Move piece to new grid
+                        model.getGameBoard().movePiece(draggedPiece, gridX, gridY);
+                    } else {
+                        // Return to original position if invalid
+                        model.getGameBoard().movePiece(draggedPiece, originalX, originalY);
+                    }
 
-        // Repaint to reflect the new position
-        view.repaint();
-    }
+                    // Deselect piece after dragging is done
+                    selectedPiece = null;
 
-    public void incrementTurn() {
-        gameTurn++; // Increment turn
-        piecesRendered = false; // Reset the render flag to allow rendering again
+                    isDragging = false;
+                    draggedPiece = null;
+                    view.setCursor(Cursor.getDefaultCursor()); // Restore cursor after drag
+                } else if (!isDragging) {
+                    // Handle click-to-move
+                    int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
+                    int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
 
-        System.out.println("Turn " + gameTurn + " started.");
-    }
+                    if (selectedPiece == null) {
+                        // Select piece
+                        selectedPiece = model.getGameBoard().getPiece(gridX, gridY);
+                    } else {
+                        // Move selected piece
+                        if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                            model.getGameBoard().movePiece(selectedPiece, gridX, gridY);
+                        }
+                        selectedPiece = null; // Deselect after moving
+                    }
 
-    // Method to end the current turn (optional, for other game logic)
-    public void endTurn() {
-        // If any additional logic is needed for ending a turn
-    }
+                    view.setCursor(Cursor.getDefaultCursor()); // Restore cursor
+                }
 
-    public void quitGame() {
-        model.stopGame();
-        System.exit(0);
-    }
+                updateView();
+            }
+        });
 
-    @Override
-    public void run() {
-        // Main game loop
-        while (model.isRunning()) {
-            updateView();
-        }
-    }
+        // MouseMotionListener for drag movement
+        view.getBoardPanel().addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (draggedPiece != null) {
+                    // Check if the movement is significant enough to qualify as a drag
+                    if (Math.abs(e.getX() - pressX) > 5 || Math.abs(e.getY() - pressY) > 5) {
+                        isDragging = true;
+                    }
 
-    private void startGameLoop() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
+                    // Update dragging piece position to follow mouse, with offset
+                    KwazamRenderPiece draggedPieceData = new KwazamRenderPiece(
+                            draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
+                            e.getX(),
+                            e.getY()
+                    );
+                    view.getBoardPanel().setDraggingPiece(draggedPieceData);
 
-    // Mouse event handler class (for dragging and snapping)
-    public class KwazamMouse extends MouseAdapter {
-        public int x, y;
-        public boolean pressed;
-        private int dragOffsetX, dragOffsetY;  // Offset to follow the mouse
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            pressed = true;
-
-            // Try to find a piece to hold
-            for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
-                for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
-                    KwazamPiecePanel currPiece = view.getBoardPanel().getPiecePanels()[row][col];
-                    if (currPiece != null && currPiece.getPieceColor() == model.getCurrentColor()
-                            && isMouseOnPiece(e, currPiece)) {
-                        holdingPiece = currPiece;
-
-                        // Calculate drag offset to keep piece aligned with mouse
-                        dragOffsetX = e.getX() - currPiece.getX();
-                        dragOffsetY = e.getY() - currPiece.getY();
-
-                        break;  // Exit loop once we find the piece
+                    // Update hovered grid while dragging
+                    int tileSize = view.getBoardPanel().getSquareSize();
+                    int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
+                    int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
+                    // Ensure that hover is only within the chessboard bounds (0-7 for both X and Y)
+                    if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                        view.getBoardPanel().setHoveredGrid(gridX, gridY);
                     }
                 }
             }
-        }
 
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            pressed = false;
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                // Get the tile size based on the chessboard size
+                int tileSize = view.getBoardPanel().getSquareSize();
+                int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
+                int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
 
-            // Snap the piece to the nearest grid position
-            if (holdingPiece != null) {
-                holdingPiece.snapToGrid(view.getBoardPanel().getSquareSize());
-                // Update the piece's row and column based on the snapped position
-                int targetCol = (e.getX() - view.getBoardPanel().getXOffset()) / view.getBoardPanel().getSquareSize();
-                int targetRow = (e.getY() - view.getBoardPanel().getYOffset()) / view.getBoardPanel().getSquareSize();
+                // Ensure hover effect only occurs within the bounds of the grid
+                if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                    KwazamPiece hoveredPiece = model.getGameBoard().getPiece(gridX, gridY);
+                    if (hoveredPiece != null) {
+                        // Change cursor to "grab" when hovering over a piece
+                        view.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    } else {
+                        // Change to default cursor when not hovering over a piece
+                        view.setCursor(Cursor.getDefaultCursor());
+                    }
 
-                holdingPiece.setCol(targetCol);
-                holdingPiece.setRow(targetRow);
-                view.repaint();
+                    // Update hovered grid when mouse moves
+                    view.getBoardPanel().setHoveredGrid(gridX, gridY);
+                } else {
+                    // Reset cursor when outside chessboard bounds
+                    view.setCursor(Cursor.getDefaultCursor());
+                    view.getBoardPanel().setHoveredGrid(-1, -1); // Clear hover effect
+                }
             }
+        });
+
+        updateView();
+    }
+
+    private void updateView() {
+        // Convert Pieces to PieceData for the view
+        List<KwazamRenderPiece> pieceDataList = new ArrayList<>();
+        for (KwazamPiece piece : model.getGameBoard().getPieces()) {
+            pieceDataList.add(new KwazamRenderPiece(piece.getColor().name().substring(0, 1) + "_" + piece.getType(), piece.getX(), piece.getY()));
         }
 
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            if (holdingPiece != null) {
-                // Update piece position while dragging
-                holdingPiece.setX(e.getX() - dragOffsetX);
-                holdingPiece.setY(e.getY() - dragOffsetY);
-                view.repaint();
-            }
-        }
+        view.getBoardPanel().setRenderPieces(pieceDataList);
 
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            x = e.getX();
-            y = e.getY();
-        }
+        // Deselect the piece after moving or dragging is completed
+        KwazamRenderPiece selectedPieceData = selectedPiece != null
+                ? new KwazamRenderPiece(selectedPiece.getColor().name().substring(0, 1) + "_" + selectedPiece.getType(), selectedPiece.getX(), selectedPiece.getY())
+                : null;
+        view.getBoardPanel().setSelectedPiece(selectedPieceData);
 
-        // Utility method to check if mouse is over a piece
-        private boolean isMouseOnPiece(MouseEvent e, KwazamPiecePanel piece) {
-            int squareSize = view.getBoardPanel().getSquareSize();
-            int offsetX = view.getBoardPanel().getXOffset();
-            int offsetY = view.getBoardPanel().getYOffset();
-
-            int pieceX = piece.getCol() * squareSize + offsetX;
-            int pieceY = piece.getRow() * squareSize + offsetY;
-
-            return (e.getX() >= pieceX && e.getX() <= pieceX + squareSize) &&
-                   (e.getY() >= pieceY && e.getY() <= pieceY + squareSize);
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public boolean isPressed() {
-            return pressed;
-        }
-
-        public int getDragOffsetX() {
-            return dragOffsetX;
-        }
-
-        public int getDragOffsetY() {
-            return dragOffsetY;
-        }
+        view.getBoardPanel().clearDraggingPiece(); // Reset dragging visuals
     }
 }

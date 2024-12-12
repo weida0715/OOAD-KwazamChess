@@ -1,11 +1,11 @@
 package model.piece;
 
 
-import utils.KwazamPieceColor;
-import utils.KwazamPieceType;
+import model.utils.KwazamPieceColor;
+import model.utils.KwazamPieceType;
 
 public class Biz extends KwazamPiece {
-    public Biz(KwazamPieceColor color) {
-        super(color, KwazamPieceType.BIZ);
+    public Biz(KwazamPieceColor color, int x, int y) {
+        super(color, KwazamPieceType.BIZ, x, y);
     }
 }

@@ -17,3 +17,23 @@ public class Main {
         controller.startGame();
     }
 }
+
+// import controller.KwazamControllerCopy;
+// import model.KwazamGameManager;
+// import view.KwazamView;
+
+// public class Main {
+//     public static void main(String[] args) {
+//         // Model
+//         KwazamGameManager model = new KwazamGameManager();
+
+//         // View
+//         KwazamView view = new KwazamView();
+
+//         // Controller
+//         KwazamControllerCopy controller = KwazamControllerCopy.getInstance(view, model);
+
+//         // Start the game
+//         controller.startGame();
+//     }
+// }

@@ -1,10 +1,10 @@
 package model.piece;
 
-import utils.KwazamPieceColor;
-import utils.KwazamPieceType;
+import model.utils.KwazamPieceColor;
+import model.utils.KwazamPieceType;
 
 public class Tor extends KwazamPiece {
-    public Tor(KwazamPieceColor color) {
-        super(color, KwazamPieceType.TOR);
+    public Tor(KwazamPieceColor color, int x, int y) {
+        super(color, KwazamPieceType.TOR, x, y);
     }
 }
