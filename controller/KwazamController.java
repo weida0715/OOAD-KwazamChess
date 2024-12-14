@@ -35,8 +35,11 @@ public class KwazamController {
     }
 
     public void startGame() {
-        view.initView();
         model.initGame();
+
+        view.initView();
+        // view.getBoardPanel().flipBoard();
+
         initController();
     }
 
@@ -47,6 +50,12 @@ public class KwazamController {
             public void mousePressed(MouseEvent e) {
                 int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / view.getBoardPanel().getSquareSize();
                 int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / view.getBoardPanel().getSquareSize();
+
+                // Flip the coordinates if the board is flipped
+                if (view.getBoardPanel().isBoardFlipped()) {
+                    gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
+                    gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
+                }
 
                 // Record the press position to detect a click later
                 pressX = e.getX();
@@ -66,17 +75,24 @@ public class KwazamController {
                 int releaseX = e.getX();
                 int releaseY = e.getY();
 
+                int tileSize = view.getBoardPanel().getSquareSize();
+                int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
+                int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
+
+                // Flip the coordinates if the board is flipped
+                if (view.getBoardPanel().isBoardFlipped()) {
+                    gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
+                    gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
+                }
+
                 if (isDragging && draggedPiece != null) {
                     // Handle drag-and-drop release
-                    int tileSize = view.getBoardPanel().getSquareSize();
-                    int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
-                    int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
-
                     if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                             && gridY < KwazamConstants.BOARD_ROWS) {
                         KwazamPiece targetPiece = model.getGameBoard().getPiece(gridX, gridY);
 
                         if (gridX == originalX && gridY == originalY) {
+                            // No change, just return
                         } else if (targetPiece != null) {
                             // Play capture sound if a piece exists on the target square
                             SoundEffect.playCaptureSound();
@@ -98,10 +114,6 @@ public class KwazamController {
                     view.setCursor(Cursor.getDefaultCursor()); // Restore cursor after drag
                 } else if (!isDragging) {
                     // Handle click-to-move
-                    int tileSize = view.getBoardPanel().getSquareSize();
-                    int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
-                    int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
-
                     if (selectedPiece == null) {
                         // Select piece
                         selectedPiece = model.getGameBoard().getPiece(gridX, gridY);
@@ -126,7 +138,6 @@ public class KwazamController {
 
                 updateView();
             }
-
         });
 
         // MouseMotionListener for drag movement
@@ -144,12 +155,23 @@ public class KwazamController {
                             draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
                             draggedPiece.getX(),
                             draggedPiece.getY());
+
+                    // if (view.getBoardPanel().isBoardFlipped())
+                    //     draggedPieceData.flip();
+
                     view.getBoardPanel().setDraggingPiece(draggedPieceData, e.getX(), e.getY());
 
                     // Update hovered grid while dragging
                     int tileSize = view.getBoardPanel().getSquareSize();
                     int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
+
+                    // Flip the coordinates if the board is flipped
+                    if (view.getBoardPanel().isBoardFlipped()) {
+                        gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
+                        gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
+                    }
+
                     // Ensure that hover is only within the chessboard bounds (0-7 for both X and Y)
                     if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                             && gridY < KwazamConstants.BOARD_ROWS) {
@@ -164,6 +186,12 @@ public class KwazamController {
                 int tileSize = view.getBoardPanel().getSquareSize();
                 int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
                 int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
+
+                // Flip the coordinates if the board is flipped
+                if (view.getBoardPanel().isBoardFlipped()) {
+                    gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
+                    gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
+                }
 
                 // Ensure hover effect only occurs within the bounds of the grid
                 if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
@@ -194,8 +222,17 @@ public class KwazamController {
         // Convert Pieces to PieceData for the view
         List<KwazamRenderPiece> pieceDataList = new ArrayList<>();
         for (KwazamPiece piece : model.getGameBoard().getPieces()) {
-            pieceDataList.add(new KwazamRenderPiece(piece.getColor().name().substring(0, 1) + "_" + piece.getType(),
-                    piece.getX(), piece.getY()));
+            KwazamRenderPiece newRenderPiece = new KwazamRenderPiece(
+                    piece.getColor().name().substring(0, 1) + "_" + piece.getType(),
+                    piece.getX(), piece.getY());
+
+            if (piece.getColor() != model.getCurrentColor())
+                newRenderPiece.flip();
+
+            if (view.getBoardPanel().isBoardFlipped())
+                newRenderPiece.flip();
+
+            pieceDataList.add(newRenderPiece);
         }
 
         view.getBoardPanel().setRenderPieces(pieceDataList);
