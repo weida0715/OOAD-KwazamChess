@@ -20,7 +20,6 @@ public class KwazamController {
     private int originalX, originalY; // Original position of dragged piece
     private int pressX, pressY; // Mouse press coordinates
     private boolean isDragging = false;
-    // private int offsetX, offsetY; // Offset of the dragged piece relative to the mouse
 
     private KwazamController(KwazamView v, KwazamGameManager m) {
         this.view = v;
@@ -37,7 +36,6 @@ public class KwazamController {
     public void startGame() {
         view.initView();
         model.initGame();
-        updateView();  // Ensure pieces are displayed at the start
         initController();
     }
 
@@ -66,10 +64,10 @@ public class KwazamController {
             public void mouseReleased(MouseEvent e) {
                 int releaseX = e.getX();
                 int releaseY = e.getY();
-                int tileSize = view.getBoardPanel().getSquareSize();
-
+                
                 if (isDragging && draggedPiece != null) {
                     // Handle drag-and-drop release
+                    int tileSize = view.getBoardPanel().getSquareSize();
                     int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
 
@@ -89,6 +87,7 @@ public class KwazamController {
                     view.setCursor(Cursor.getDefaultCursor()); // Restore cursor after drag
                 } else if (!isDragging) {
                     // Handle click-to-move
+                    int tileSize = view.getBoardPanel().getSquareSize();
                     int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
 
@@ -123,10 +122,10 @@ public class KwazamController {
                     // Update dragging piece position to follow mouse, with offset
                     KwazamRenderPiece draggedPieceData = new KwazamRenderPiece(
                             draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
-                            e.getX(),
-                            e.getY()
+                            draggedPiece.getX(),
+                            draggedPiece.getY()
                     );
-                    view.getBoardPanel().setDraggingPiece(draggedPieceData);
+                    view.getBoardPanel().setDraggingPiece(draggedPieceData, e.getX(), e.getY());
 
                     // Update hovered grid while dragging
                     int tileSize = view.getBoardPanel().getSquareSize();
