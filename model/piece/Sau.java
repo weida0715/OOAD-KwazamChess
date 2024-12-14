@@ -1,7 +1,7 @@
 package model.piece;
 
-import model.utils.KwazamPieceColor;
-import model.utils.KwazamPieceType;
+import utils.KwazamPieceColor;
+import utils.KwazamPieceType;
 
 public class Sau extends KwazamPiece {
     public Sau(KwazamPieceColor color, int x, int y) {

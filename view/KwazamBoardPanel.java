@@ -10,7 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
 import javax.swing.JPanel;
-import model.utils.KwazamConstants;
+import utils.KwazamConstants;
 
 public class KwazamBoardPanel extends JPanel {
     private List<KwazamRenderPiece> renderPieces;
@@ -183,10 +183,6 @@ public class KwazamBoardPanel extends JPanel {
         // Draw pieces (skip the dragging piece in its original position)
         if (renderPieces != null) {
             for (KwazamRenderPiece piece : renderPieces) {
-                if (draggingPiece != null) {
-                    System.out.println("R: " + piece.getX() + " " + piece.getY());
-                    System.out.println("D: " + draggingPiece.getX() + " " + draggingPiece.getY());
-                }
                 if (draggingPiece != null && piece.getX() == draggingPiece.getX()
                         && piece.getY() == draggingPiece.getY()) {
                     continue;

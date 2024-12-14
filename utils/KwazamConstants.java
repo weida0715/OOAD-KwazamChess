@@ -1,9 +1,11 @@
-package model.utils;
+package utils;
 
 import java.awt.Color;
 
 public class KwazamConstants {
     public static final String TITLE = "Kwazam Chess";
+    public static final String IMAGE_PATH = "/images";
+    public static final String AUDIO_PATH = "/audio";
     public static final int FPS = 120;
     public static final int WINDOW_WIDTH = 600;
     public static final int WINDOW_HEIGHT = 800;

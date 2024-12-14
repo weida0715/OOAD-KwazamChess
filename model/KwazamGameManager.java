@@ -1,8 +1,8 @@
 package model;
 
 import model.board.KwazamBoard;
-import model.utils.KwazamConstants;
-import model.utils.KwazamPieceColor;
+import utils.KwazamConstants;
+import utils.KwazamPieceColor;
 
 public class KwazamGameManager {
     private final KwazamBoard gameBoard;

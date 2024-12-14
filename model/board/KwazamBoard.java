@@ -8,7 +8,7 @@ import model.piece.Ram;
 import model.piece.Sau;
 import model.piece.Tor;
 import model.piece.Xor;
-import model.utils.KwazamPieceColor;
+import utils.KwazamPieceColor;
 
 public class KwazamBoard {
     public List<KwazamPiece> pieces;

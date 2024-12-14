@@ -3,7 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import model.utils.KwazamConstants;
+import utils.KwazamConstants;
 
 public class KwazamView extends JFrame {
     private final KwazamBoardPanel boardPanel;

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.KwazamGameManager;
 import model.piece.KwazamPiece;
-import model.utils.KwazamConstants;
+import utils.KwazamConstants;
+import utils.SoundEffect;
 import view.KwazamRenderPiece;
 import view.KwazamView;
 
@@ -64,15 +65,26 @@ public class KwazamController {
             public void mouseReleased(MouseEvent e) {
                 int releaseX = e.getX();
                 int releaseY = e.getY();
-                
+
                 if (isDragging && draggedPiece != null) {
                     // Handle drag-and-drop release
                     int tileSize = view.getBoardPanel().getSquareSize();
                     int gridX = (releaseX - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (releaseY - view.getBoardPanel().getYOffset()) / tileSize;
 
-                    if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
-                        // Move piece to new grid
+                    if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
+                            && gridY < KwazamConstants.BOARD_ROWS) {
+                        KwazamPiece targetPiece = model.getGameBoard().getPiece(gridX, gridY);
+
+                        if (gridX == originalX && gridY == originalY) {
+                        } else if (targetPiece != null) {
+                            // Play capture sound if a piece exists on the target square
+                            SoundEffect.playCaptureSound();
+                        } else {
+                            // Play move sound if the square is empty
+                            SoundEffect.playMoveSound();
+                        }
+
                         model.getGameBoard().movePiece(draggedPiece, gridX, gridY);
                     } else {
                         // Return to original position if invalid
@@ -81,7 +93,6 @@ public class KwazamController {
 
                     // Deselect piece after dragging is done
                     selectedPiece = null;
-
                     isDragging = false;
                     draggedPiece = null;
                     view.setCursor(Cursor.getDefaultCursor()); // Restore cursor after drag
@@ -95,8 +106,16 @@ public class KwazamController {
                         // Select piece
                         selectedPiece = model.getGameBoard().getPiece(gridX, gridY);
                     } else {
-                        // Move selected piece
-                        if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                        KwazamPiece targetPiece = model.getGameBoard().getPiece(gridX, gridY);
+
+                        if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
+                                && gridY < KwazamConstants.BOARD_ROWS) {
+                            if (targetPiece != null) {
+                                SoundEffect.playCaptureSound();
+                            } else {
+                                SoundEffect.playMoveSound();
+                            }
+
                             model.getGameBoard().movePiece(selectedPiece, gridX, gridY);
                         }
                         selectedPiece = null; // Deselect after moving
@@ -107,6 +126,7 @@ public class KwazamController {
 
                 updateView();
             }
+
         });
 
         // MouseMotionListener for drag movement
@@ -123,8 +143,7 @@ public class KwazamController {
                     KwazamRenderPiece draggedPieceData = new KwazamRenderPiece(
                             draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
                             draggedPiece.getX(),
-                            draggedPiece.getY()
-                    );
+                            draggedPiece.getY());
                     view.getBoardPanel().setDraggingPiece(draggedPieceData, e.getX(), e.getY());
 
                     // Update hovered grid while dragging
@@ -132,7 +151,8 @@ public class KwazamController {
                     int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
                     // Ensure that hover is only within the chessboard bounds (0-7 for both X and Y)
-                    if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                    if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
+                            && gridY < KwazamConstants.BOARD_ROWS) {
                         view.getBoardPanel().setHoveredGrid(gridX, gridY);
                     }
                 }
@@ -146,7 +166,8 @@ public class KwazamController {
                 int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
 
                 // Ensure hover effect only occurs within the bounds of the grid
-                if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0 && gridY < KwazamConstants.BOARD_ROWS) {
+                if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
+                        && gridY < KwazamConstants.BOARD_ROWS) {
                     KwazamPiece hoveredPiece = model.getGameBoard().getPiece(gridX, gridY);
                     if (hoveredPiece != null) {
                         // Change cursor to "grab" when hovering over a piece
@@ -173,14 +194,16 @@ public class KwazamController {
         // Convert Pieces to PieceData for the view
         List<KwazamRenderPiece> pieceDataList = new ArrayList<>();
         for (KwazamPiece piece : model.getGameBoard().getPieces()) {
-            pieceDataList.add(new KwazamRenderPiece(piece.getColor().name().substring(0, 1) + "_" + piece.getType(), piece.getX(), piece.getY()));
+            pieceDataList.add(new KwazamRenderPiece(piece.getColor().name().substring(0, 1) + "_" + piece.getType(),
+                    piece.getX(), piece.getY()));
         }
 
         view.getBoardPanel().setRenderPieces(pieceDataList);
 
         // Deselect the piece after moving or dragging is completed
         KwazamRenderPiece selectedPieceData = selectedPiece != null
-                ? new KwazamRenderPiece(selectedPiece.getColor().name().substring(0, 1) + "_" + selectedPiece.getType(), selectedPiece.getX(), selectedPiece.getY())
+                ? new KwazamRenderPiece(selectedPiece.getColor().name().substring(0, 1) + "_" + selectedPiece.getType(),
+                        selectedPiece.getX(), selectedPiece.getY())
                 : null;
         view.getBoardPanel().setSelectedPiece(selectedPieceData);
 

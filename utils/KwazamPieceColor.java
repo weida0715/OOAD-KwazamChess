@@ -1,4 +1,4 @@
-package model.utils;
+package utils;
 
 public enum KwazamPieceColor {
     BLUE, RED
