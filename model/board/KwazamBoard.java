@@ -1,6 +1,7 @@
 package model.board;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import model.piece.Biz;
 import model.piece.KwazamPiece;
@@ -58,12 +59,29 @@ public class KwazamBoard {
         pieces.add(piece);
     }
 
-    public void removePiece(int x, int y) {
-        for (KwazamPiece piece : pieces) {
-            if (piece.getX() == x && piece.getY() == y) {
-                pieces.remove(piece);
+    public void removePiece(KwazamPiece p) {
+        // Use an iterator to safely remove elements during iteration
+        for (Iterator<KwazamPiece> iterator = pieces.iterator(); iterator.hasNext();) {
+            KwazamPiece piece = iterator.next();
+            if (p == piece) {
+                iterator.remove(); // Safe removal using the iterator
             }
         }
+    }
+
+    public void removePiece(int x, int y) {
+        // Use an iterator to safely remove elements during iteration
+        for (Iterator<KwazamPiece> iterator = pieces.iterator(); iterator.hasNext();) {
+            KwazamPiece piece = iterator.next();
+            if (piece.getX() == x && piece.getY() == y) {
+                iterator.remove(); // Safe removal using the iterator
+            }
+        }
+    }
+
+    public void capturePiece(KwazamPiece piece, int targetX, int targetY) {
+        removePiece(targetX, targetY);
+        movePiece(piece, targetX, targetY);
     }
 
     public void movePiece(KwazamPiece piece, int targetX, int targetY) {

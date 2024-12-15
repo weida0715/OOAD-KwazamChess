@@ -46,7 +46,11 @@ public class KwazamGameManager {
 
     public boolean movePiece(KwazamPiece piece, int targetX, int targetY) {
         if (isValidMove(piece, targetX, targetY)) {
-            gameBoard.movePiece(piece, targetX, targetY);
+            if (hasOpponentPiece(targetX, targetY))
+                gameBoard.capturePiece(piece, targetX, targetY);
+            else
+                gameBoard.movePiece(piece, targetX, targetY);
+
             updateGameState();
             return true;
         }
@@ -80,12 +84,16 @@ public class KwazamGameManager {
 
         if (pieceY >= 0 && pieceY < KwazamConstants.BOARD_ROWS) {
             KwazamPiece targetPiece = gameBoard.getPiece(pieceX, nextY);
-            if (targetPiece == null) {
+            if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
                 validMoves.add(new int[] { pieceX, nextY });
             }
         }
 
         return validMoves;
+    }
+
+    public boolean hasOpponentPiece(int x, int y) {
+        return (gameBoard.getPiece(x, y) != null);
     }
 
     public void printGameState() {
