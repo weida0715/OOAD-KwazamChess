@@ -1,10 +1,14 @@
 package controller;
 
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import model.KwazamGameManager;
 import model.piece.KwazamPiece;
 import utils.KwazamConstants;
@@ -35,16 +39,37 @@ public class KwazamController implements Runnable {
     }
 
     public void startGame() {
+        // Initialize the game
         model.initGame();
-
         view.initView();
-
         initController();
+        updateView();
 
-        startGameLoop();
+        // Ask for player names via the view
+        Optional<String[]> playerNames = view.showStartGameDialog();
+
+        if (playerNames.isPresent()) {
+            // Extract player names
+            String player1 = playerNames.get()[0];
+            String player2 = playerNames.get()[1];
+
+            // Pass names to the model for game initialization
+            model.setPlayerNames(player1, player2);
+
+            // Start the main game loop
+            startGameLoop();
+        } else {
+            // Exit the game if the dialog is canceled
+            System.exit(0);
+        }
     }
 
     public void initController() {
+        initGameListeners();
+        initMenuListeners();
+    }
+
+    public void initGameListeners() {
         // MouseListener for click and drag actions
         view.getBoardPanel().addMouseListener(new MouseAdapter() {
             @Override
@@ -63,7 +88,14 @@ public class KwazamController implements Runnable {
                 pressY = e.getY();
 
                 draggedPiece = model.getGameBoard().getPiece(gridX, gridY);
+
                 if (draggedPiece != null) {
+                    // Prevent interaction if the piece is not the current player's
+                    if (draggedPiece.getColor() != model.getCurrentColor()) {
+                        draggedPiece = null; // Reset dragged piece if it's an opponent's piece
+                        return; // Don't allow further interaction
+                    }
+
                     // Fetch and display valid moves for the dragged piece
                     List<int[]> validMoves = model.checkValidMoves(draggedPiece);
                     view.showValidMoves(validMoves);
@@ -121,6 +153,12 @@ public class KwazamController implements Runnable {
                         selectedPiece = model.getGameBoard().getPiece(gridX, gridY);
 
                         if (selectedPiece != null) {
+                            // Prevent selecting opponent's piece
+                            if (selectedPiece.getColor() != model.getCurrentColor()) {
+                                selectedPiece = null; // Reset if opponent's piece is clicked
+                                return;
+                            }
+
                             // Fetch and display valid moves for the selected piece
                             List<int[]> validMoves = model.checkValidMoves(selectedPiece);
                             view.showValidMoves(validMoves);
@@ -162,6 +200,12 @@ public class KwazamController implements Runnable {
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (draggedPiece != null) {
+                    // Prevent dragging opponent's piece
+                    if (draggedPiece.getColor() != model.getCurrentColor()) {
+                        draggedPiece = null;
+                        return; // Don't allow dragging if it's an opponent's piece
+                    }
+
                     // Check if the movement is significant enough to qualify as a drag
                     if (Math.abs(e.getX() - pressX) > 5 || Math.abs(e.getY() - pressY) > 5) {
                         isDragging = true;
@@ -211,11 +255,18 @@ public class KwazamController implements Runnable {
                 if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                         && gridY < KwazamConstants.BOARD_ROWS) {
                     KwazamPiece hoveredPiece = model.getGameBoard().getPiece(gridX, gridY);
+
                     if (hoveredPiece != null) {
-                        // Change cursor to "grab" when hovering over a piece
-                        view.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                        // Only change cursor to "grab" if the hovered piece belongs to the current
+                        // player
+                        if (hoveredPiece.getColor() == model.getCurrentColor()) {
+                            view.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                        } else {
+                            // Change to default cursor if it's an opponent's piece
+                            view.setCursor(Cursor.getDefaultCursor());
+                        }
                     } else {
-                        // Change to default cursor when not hovering over a piece
+                        // Change to default cursor when hovering over an empty square
                         view.setCursor(Cursor.getDefaultCursor());
                     }
 
@@ -226,6 +277,16 @@ public class KwazamController implements Runnable {
                     view.setCursor(Cursor.getDefaultCursor());
                     view.getBoardPanel().setHoveredGrid(-1, -1); // Clear hover effect
                 }
+            }
+
+        });
+    }
+
+    public void initMenuListeners() {
+        view.getKwazamMenuBar().getQuitOption().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quitGame();
             }
         });
     }
@@ -273,6 +334,19 @@ public class KwazamController implements Runnable {
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    private void quitGame() {
+        boolean confirmQuit = view.showQuitDialog();
+        if (confirmQuit) {
+            // Stop the game thread (if running)
+            if (gameThread != null && gameThread.isAlive()) {
+                gameThread.interrupt();
+            }
+
+            // Close the game (exit the application)
+            System.exit(0);
+        }
     }
 
 }

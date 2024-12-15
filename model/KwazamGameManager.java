@@ -12,6 +12,8 @@ public class KwazamGameManager {
     public String[][] gameState;
     private KwazamPieceColor currentColor;
     private boolean running;
+    private String player1Name;
+    private String player2Name;
 
     public KwazamGameManager() {
         this.gameBoard = new KwazamBoard();
@@ -30,6 +32,19 @@ public class KwazamGameManager {
 
     public KwazamPieceColor getCurrentColor() {
         return currentColor;
+    }
+
+    public String getPlayer1Name() {
+        return player1Name;
+    }
+    
+    public String getPlayer2Name() {
+        return player2Name;
+    }
+
+    public void setPlayerNames(String p1, String p2) {
+        this.player1Name = p1;
+        this.player2Name = p2;
     }
 
     public boolean isRunning() {

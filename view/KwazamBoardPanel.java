@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -159,8 +160,14 @@ public class KwazamBoardPanel extends JPanel {
         // Highlight selected piece's grid
         if (selectedPiece != null) {
             g2.setColor(new Color(200, 200, 255)); // Purple color
-            int x = xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - selectedPiece.getX()) : selectedPiece.getX()) * squareSize + KwazamConstants.BORDER_WIDTH / 2;
-            int y = yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - selectedPiece.getY()) : selectedPiece.getY()) * squareSize + KwazamConstants.BORDER_WIDTH / 2;
+            int x = xOffset
+                    + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - selectedPiece.getX()) : selectedPiece.getX())
+                            * squareSize
+                    + KwazamConstants.BORDER_WIDTH / 2;
+            int y = yOffset
+                    + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - selectedPiece.getY()) : selectedPiece.getY())
+                            * squareSize
+                    + KwazamConstants.BORDER_WIDTH / 2;
             int size = squareSize - KwazamConstants.BORDER_WIDTH;
             g2.fillRect(x, y, size, size);
         }
@@ -168,8 +175,14 @@ public class KwazamBoardPanel extends JPanel {
         // Highlight dragging piece's grid
         if (draggingPiece != null) {
             g2.setColor(new Color(200, 200, 255)); // Purple color
-            int x = xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - draggingPiece.getX()) : draggingPiece.getX()) * squareSize + KwazamConstants.BORDER_WIDTH / 2;
-            int y = yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - draggingPiece.getY()) : draggingPiece.getY()) * squareSize + KwazamConstants.BORDER_WIDTH / 2;
+            int x = xOffset
+                    + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - draggingPiece.getX()) : draggingPiece.getX())
+                            * squareSize
+                    + KwazamConstants.BORDER_WIDTH / 2;
+            int y = yOffset
+                    + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - draggingPiece.getY()) : draggingPiece.getY())
+                            * squareSize
+                    + KwazamConstants.BORDER_WIDTH / 2;
             int size = squareSize - KwazamConstants.BORDER_WIDTH;
             g2.fillRect(x, y, size, size);
         }
@@ -178,8 +191,10 @@ public class KwazamBoardPanel extends JPanel {
         if (hoveredGridX >= 0 && hoveredGridY >= 0 && draggingPiece != null) {
             g2.setColor(new Color(200, 200, 255)); // Purple color
             g2.setStroke(new BasicStroke(5)); // Set border thickness
-            int hoverX = xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - hoveredGridX) : hoveredGridX) * squareSize;
-            int hoverY = yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - hoveredGridY) : hoveredGridY) * squareSize;
+            int hoverX = xOffset
+                    + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - hoveredGridX) : hoveredGridX) * squareSize;
+            int hoverY = yOffset
+                    + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - hoveredGridY) : hoveredGridY) * squareSize;
             g2.drawRect(hoverX, hoverY, squareSize, squareSize);
         }
 
@@ -195,7 +210,8 @@ public class KwazamBoardPanel extends JPanel {
                     drawCol = KwazamConstants.BOARD_COLS - 1 - piece.getX();
                 }
 
-                if (draggingPiece != null && piece.getX() == draggingPiece.getX() && piece.getY() == draggingPiece.getY()) {
+                if (draggingPiece != null && piece.getX() == draggingPiece.getX()
+                        && piece.getY() == draggingPiece.getY()) {
                     continue;
                 }
 
@@ -217,18 +233,19 @@ public class KwazamBoardPanel extends JPanel {
             for (int[] move : availableMoves) {
                 int moveX = move[0];
                 int moveY = move[1];
-    
+
                 // Flip coordinates if the board is flipped
                 if (boardFlipped) {
                     moveX = KwazamConstants.BOARD_COLS - 1 - moveX;
                     moveY = KwazamConstants.BOARD_ROWS - 1 - moveY;
                 }
-    
+
                 // Calculate circle center
                 int centerX = xOffset + moveX * squareSize + squareSize / 2;
                 int centerY = yOffset + moveY * squareSize + squareSize / 2;
-    
+
                 // Draw the circle
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.fillOval(centerX - circleRadius, centerY - circleRadius, 2 * circleRadius, 2 * circleRadius);
             }
         }
@@ -247,14 +264,14 @@ public class KwazamBoardPanel extends JPanel {
                 Color squareColor = (row + col) % 2 == 0 ? KwazamConstants.SQUARE_COLOR_1
                         : KwazamConstants.SQUARE_COLOR_2;
                 g2.setColor(squareColor);
-                g2.fillRect(xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - col) : col) * squareSize, 
-                            yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - row) : row) * squareSize, 
-                            squareSize, squareSize);
+                g2.fillRect(xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - col) : col) * squareSize,
+                        yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - row) : row) * squareSize,
+                        squareSize, squareSize);
 
                 g2.setColor(KwazamConstants.BORDER_COLOR);
-                g2.drawRect(xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - col) : col) * squareSize, 
-                            yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - row) : row) * squareSize, 
-                            squareSize, squareSize);
+                g2.drawRect(xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - col) : col) * squareSize,
+                        yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - row) : row) * squareSize,
+                        squareSize, squareSize);
             }
         }
     }
@@ -271,7 +288,9 @@ public class KwazamBoardPanel extends JPanel {
             String text = String.valueOf((char) ('A' + col));
             int textWidth = metrics.stringWidth(text);
             int textHeight = metrics.getAscent();
-            g2.drawString(text, xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - col) : col) * squareSize + (squareSize - textWidth) / 2,
+            g2.drawString(text,
+                    xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - col) : col) * squareSize
+                            + (squareSize - textWidth) / 2,
                     yOffset - textHeight / 2);
         }
 
@@ -281,7 +300,8 @@ public class KwazamBoardPanel extends JPanel {
             int textWidth = metrics.stringWidth(text);
             int textHeight = metrics.getAscent();
             g2.drawString(text, xOffset - textWidth - 10,
-                    yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - row) : row) * squareSize + (squareSize + textHeight) / 2 - 10);
+                    yOffset + (boardFlipped ? (KwazamConstants.BOARD_ROWS - 1 - row) : row) * squareSize
+                            + (squareSize + textHeight) / 2 - 10);
         }
     }
 

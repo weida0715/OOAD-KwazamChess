@@ -1,5 +1,5 @@
 package model.movements;
 
-public class MovementStrategy {
-    
+public interface MovementStrategy {
+    public void movePiece();
 }

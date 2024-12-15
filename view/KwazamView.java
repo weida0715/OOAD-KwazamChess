@@ -3,16 +3,21 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Optional;
 import javax.swing.JFrame;
 import utils.KwazamConstants;
 
 public class KwazamView extends JFrame {
     private final KwazamBoardPanel boardPanel;
     private final KwazamMenuBar menuBar;
+    private final QuitGameDialog quitGameDialog;
+    private final StartGameDialog startGameDialog;
 
     public KwazamView() {
         boardPanel = new KwazamBoardPanel();
         menuBar = new KwazamMenuBar();
+        quitGameDialog = new QuitGameDialog();
+        startGameDialog = new StartGameDialog();
     }
 
     public KwazamBoardPanel getBoardPanel() {
@@ -52,5 +57,13 @@ public class KwazamView extends JFrame {
 
     public void hideValidMoves() {
         boardPanel.clearAvailableMoves();
+    }
+
+    public boolean showQuitDialog() {
+        return quitGameDialog.showDialog(this);
+    }
+
+    public Optional<String[]> showStartGameDialog() {
+        return startGameDialog.show(this);
     }
 }
