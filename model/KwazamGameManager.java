@@ -54,27 +54,6 @@ public class KwazamGameManager {
         return false;
     }
 
-    public List<int[]> checkValidMoves(KwazamPiece piece) {
-        List<int[]> validMoves = new ArrayList<>();
-
-        if (piece == null || piece.getColor() != currentColor)
-            return validMoves;
-
-        int pieceX = piece.getX();
-        int pieceY = piece.getY();
-
-        int nextY = pieceY - 1;
-
-        if (pieceY >= 0 && pieceY < KwazamConstants.BOARD_ROWS) {
-            KwazamPiece targetPiece = gameBoard.getPiece(pieceX, nextY);
-            if (targetPiece == null) {
-                validMoves.add(new int[] { pieceX, nextY });
-            }
-        }
-
-        return validMoves;
-    }
-
     public boolean isValidMove(KwazamPiece piece, int targetX, int targetY) {
         if (piece.getX() == targetX && piece.getY() == targetY)
             return false;
@@ -86,6 +65,27 @@ public class KwazamGameManager {
         }
 
         return false;
+    }
+
+    public List<int[]> checkValidMoves(KwazamPiece piece) {
+        List<int[]> validMoves = new ArrayList<>();
+
+        if (piece == null || piece.getColor() != currentColor)
+            return validMoves;
+
+        int pieceX = piece.getX();
+        int pieceY = piece.getY();
+
+        int nextY = (piece.getColor() == KwazamPieceColor.BLUE ? pieceY - 1 : pieceY + 1);
+
+        if (pieceY >= 0 && pieceY < KwazamConstants.BOARD_ROWS) {
+            KwazamPiece targetPiece = gameBoard.getPiece(pieceX, nextY);
+            if (targetPiece == null) {
+                validMoves.add(new int[] { pieceX, nextY });
+            }
+        }
+
+        return validMoves;
     }
 
     public void printGameState() {
@@ -109,6 +109,13 @@ public class KwazamGameManager {
                     gameState[row][col] = ".....";
             }
         }
+    }
+
+    public void switchColor() {
+        if (currentColor == KwazamPieceColor.BLUE)
+            currentColor = KwazamPieceColor.RED;
+        else
+            currentColor = KwazamPieceColor.BLUE;
     }
 
     public void resetGame() {

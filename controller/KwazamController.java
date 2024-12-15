@@ -38,7 +38,6 @@ public class KwazamController implements Runnable {
         model.initGame();
 
         view.initView();
-        // view.getBoardPanel().flipBoard();
 
         initController();
 
@@ -52,29 +51,31 @@ public class KwazamController implements Runnable {
             public void mousePressed(MouseEvent e) {
                 int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / view.getBoardPanel().getSquareSize();
                 int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / view.getBoardPanel().getSquareSize();
-            
+
                 // Flip the coordinates if the board is flipped
                 if (view.getBoardPanel().isBoardFlipped()) {
                     gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
                     gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
                 }
-            
+
                 // Record the press position to detect a click later
                 pressX = e.getX();
                 pressY = e.getY();
-            
+
                 draggedPiece = model.getGameBoard().getPiece(gridX, gridY);
-                if (draggedPiece != null) {            
+                if (draggedPiece != null) {
                     // Fetch and display valid moves for the dragged piece
                     List<int[]> validMoves = model.checkValidMoves(draggedPiece);
                     view.showValidMoves(validMoves);
-            
+
                     view.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR)); // Change to grabbing cursor
                 }
-            }            
+            }
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                boolean moved = false;
+
                 int releaseX = e.getX();
                 int releaseY = e.getY();
 
@@ -102,6 +103,8 @@ public class KwazamController implements Runnable {
                                 // Play move sound if the square is empty
                                 SoundEffect.playMoveSound();
                             }
+                            model.printGameState();
+                            moved = true;
                         }
                         view.hideValidMoves();
                     }
@@ -133,6 +136,8 @@ public class KwazamController implements Runnable {
                                 } else {
                                     SoundEffect.playMoveSound();
                                 }
+                                model.printGameState();
+                                moved = true;
                             }
                             view.hideValidMoves();
                         }
@@ -140,6 +145,11 @@ public class KwazamController implements Runnable {
                     }
 
                     view.setCursor(Cursor.getDefaultCursor()); // Restore cursor
+                }
+
+                if (moved) {
+                    view.getBoardPanel().flipBoard();
+                    model.switchColor();
                 }
 
                 updateView();
@@ -156,33 +166,33 @@ public class KwazamController implements Runnable {
                     if (Math.abs(e.getX() - pressX) > 5 || Math.abs(e.getY() - pressY) > 5) {
                         isDragging = true;
                     }
-            
+
                     // Update dragging piece position to follow mouse, with offset
                     KwazamRenderPiece draggedPieceData = new KwazamRenderPiece(
                             draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
                             draggedPiece.getX(),
                             draggedPiece.getY());
-            
+
                     view.getBoardPanel().setDraggingPiece(draggedPieceData, e.getX(), e.getY());
-            
+
                     // Update hovered grid while dragging
                     int tileSize = view.getBoardPanel().getSquareSize();
                     int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
-            
+
                     // Flip the coordinates if the board is flipped
                     if (view.getBoardPanel().isBoardFlipped()) {
                         gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
                         gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
                     }
-            
+
                     // Ensure hover is only within the chessboard bounds (0-7 for both X and Y)
                     if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                             && gridY < KwazamConstants.BOARD_ROWS) {
                         view.getBoardPanel().setHoveredGrid(gridX, gridY);
                     }
                 }
-            }            
+            }
 
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -234,8 +244,8 @@ public class KwazamController implements Runnable {
             if (piece.getColor() != model.getCurrentColor())
                 newRenderPiece.flip();
 
-            if (view.getBoardPanel().isBoardFlipped())
-                newRenderPiece.flip();
+            // if (view.getBoardPanel().isBoardFlipped())
+            // newRenderPiece.flip();
 
             pieceDataList.add(newRenderPiece);
         }
