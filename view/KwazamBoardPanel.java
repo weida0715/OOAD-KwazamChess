@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import utils.KwazamConstants;
@@ -15,6 +16,7 @@ import utils.KwazamConstants;
 public class KwazamBoardPanel extends JPanel {
     private List<KwazamRenderPiece> renderPieces;
     private KwazamRenderPiece selectedPiece, draggingPiece;
+    private List<int[]> availableMoves = null;
     private int dragX, dragY;
     private int hoveredGridX, hoveredGridY;
     private int panelWidth, panelHeight;
@@ -29,6 +31,7 @@ public class KwazamBoardPanel extends JPanel {
         this.dragY = -1;
         this.hoveredGridX = -1;
         this.hoveredGridY = -1;
+        this.availableMoves = new ArrayList<>();
     }
 
     public List<KwazamRenderPiece> getRenderPieces() {
@@ -172,7 +175,7 @@ public class KwazamBoardPanel extends JPanel {
         }
 
         // Highlight hovered grid
-        if (hoveredGridX >= 0 && hoveredGridY >= 0) {
+        if (hoveredGridX >= 0 && hoveredGridY >= 0 && draggingPiece != null) {
             g2.setColor(new Color(200, 200, 255)); // Purple color
             g2.setStroke(new BasicStroke(5)); // Set border thickness
             int hoverX = xOffset + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - hoveredGridX) : hoveredGridX) * squareSize;
@@ -205,6 +208,29 @@ public class KwazamBoardPanel extends JPanel {
         // Draw the dragging piece at its new position
         if (draggingPiece != null) {
             drawPiece(g2, draggingPiece, dragX - squareSize / 2, dragY - squareSize / 2, squareSize, 0.5f);
+        }
+
+        // Highlight available moves with medium-sized grey circles
+        if (availableMoves != null) {
+            g2.setColor(KwazamConstants.VALID_MOVE_COLOR);
+            int circleRadius = squareSize / 5; // Medium size
+            for (int[] move : availableMoves) {
+                int moveX = move[0];
+                int moveY = move[1];
+    
+                // Flip coordinates if the board is flipped
+                if (boardFlipped) {
+                    moveX = KwazamConstants.BOARD_COLS - 1 - moveX;
+                    moveY = KwazamConstants.BOARD_ROWS - 1 - moveY;
+                }
+    
+                // Calculate circle center
+                int centerX = xOffset + moveX * squareSize + squareSize / 2;
+                int centerY = yOffset + moveY * squareSize + squareSize / 2;
+    
+                // Draw the circle
+                g2.fillOval(centerX - circleRadius, centerY - circleRadius, 2 * circleRadius, 2 * circleRadius);
+            }
         }
     }
 
@@ -285,5 +311,13 @@ public class KwazamBoardPanel extends JPanel {
 
     public void flipBoard() {
         boardFlipped = !boardFlipped;
+    }
+
+    public void setAvailableMoves(List<int[]> moves) {
+        this.availableMoves = moves; // Store moves for rendering
+    }
+
+    public void clearAvailableMoves() {
+        this.availableMoves = null;
     }
 }

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.JFrame;
 import utils.KwazamConstants;
 
@@ -43,5 +44,13 @@ public class KwazamView extends JFrame {
 
     public void addMenuBar() {
         setJMenuBar(menuBar);
+    }
+
+    public void showValidMoves(List<int[]> validMoves) {
+        boardPanel.setAvailableMoves(validMoves);
+    }
+
+    public void hideValidMoves() {
+        boardPanel.clearAvailableMoves();
     }
 }

@@ -20,5 +20,6 @@ public class KwazamConstants {
     public static final Color SQUARE_COLOR_2 = new Color(201, 222, 195); // Light, muted green for alternating squares
     public static final Color BORDER_COLOR = new Color(82, 125, 107); // Deep, calm forest green for the borders
     public static final Color BACKGROUND_COLOR = new Color(233, 224, 218); // Soft pastel beige background with a slight pink tint
+    public static final Color VALID_MOVE_COLOR = new  Color(128, 128, 128, 180); // Semi-transparent grey
     public static final int BORDER_WIDTH = 4;
 }

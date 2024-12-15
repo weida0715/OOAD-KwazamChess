@@ -66,8 +66,9 @@ public class KwazamBoard {
         }
     }
 
-    public void movePiece(KwazamPiece piece, int x, int y) {
-        piece.setX(x);
-        piece.setY(y);
+    public void movePiece(KwazamPiece piece, int targetX, int targetY) {
+        // Update the game board's piece positions
+        getPiece(piece.getX(), piece.getY()).setX(targetX);
+        getPiece(piece.getX(), piece.getY()).setY(targetY);
     }
 }

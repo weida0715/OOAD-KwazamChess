@@ -12,13 +12,13 @@ import utils.SoundEffect;
 import view.KwazamRenderPiece;
 import view.KwazamView;
 
-public class KwazamController {
+public class KwazamController implements Runnable {
     private static KwazamController instance;
     private final KwazamView view;
     private final KwazamGameManager model;
     private KwazamPiece selectedPiece;
     private KwazamPiece draggedPiece;
-    private int originalX, originalY; // Original position of dragged piece
+    private Thread gameThread;
     private int pressX, pressY; // Mouse press coordinates
     private boolean isDragging = false;
 
@@ -41,6 +41,8 @@ public class KwazamController {
         // view.getBoardPanel().flipBoard();
 
         initController();
+
+        startGameLoop();
     }
 
     public void initController() {
@@ -50,25 +52,26 @@ public class KwazamController {
             public void mousePressed(MouseEvent e) {
                 int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / view.getBoardPanel().getSquareSize();
                 int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / view.getBoardPanel().getSquareSize();
-
+            
                 // Flip the coordinates if the board is flipped
                 if (view.getBoardPanel().isBoardFlipped()) {
                     gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
                     gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
                 }
-
+            
                 // Record the press position to detect a click later
                 pressX = e.getX();
                 pressY = e.getY();
-
+            
                 draggedPiece = model.getGameBoard().getPiece(gridX, gridY);
-                if (draggedPiece != null) {
-                    // Save original position for drag-and-drop
-                    originalX = draggedPiece.getX();
-                    originalY = draggedPiece.getY();
+                if (draggedPiece != null) {            
+                    // Fetch and display valid moves for the dragged piece
+                    List<int[]> validMoves = model.checkValidMoves(draggedPiece);
+                    view.showValidMoves(validMoves);
+            
                     view.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR)); // Change to grabbing cursor
                 }
-            }
+            }            
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -91,20 +94,16 @@ public class KwazamController {
                             && gridY < KwazamConstants.BOARD_ROWS) {
                         KwazamPiece targetPiece = model.getGameBoard().getPiece(gridX, gridY);
 
-                        if (gridX == originalX && gridY == originalY) {
-                            // No change, just return
-                        } else if (targetPiece != null) {
-                            // Play capture sound if a piece exists on the target square
-                            SoundEffect.playCaptureSound();
-                        } else {
-                            // Play move sound if the square is empty
-                            SoundEffect.playMoveSound();
+                        if (model.movePiece(draggedPiece, gridX, gridY)) {
+                            if (targetPiece != null) {
+                                // Play capture sound if a piece exists on the target square
+                                SoundEffect.playCaptureSound();
+                            } else {
+                                // Play move sound if the square is empty
+                                SoundEffect.playMoveSound();
+                            }
                         }
-
-                        model.getGameBoard().movePiece(draggedPiece, gridX, gridY);
-                    } else {
-                        // Return to original position if invalid
-                        model.getGameBoard().movePiece(draggedPiece, originalX, originalY);
+                        view.hideValidMoves();
                     }
 
                     // Deselect piece after dragging is done
@@ -117,18 +116,25 @@ public class KwazamController {
                     if (selectedPiece == null) {
                         // Select piece
                         selectedPiece = model.getGameBoard().getPiece(gridX, gridY);
+
+                        if (selectedPiece != null) {
+                            // Fetch and display valid moves for the selected piece
+                            List<int[]> validMoves = model.checkValidMoves(selectedPiece);
+                            view.showValidMoves(validMoves);
+                        }
                     } else {
                         KwazamPiece targetPiece = model.getGameBoard().getPiece(gridX, gridY);
 
                         if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                                 && gridY < KwazamConstants.BOARD_ROWS) {
-                            if (targetPiece != null) {
-                                SoundEffect.playCaptureSound();
-                            } else {
-                                SoundEffect.playMoveSound();
+                            if (model.movePiece(selectedPiece, gridX, gridY)) {
+                                if (targetPiece != null) {
+                                    SoundEffect.playCaptureSound();
+                                } else {
+                                    SoundEffect.playMoveSound();
+                                }
                             }
-
-                            model.getGameBoard().movePiece(selectedPiece, gridX, gridY);
+                            view.hideValidMoves();
                         }
                         selectedPiece = null; // Deselect after moving
                     }
@@ -138,6 +144,7 @@ public class KwazamController {
 
                 updateView();
             }
+
         });
 
         // MouseMotionListener for drag movement
@@ -149,36 +156,33 @@ public class KwazamController {
                     if (Math.abs(e.getX() - pressX) > 5 || Math.abs(e.getY() - pressY) > 5) {
                         isDragging = true;
                     }
-
+            
                     // Update dragging piece position to follow mouse, with offset
                     KwazamRenderPiece draggedPieceData = new KwazamRenderPiece(
                             draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
                             draggedPiece.getX(),
                             draggedPiece.getY());
-
-                    // if (view.getBoardPanel().isBoardFlipped())
-                    //     draggedPieceData.flip();
-
+            
                     view.getBoardPanel().setDraggingPiece(draggedPieceData, e.getX(), e.getY());
-
+            
                     // Update hovered grid while dragging
                     int tileSize = view.getBoardPanel().getSquareSize();
                     int gridX = (e.getX() - view.getBoardPanel().getXOffset()) / tileSize;
                     int gridY = (e.getY() - view.getBoardPanel().getYOffset()) / tileSize;
-
+            
                     // Flip the coordinates if the board is flipped
                     if (view.getBoardPanel().isBoardFlipped()) {
                         gridX = KwazamConstants.BOARD_COLS - 1 - gridX;
                         gridY = KwazamConstants.BOARD_ROWS - 1 - gridY;
                     }
-
-                    // Ensure that hover is only within the chessboard bounds (0-7 for both X and Y)
+            
+                    // Ensure hover is only within the chessboard bounds (0-7 for both X and Y)
                     if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                             && gridY < KwazamConstants.BOARD_ROWS) {
                         view.getBoardPanel().setHoveredGrid(gridX, gridY);
                     }
                 }
-            }
+            }            
 
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -214,11 +218,12 @@ public class KwazamController {
                 }
             }
         });
-
-        updateView();
     }
 
     private void updateView() {
+        if (isDragging)
+            return;
+
         // Convert Pieces to PieceData for the view
         List<KwazamRenderPiece> pieceDataList = new ArrayList<>();
         for (KwazamPiece piece : model.getGameBoard().getPieces()) {
@@ -246,4 +251,18 @@ public class KwazamController {
 
         view.getBoardPanel().clearDraggingPiece(); // Reset dragging visuals
     }
+
+    @Override
+    public void run() {
+        // Main game loop
+        while (model.isRunning()) {
+            updateView();
+        }
+    }
+
+    private void startGameLoop() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
 }

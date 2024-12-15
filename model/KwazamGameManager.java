@@ -1,6 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.board.KwazamBoard;
+import model.piece.KwazamPiece;
 import utils.KwazamConstants;
 import utils.KwazamPieceColor;
 
@@ -41,6 +44,60 @@ public class KwazamGameManager {
         updateGameState();
     }
 
+    public boolean movePiece(KwazamPiece piece, int targetX, int targetY) {
+        if (isValidMove(piece, targetX, targetY)) {
+            gameBoard.movePiece(piece, targetX, targetY);
+            updateGameState();
+            return true;
+        }
+
+        return false;
+    }
+
+    public List<int[]> checkValidMoves(KwazamPiece piece) {
+        List<int[]> validMoves = new ArrayList<>();
+
+        if (piece == null || piece.getColor() != currentColor)
+            return validMoves;
+
+        int pieceX = piece.getX();
+        int pieceY = piece.getY();
+
+        int nextY = pieceY - 1;
+
+        if (pieceY >= 0 && pieceY < KwazamConstants.BOARD_ROWS) {
+            KwazamPiece targetPiece = gameBoard.getPiece(pieceX, nextY);
+            if (targetPiece == null) {
+                validMoves.add(new int[] { pieceX, nextY });
+            }
+        }
+
+        return validMoves;
+    }
+
+    public boolean isValidMove(KwazamPiece piece, int targetX, int targetY) {
+        if (piece.getX() == targetX && piece.getY() == targetY)
+            return false;
+
+        List<int[]> validMoves = checkValidMoves(piece);
+        for (int[] move : validMoves) {
+            if (targetX == move[0] && targetY == move[1])
+                return true;
+        }
+
+        return false;
+    }
+
+    public void printGameState() {
+        for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
+            for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
+                System.out.print(gameState[row][col] + "  ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     public void updateGameState() {
         for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
             for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
@@ -49,7 +106,7 @@ public class KwazamGameManager {
                     String typeString = gameBoard.getPiece(col, row).getType().name();
                     gameState[row][col] = colorString + "_" + typeString;
                 } else
-                    gameState[row][col] = "";
+                    gameState[row][col] = ".....";
             }
         }
     }
