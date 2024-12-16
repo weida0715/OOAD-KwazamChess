@@ -40,6 +40,10 @@ public class KwazamRenderPiece {
         return y;
     }
 
+    public boolean isFlipped() {
+        return flipped;
+    }
+
     public void setX(int x) {
         this.x = x;
     }

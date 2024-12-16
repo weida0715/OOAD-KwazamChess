@@ -5,14 +5,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import model.KwazamGameManager;
 import model.pieces.KwazamPiece;
+import model.pieces.Ram;
 import utils.KwazamConstants;
 import utils.KwazamPieceColor;
+import utils.KwazamPieceType;
 import utils.SoundEffect;
 import view.KwazamView;
 import view.components.KwazamRenderPiece;
@@ -76,6 +80,7 @@ public class KwazamController {
     public void initController() {
         initGameListeners();
         initMenuListeners();
+        initWindowListeners();
     }
 
     public void initGameListeners() {
@@ -199,7 +204,6 @@ public class KwazamController {
                 if (moved) {
                     if (model.isWinnerFound()) {
                         view.showEndGameDialog(model.getWinner());
-
                         model.clearSavedGame();
 
                         quitGame();
@@ -231,12 +235,30 @@ public class KwazamController {
                         isDragging = true;
                     }
 
-                    // Update dragging piece position to follow mouse, with offset
+                    // Create a KwazamRenderPiece for the dragged piece, considering flipping
                     KwazamRenderPiece draggedPieceData = new KwazamRenderPiece(
                             draggedPiece.getColor().name().substring(0, 1) + "_" + draggedPiece.getType(),
                             draggedPiece.getX(),
                             draggedPiece.getY());
 
+                    // Flip the dragged piece if necessary
+                    if (draggedPiece.getType() == KwazamPieceType.RAM) {
+                        Ram ramPiece = (Ram) draggedPiece;
+
+                        // Only flip if the direction hasn't already been set to the opposite of the
+                        // piece's current direction
+                        if ((ramPiece.getColor() == KwazamPieceColor.RED && ramPiece.getDirection() == -1) ||
+                                (ramPiece.getColor() == KwazamPieceColor.BLUE && ramPiece.getDirection() == 1)) {
+                            draggedPieceData.flip();
+                        }
+                    }
+
+                    // If the piece is not the current player's piece, flip it
+                    if (draggedPiece.getColor() != model.getCurrentColor()) {
+                        draggedPieceData.flip();
+                    }
+
+                    // Update the dragging piece position to follow mouse, with offset
                     view.getBoardPanel().setDraggingPiece(draggedPieceData, e.getX(), e.getY());
 
                     // Update hovered grid while dragging
@@ -311,6 +333,15 @@ public class KwazamController {
         });
     }
 
+    public void initWindowListeners() {
+        view.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                quitGame();
+            }
+        });
+    }
+
     private void updateView() {
         if (isDragging)
             return;
@@ -321,6 +352,14 @@ public class KwazamController {
             KwazamRenderPiece newRenderPiece = new KwazamRenderPiece(
                     piece.getColor().name().substring(0, 1) + "_" + piece.getType(),
                     piece.getX(), piece.getY());
+
+            if (piece.getType() == KwazamPieceType.RAM) {
+                Ram ramPiece = (Ram) piece;
+                if ((ramPiece.getColor() == KwazamPieceColor.RED && ramPiece.getDirection() == -1) ||
+                        (ramPiece.getColor() == KwazamPieceColor.BLUE && ramPiece.getDirection() == 1)) {
+                    newRenderPiece.flip();
+                }
+            }
 
             if (piece.getColor() != model.getCurrentColor())
                 newRenderPiece.flip();

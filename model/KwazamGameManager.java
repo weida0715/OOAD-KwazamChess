@@ -10,6 +10,7 @@ import java.util.List;
 import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 import model.pieces.KwazamPieceFactory;
+import model.pieces.Ram;
 import utils.KwazamConstants;
 import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
@@ -22,6 +23,7 @@ public class KwazamGameManager {
     private String player2Name;
     private String winner;
     private boolean running;
+    private float turn;
 
     public KwazamGameManager() {
         this.gameBoard = new KwazamBoard();
@@ -65,6 +67,7 @@ public class KwazamGameManager {
 
     public void initGame() {
         running = true;
+        turn = 0.0f;
 
         // Setup Board
         gameBoard.setupBoard();
@@ -80,6 +83,13 @@ public class KwazamGameManager {
 
             updateGameState();
 
+            // Increment turn count after a move
+            turn += 0.5f;
+
+            if (turn % 1 == 0) {
+                swapXorTor();
+            }
+
             if (isSauCaptured()) {
                 this.winner = currentColor == KwazamPieceColor.BLUE ? player1Name : player2Name;
                 stopGame();
@@ -89,6 +99,17 @@ public class KwazamGameManager {
         }
 
         return false;
+    }
+
+    public void swapXorTor() {
+        for (KwazamPiece piece : gameBoard.getPieces()) {
+            if (piece.getType() == KwazamPieceType.XOR) {
+                piece.setType(KwazamPieceType.TOR);  // Change XOR to TOR
+            } else if (piece.getType() == KwazamPieceType.TOR) {
+                piece.setType(KwazamPieceType.XOR);  // Change TOR to XOR
+            }
+        }
+        updateGameState();  // Update the game state after transformation
     }
 
     public boolean isValidMove(KwazamPiece piece, int targetX, int targetY) {
@@ -128,12 +149,22 @@ public class KwazamGameManager {
     public void updateGameState() {
         for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
             for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
-                if (gameBoard.getPiece(col, row) != null) {
-                    String colorString = gameBoard.getPiece(col, row).getColor().name().substring(0, 1);
-                    String typeString = gameBoard.getPiece(col, row).getType().name();
-                    gameState[row][col] = colorString + "_" + typeString;
-                } else
-                    gameState[row][col] = ".....";
+                KwazamPiece piece = gameBoard.getPiece(col, row);
+                if (piece != null) {
+                    String colorString = piece.getColor().name().substring(0, 1); // 'R' or 'B'
+                    String typeString = piece.getType().name(); // Piece type like 'SAU', 'TOR'
+
+                    // If the piece is a Ram, append the direction to the string
+                    if (piece instanceof Ram) {
+                        Ram ramPiece = (Ram) piece;
+                        String directionString = (ramPiece.getDirection() == 1) ? "_U" : "_D";
+                        gameState[row][col] = colorString + "_" + typeString + directionString;
+                    } else {
+                        gameState[row][col] = colorString + "_" + typeString; // Regular piece without direction
+                    }
+                } else {
+                    gameState[row][col] = "....."; // Empty cell
+                }
             }
         }
     }
@@ -148,24 +179,36 @@ public class KwazamGameManager {
 
     public void saveGame() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/savegame.txt"))) {
+            // Write title for the save game file
+            writer.write("===== Kwazam Game Save =====");
+            writer.newLine(); // Blank line for separation
+
             // Write player names
             writer.write("Player 1 (BLUE): " + player1Name);
             writer.newLine();
             writer.write("Player 2 (RED): " + player2Name);
-            writer.newLine();
+            writer.newLine(); // Blank line for separation
 
             // Write current turn color
             writer.write("Current Turn: " + currentColor);
             writer.newLine();
+            writer.newLine(); // Blank line for separation
 
-            // Write game state (board)
-            writer.write("Game Board:");
-            writer.newLine();
+            // Write the game board header
+            writer.write("===== Game Board =====");
+            writer.newLine(); // Blank line for separation
 
+            // Define the width for each cell, based on the longest string in your pieces
+            int cellWidth = 10; // You can adjust this value depending on the longest piece string
+
+            // Loop through the game state array and write each piece with consistent width
             for (int row = 0; row < gameState.length; row++) {
                 for (int col = 0; col < gameState[row].length; col++) {
                     String cell = gameState[row][col];
-                    writer.write(cell + " ");
+
+                    // Pad each cell to ensure it's the same width for alignment
+                    writer.write(String.format("%-" + cellWidth + "s", cell)); // Left-align the text within the cell
+                                                                               // width
                 }
                 writer.newLine();
             }
@@ -186,7 +229,7 @@ public class KwazamGameManager {
             String[] playerNames = new String[2];
             int playerIndex = 0;
 
-            // Read player names
+            // Read player names and current turn
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Player 1")) {
                     playerNames[playerIndex++] = line.split(":")[1].trim();
@@ -194,7 +237,7 @@ public class KwazamGameManager {
                     playerNames[playerIndex++] = line.split(":")[1].trim();
                 } else if (line.startsWith("Current Turn")) {
                     this.currentColor = KwazamPieceColor.valueOf(line.split(":")[1].trim());
-                } else if (line.startsWith("Game Board:")) {
+                } else if (line.startsWith("===== Game Board =====")) {
                     break; // Skip the "Game Board:" line
                 }
             }
@@ -203,38 +246,49 @@ public class KwazamGameManager {
             this.player1Name = playerNames[0];
             this.player2Name = playerNames[1];
 
-            // Read game state (board)
+            // Read the game state (board)
             this.gameState = new String[KwazamConstants.BOARD_ROWS][KwazamConstants.BOARD_COLS];
             int row = 0;
             while ((line = reader.readLine()) != null) {
-                String[] cells = line.trim().split(" ");
+                // Split each line of board into cells
+                String[] cells = line.trim().split("\\s+");
                 for (int col = 0; col < cells.length; col++) {
-                    gameState[row][col] = cells[col];
+                    gameState[row][col] = cells[col]; // Store the game state
                 }
                 row++;
             }
 
             // Reconstruct the game board
-            this.gameBoard.getPieces().clear();
+            this.gameBoard.getPieces().clear(); // Clear the current board state
             for (int i = 0; i < gameState.length; i++) {
                 for (int j = 0; j < gameState[i].length; j++) {
                     String cell = gameState[i][j];
                     if (!cell.equals(".....")) { // Not an empty cell
                         String[] parts = cell.split("_");
-                        KwazamPieceColor color;
-                        if ("R".equals(parts[0]))
-                            color = KwazamPieceColor.RED;
-                        else
-                            color = KwazamPieceColor.BLUE;
-
+                        KwazamPieceColor color = parts[0].equals("R") ? KwazamPieceColor.RED : KwazamPieceColor.BLUE;
                         KwazamPieceType type = KwazamPieceType.valueOf(parts[1]);
+
+                        // Create the piece based on type and color
                         KwazamPiece piece = KwazamPieceFactory.getPiece(color, type, j, i);
-                        gameBoard.addPiece(piece);
+
+                        // If the piece is a Ram, set its direction (U or D)
+                        if (piece.getType() == KwazamPieceType.RAM) {
+                            String direction = parts.length > 2 ? parts[2] : ""; // Check for direction (U or D)
+                            Ram ramPiece = (Ram) piece;
+                            if ("U".equals(direction)) {
+                                ramPiece.setDirection(1); // Up (1)
+                            } else if ("D".equals(direction)) {
+                                ramPiece.setDirection(-1); // Down (-1)
+                            }
+                        }
+
+                        gameBoard.addPiece(piece); // Add the piece to the game board
                     }
                 }
             }
 
-            updateGameState();
+            updateGameState(); // Update the game state after loading the game board
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load the game.");

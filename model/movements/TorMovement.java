@@ -5,11 +5,10 @@ import java.util.List;
 import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 
-public class OrthogonalMovement implements MovementStrategy {
+public class TorMovement implements MovementStrategy {
     @Override
     public List<int[]> getValidMoves(KwazamPiece piece, KwazamBoard board) {
         List<int[]> validMoves = new ArrayList<>();
-
         int x = piece.getX();
         int y = piece.getY();
 
