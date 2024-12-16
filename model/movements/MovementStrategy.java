@@ -1,5 +1,9 @@
 package model.movements;
 
+import java.util.List;
+import model.board.KwazamBoard;
+import model.pieces.KwazamPiece;
+
 public interface MovementStrategy {
-    public void movePiece();
+    List<int[]> getValidMoves(KwazamPiece piece, KwazamBoard board);
 }

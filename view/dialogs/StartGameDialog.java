@@ -1,4 +1,4 @@
-package view;
+package view.dialogs;
 
 import java.util.Optional;
 import javax.swing.*;
@@ -11,7 +11,7 @@ public class StartGameDialog {
      * @param parent The parent component for the dialog (can be null).
      * @return An optional array containing the two player names. Empty if the user cancels.
      */
-    public Optional<String[]> show(JFrame parent) {
+    public Optional<String[]> showDialog(JFrame parent) {
         // Create input fields for player names
         JTextField player1Field = new JTextField();
         JTextField player2Field = new JTextField();
@@ -39,7 +39,7 @@ public class StartGameDialog {
                         "Both player names must be provided!",
                         "Invalid Input",
                         JOptionPane.WARNING_MESSAGE);
-                return show(parent); // Retry dialog
+                return showDialog(parent); // Retry dialog
             }
 
             return Optional.of(new String[]{player1Name, player2Name});

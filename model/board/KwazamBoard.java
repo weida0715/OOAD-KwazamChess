@@ -3,49 +3,51 @@ package model.board;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import model.piece.Biz;
-import model.piece.KwazamPiece;
-import model.piece.Ram;
-import model.piece.Sau;
-import model.piece.Tor;
-import model.piece.Xor;
+import model.pieces.KwazamPiece;
+import model.pieces.KwazamPieceFactory;
+import utils.KwazamConstants;
 import utils.KwazamPieceColor;
+import utils.KwazamPieceType;
 
 public class KwazamBoard {
-    public List<KwazamPiece> pieces;
+    private final int cols;
+    private final int rows;
+    private final List<KwazamPiece> pieces;
 
     public KwazamBoard() {
         pieces = new ArrayList<>();
+        cols = KwazamConstants.BOARD_COLS;
+        rows = KwazamConstants.BOARD_ROWS;
     }
 
-    public void setupBoard() {
-        addPiece(new Tor(KwazamPieceColor.RED, 0, 0));
-        addPiece(new Biz(KwazamPieceColor.RED, 1, 0));
-        addPiece(new Sau(KwazamPieceColor.RED, 2, 0));
-        addPiece(new Biz(KwazamPieceColor.RED, 3, 0));
-        addPiece(new Xor(KwazamPieceColor.RED, 4, 0));
-        addPiece(new Ram(KwazamPieceColor.RED, 0, 1));
-        addPiece(new Ram(KwazamPieceColor.RED, 1, 1));
-        addPiece(new Ram(KwazamPieceColor.RED, 2, 1));
-        addPiece(new Ram(KwazamPieceColor.RED, 3, 1));
-        addPiece(new Ram(KwazamPieceColor.RED, 4, 1));
+    public int getCols() {
+        return cols;
+    }
 
-        addPiece(new Ram(KwazamPieceColor.BLUE, 0, 6));
-        addPiece(new Ram(KwazamPieceColor.BLUE, 1, 6));
-        addPiece(new Ram(KwazamPieceColor.BLUE, 2, 6));
-        addPiece(new Ram(KwazamPieceColor.BLUE, 3, 6));
-        addPiece(new Ram(KwazamPieceColor.BLUE, 4, 6));
-        addPiece(new Xor(KwazamPieceColor.BLUE, 0, 7));
-        addPiece(new Biz(KwazamPieceColor.BLUE, 1, 7));
-        addPiece(new Sau(KwazamPieceColor.BLUE, 2, 7));
-        addPiece(new Biz(KwazamPieceColor.BLUE, 3, 7));
-        addPiece(new Tor(KwazamPieceColor.BLUE, 4, 7));
+    public int getRows() {
+        return rows;
     }
 
     public List<KwazamPiece> getPieces() {
         return pieces;
     }
 
+    public KwazamPiece getRedSau() {
+        for (KwazamPiece piece : pieces) {
+            if (piece.getColor() == KwazamPieceColor.RED && piece.getType() == KwazamPieceType.SAU)
+                return piece;
+        }
+        return null;
+    }
+
+    public KwazamPiece getBlueSau() {
+        for (KwazamPiece piece : pieces) {
+            if (piece.getColor() == KwazamPieceColor.BLUE && piece.getType() == KwazamPieceType.SAU)
+                return piece;
+        }
+        return null;
+    }
+    
     public KwazamPiece getPiece(int x, int y) {
         for (KwazamPiece piece : pieces) {
             if (piece.getX() == x && piece.getY() == y) {
@@ -53,6 +55,32 @@ public class KwazamBoard {
             }
         }
         return null;
+    }
+
+    public void setupBoard() {
+        // Red Pieces
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.TOR, 0, 0));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 1, 0));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.SAU, 2, 0));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 3, 0));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.XOR, 4, 0));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 0, 1));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 1, 1));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 2, 1));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 3, 1));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 4, 1));
+
+        // Blue Pieces
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 0, 6));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 1, 6));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 2, 6));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 3, 6));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 4, 6));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.XOR, 0, 7));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.BIZ, 1, 7));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.SAU, 2, 7));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.BIZ, 3, 7));
+        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.TOR, 4, 7));
     }
 
     public void addPiece(KwazamPiece piece) {
@@ -88,5 +116,10 @@ public class KwazamBoard {
         // Update the game board's piece positions
         getPiece(piece.getX(), piece.getY()).setX(targetX);
         getPiece(piece.getX(), piece.getY()).setY(targetY);
+    }
+
+    public boolean isWithinBounds(int x, int y) {
+        return x >= 0 && x < cols &&
+                y >= 0 && y < rows;
     }
 }

@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import utils.KwazamConstants;
+import view.components.KwazamRenderPiece;
 
 public class KwazamBoardPanel extends JPanel {
     private List<KwazamRenderPiece> renderPieces;

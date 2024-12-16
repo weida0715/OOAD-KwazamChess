@@ -1,9 +1,8 @@
-package view;
+package view.components;
 
 import javax.swing.*;
 
 public class KwazamMenuBar extends JMenuBar {
-
     private final JMenu menu;
     private final JMenuItem quitOption;
 

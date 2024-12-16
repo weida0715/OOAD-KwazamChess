@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.Optional;
 
 import model.KwazamGameManager;
-import model.piece.KwazamPiece;
+import model.pieces.KwazamPiece;
 import utils.KwazamConstants;
+import utils.KwazamPieceColor;
 import utils.SoundEffect;
-import view.KwazamRenderPiece;
 import view.KwazamView;
+import view.components.KwazamRenderPiece;
 
-public class KwazamController implements Runnable {
+public class KwazamController {
     private static KwazamController instance;
     private final KwazamView view;
     private final KwazamGameManager model;
     private KwazamPiece selectedPiece;
     private KwazamPiece draggedPiece;
-    private Thread gameThread;
     private int pressX, pressY; // Mouse press coordinates
     private boolean isDragging = false;
 
@@ -39,28 +39,37 @@ public class KwazamController implements Runnable {
     }
 
     public void startGame() {
-        // Initialize the game
-        model.initGame();
-        view.initView();
-        initController();
-        updateView();
+        // Check for saved game and load it if found
+        if (model.hasSavedGame()) {
+            model.loadGame();
+            view.initView();
+            initController();
 
-        // Ask for player names via the view
-        Optional<String[]> playerNames = view.showStartGameDialog();
+            if (model.getCurrentColor() == KwazamPieceColor.RED)
+                view.getBoardPanel().flipBoard();
 
-        if (playerNames.isPresent()) {
-            // Extract player names
-            String player1 = playerNames.get()[0];
-            String player2 = playerNames.get()[1];
-
-            // Pass names to the model for game initialization
-            model.setPlayerNames(player1, player2);
-
-            // Start the main game loop
-            startGameLoop();
+            updateView();
         } else {
-            // Exit the game if the dialog is canceled
-            System.exit(0);
+            // Initialize a new game if no saved game exists
+            model.initGame();
+            view.initView();
+            initController();
+            updateView();
+
+            // Ask for player names via the view
+            Optional<String[]> playerNames = view.showStartGameDialog();
+
+            if (playerNames.isPresent()) {
+                // Extract player names
+                String player1 = playerNames.get()[0];
+                String player2 = playerNames.get()[1];
+
+                // Pass names to the model for game initialization
+                model.setPlayerNames(player1, player2);
+            } else {
+                // Exit the game if the dialog is canceled
+                System.exit(0);
+            }
         }
     }
 
@@ -97,7 +106,7 @@ public class KwazamController implements Runnable {
                     }
 
                     // Fetch and display valid moves for the dragged piece
-                    List<int[]> validMoves = model.checkValidMoves(draggedPiece);
+                    List<int[]> validMoves = draggedPiece.getValidMoves(model.getGameBoard());
                     view.showValidMoves(validMoves);
 
                     view.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR)); // Change to grabbing cursor
@@ -160,7 +169,7 @@ public class KwazamController implements Runnable {
                             }
 
                             // Fetch and display valid moves for the selected piece
-                            List<int[]> validMoves = model.checkValidMoves(selectedPiece);
+                            List<int[]> validMoves = selectedPiece.getValidMoves(model.getGameBoard());
                             view.showValidMoves(validMoves);
                         }
                     } else {
@@ -185,12 +194,23 @@ public class KwazamController implements Runnable {
                     view.setCursor(Cursor.getDefaultCursor()); // Restore cursor
                 }
 
+                updateView();
+
                 if (moved) {
+                    if (model.isWinnerFound()) {
+                        view.showEndGameDialog(model.getWinner());
+
+                        model.clearSavedGame();
+
+                        quitGame();
+                    }
+
                     view.getBoardPanel().flipBoard();
                     model.switchColor();
-                }
+                    updateView();
 
-                updateView();
+                    model.saveGame();
+                }
             }
 
         });
@@ -305,9 +325,6 @@ public class KwazamController implements Runnable {
             if (piece.getColor() != model.getCurrentColor())
                 newRenderPiece.flip();
 
-            // if (view.getBoardPanel().isBoardFlipped())
-            // newRenderPiece.flip();
-
             pieceDataList.add(newRenderPiece);
         }
 
@@ -323,27 +340,9 @@ public class KwazamController implements Runnable {
         view.getBoardPanel().clearDraggingPiece(); // Reset dragging visuals
     }
 
-    @Override
-    public void run() {
-        // Main game loop
-        while (model.isRunning()) {
-            updateView();
-        }
-    }
-
-    private void startGameLoop() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-
     private void quitGame() {
         boolean confirmQuit = view.showQuitDialog();
         if (confirmQuit) {
-            // Stop the game thread (if running)
-            if (gameThread != null && gameThread.isAlive()) {
-                gameThread.interrupt();
-            }
-
             // Close the game (exit the application)
             System.exit(0);
         }

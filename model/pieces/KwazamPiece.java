@@ -1,5 +1,9 @@
-package model.piece;
+package model.pieces;
 
+import java.util.List;
+
+import model.board.KwazamBoard;
+import model.movements.MovementStrategy;
 import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
@@ -7,14 +11,17 @@ public class KwazamPiece {
     protected KwazamPieceColor color;
     protected KwazamPieceType type;
     protected int x, y;
+    protected MovementStrategy movementStrategy;
 
-    public KwazamPiece() {}
+    public KwazamPiece() {
+    }
 
-    public KwazamPiece(KwazamPieceColor color, KwazamPieceType type, int x, int y) {
+    public KwazamPiece(KwazamPieceColor color, KwazamPieceType type, int x, int y, MovementStrategy movementStrategy) {
         this.color = color;
         this.type = type;
         this.x = x;
         this.y = y;
+        this.movementStrategy = movementStrategy;
     }
 
     public KwazamPieceColor getColor() {
@@ -31,6 +38,10 @@ public class KwazamPiece {
 
     public int getY() {
         return y;
+    }
+
+    public List<int[]> getValidMoves(KwazamBoard board) {
+        return movementStrategy.getValidMoves(this, board);
     }
 
     public void setX(int x) {
