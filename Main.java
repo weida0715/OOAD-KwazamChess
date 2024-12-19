@@ -12,7 +12,7 @@ public class Main {
 
         // Controller
         KwazamController controller = KwazamController.getInstance(view, model);
-
+    
         // Start the game
         controller.startGame();
     }

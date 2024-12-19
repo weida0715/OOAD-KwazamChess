@@ -29,7 +29,7 @@ public class KwazamController {
     private final KwazamGameManager model;
     private KwazamPiece selectedPiece;
     private KwazamPiece draggedPiece;
-    private int pressX, pressY; // Mouse press coordinates
+    private int pressX, pressY;
     private boolean isDragging = false;
 
     private KwazamController(KwazamView v, KwazamGameManager m) {
@@ -234,7 +234,7 @@ public class KwazamController {
                         view.showEndGameDialog(model.getWinner());
                         model.clearSavedGame();
 
-                        quitGame();
+                        System.exit(0);
                     }
 
                     view.getBoardPanel().flipBoard();

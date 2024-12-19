@@ -58,7 +58,7 @@ public class KwazamBoard {
     }
 
     public void setupBoard() {
-        // // Red Pieces
+        // Red Pieces
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.TOR, 0, 0));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 1, 0));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.SAU, 2, 0));
@@ -70,7 +70,7 @@ public class KwazamBoard {
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 3, 1));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 4, 1));
 
-        // // Blue Pieces
+        // Blue Pieces
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 0, 6));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 1, 6));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 2, 6));
@@ -105,7 +105,7 @@ public class KwazamBoard {
                 iterator.remove(); // Safe removal using the iterator
             }
         }
-    }
+    }   
 
     public void capturePiece(KwazamPiece piece, int targetX, int targetY) {
         removePiece(targetX, targetY);
