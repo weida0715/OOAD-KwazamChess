@@ -16,16 +16,18 @@ public class RamMovement implements MovementStrategy {
         int direction = ram.getDirection();
 
         // Reverse direction if at the end of the board
-        if (y == 0 || y == board.getRows() - 1) {
-            direction *= -1;
-            ram.setDirection(direction);
+        if (y == 0 && direction == -1) { // Reached top
+            ram.setDirection(1); // Change to downward movement
+        } else if (y == board.getRows() - 1 && direction == 1) { // Reached bottom
+            ram.setDirection(-1); // Change to upward movement
         }
 
-        // Moving in the current direction (forward or backward)
-        if (board.isWithinBounds(x, y + direction)) {
-            KwazamPiece targetPiece = board.getPiece(x, y + direction);
+        // Calculate the next position based on the current direction
+        int targetY = y + direction;
+        if (board.isWithinBounds(x, targetY)) {
+            KwazamPiece targetPiece = board.getPiece(x, targetY);
             if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
-                validMoves.add(new int[] { x, y + direction });
+                validMoves.add(new int[] { x, targetY });
             }
         }
 

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.WindowConstants;
+
 import model.KwazamGameManager;
 import model.pieces.KwazamPiece;
 import model.pieces.Ram;
@@ -142,6 +144,19 @@ public class KwazamController {
                         KwazamPiece targetPiece = model.getGameBoard().getPiece(gridX, gridY);
 
                         if (model.movePiece(draggedPiece, gridX, gridY)) {
+                            // Check if the piece is a Ram and update its direction immediately
+                            if (draggedPiece.getType() == KwazamPieceType.RAM) {
+                                Ram ramPiece = (Ram) draggedPiece;
+
+                                // Change direction immediately when it reaches the edge
+                                if (ramPiece.getY() == 0 && ramPiece.getDirection() == -1) {
+                                    ramPiece.setDirection(1); // Change direction to down
+                                } else if (ramPiece.getY() == KwazamConstants.BOARD_ROWS - 1
+                                        && ramPiece.getDirection() == 1) {
+                                    ramPiece.setDirection(-1); // Change direction to up
+                                }
+                            }
+
                             if (targetPiece != null) {
                                 // Play capture sound if a piece exists on the target square
                                 SoundEffect.playCaptureSound();
@@ -183,6 +198,19 @@ public class KwazamController {
                         if (gridX >= 0 && gridX < KwazamConstants.BOARD_COLS && gridY >= 0
                                 && gridY < KwazamConstants.BOARD_ROWS) {
                             if (model.movePiece(selectedPiece, gridX, gridY)) {
+                                // Check if the piece is a Ram and update its direction immediately
+                                if (selectedPiece.getType() == KwazamPieceType.RAM) {
+                                    Ram ramPiece = (Ram) selectedPiece;
+
+                                    // Change direction immediately when it reaches the edge
+                                    if (ramPiece.getY() == 0 && ramPiece.getDirection() == -1) {
+                                        ramPiece.setDirection(1); // Change direction to down
+                                    } else if (ramPiece.getY() == KwazamConstants.BOARD_ROWS - 1
+                                            && ramPiece.getDirection() == 1) {
+                                        ramPiece.setDirection(-1); // Change direction to up
+                                    }
+                                }
+
                                 if (targetPiece != null) {
                                     SoundEffect.playCaptureSound();
                                 } else {
@@ -337,7 +365,8 @@ public class KwazamController {
         view.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                quitGame();
+                if (!view.showQuitDialog())
+                    view.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
             }
         });
     }
@@ -382,7 +411,6 @@ public class KwazamController {
     private void quitGame() {
         boolean confirmQuit = view.showQuitDialog();
         if (confirmQuit) {
-            // Close the game (exit the application)
             System.exit(0);
         }
     }

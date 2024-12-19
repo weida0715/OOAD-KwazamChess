@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
@@ -102,14 +103,27 @@ public class KwazamGameManager {
     }
 
     public void swapXorTor() {
+        List<KwazamPiece> piecesToRemove = new ArrayList<>();
+
+        // First, collect the pieces to be swapped
         for (KwazamPiece piece : gameBoard.getPieces()) {
-            if (piece.getType() == KwazamPieceType.XOR) {
-                piece.setType(KwazamPieceType.TOR);  // Change XOR to TOR
-            } else if (piece.getType() == KwazamPieceType.TOR) {
-                piece.setType(KwazamPieceType.XOR);  // Change TOR to XOR
+            if (piece.getType() == KwazamPieceType.XOR || piece.getType() == KwazamPieceType.TOR) {
+                piecesToRemove.add(piece);
             }
         }
-        updateGameState();  // Update the game state after transformation
+
+        // Remove the pieces
+        for (KwazamPiece piece : piecesToRemove) {
+            gameBoard.getPieces().remove(piece);
+
+            // Create the new piece and add it back
+            KwazamPieceType newType = piece.getType() == KwazamPieceType.XOR ? KwazamPieceType.TOR
+                    : KwazamPieceType.XOR;
+            KwazamPiece newPiece = KwazamPieceFactory.getPiece(piece.getColor(), newType, piece.getX(), piece.getY());
+            gameBoard.addPiece(newPiece);
+        }
+
+        updateGameState();
     }
 
     public boolean isValidMove(KwazamPiece piece, int targetX, int targetY) {
@@ -155,7 +169,7 @@ public class KwazamGameManager {
                     String typeString = piece.getType().name(); // Piece type like 'SAU', 'TOR'
 
                     // If the piece is a Ram, append the direction to the string
-                    if (piece instanceof Ram) {
+                    if (piece.getType() == KwazamPieceType.RAM) {
                         Ram ramPiece = (Ram) piece;
                         String directionString = (ramPiece.getDirection() == 1) ? "_U" : "_D";
                         gameState[row][col] = colorString + "_" + typeString + directionString;
