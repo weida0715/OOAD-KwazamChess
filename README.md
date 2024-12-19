@@ -56,11 +56,11 @@ Plain Text Layout:
 
         | RT | RB | RS | RB | RX |
         | RR | RR | RR | RR | RR |
-	    | .. | .. | .. | .. | .. |
         | .. | .. | .. | .. | .. |
         | .. | .. | .. | .. | .. |
         | .. | .. | .. | .. | .. |
         | .. | .. | .. | .. | .. |
+        | BR | BR | BR | BR | BR |
         | BT | BB | BS | BB | BX |
 
 14. PieceFactory will accept the elements of the above strings to check the type and to generate the pieces accourdingly. Thus there will be two same arrays, one for the model, then controller will update a copy to view
@@ -68,67 +68,83 @@ Plain Text Layout:
 
 ## Design Patterns
 
-1. MVC (Mandatory)
+### 1. MVC (Mandatory)
 Ensures a separation of concerns:
-    Model: Contains game logic, board state, and piece behaviors.
-    View: Displays the game board and UI components.
-    Controller: Handles user input and communicates changes between the View and Model.
+- **Model**: Contains game logic, board state, and piece behaviors.
+- **View**: Displays the game board and UI components.
+- **Controller**: Handles user input and communicates changes between the View and Model.
 
-2. Strategy Pattern
-Use the Strategy Pattern for piece movement logic. Each piece (e.g., Ram, Biz, Tor, etc.) can have its own movement strategy encapsulated in a separate class.
+### 2. Strategy Pattern
+The **Strategy Pattern** is used to define a family of algorithms, allowing a piece to choose its movement strategy at runtime. In your project, classes like `BizMovement` and `RamMovement` encapsulate different movement behaviors, letting each piece use its specific movement logic without hardcoding it in the piece itself.
 
-3. Factory Pattern
-Use the Factory Pattern to create game pieces dynamically. This is especially useful when initializing the board or loading a saved game.
+### 3. Factory Pattern
+The **Factory Pattern** is used to create objects without exposing the creation logic to the client. In your project, the `KwazamPieceFactory` class is responsible for creating different types of game pieces (like `Biz`, `Ram`, `Tor`), hiding the complexity of object creation from the controller or model.
 
-4. Template Method Pattern
-Use the Template Method for the game's turn logic, which is common for both players but may have slight variations for player-specific logic (e.g., flipping the board).
+### 4. Singleton Pattern
+The **Singleton Pattern** ensures that a class has only one instance, providing a global point of access. In your project, the `KwazamController` follows this pattern to ensure there is only one instance of the controller, which manages the interaction between the model and the view.
 
-5. Singleton Pattern
-Use the Singleton Pattern for the GameManager to ensure there is only one active game instance managing the state.
-
-6. Composite Pattern
-Use the Composite Pattern for the board, where the board can aggregate multiple squares, and each square can aggregate pieces.
-
+### 5. Composite Pattern
+The **Composite Pattern** allows individual objects and compositions of objects to be treated uniformly. In your project, the `KwazamBoard` can contain individual pieces and manage them together, letting the board and pieces be treated in the same way when updating or rendering the game state.
 
 ## Folder Structure
 
     .
-    ├── App.java                          # Entry point of the application
-    ├── controller/
-    │   ├── KwazamController.java          # Mediates communication between Model and View
-    ├── model/
-    │   ├── KwazamBoard.java              # Composite: Represents the board as a collection of BoardSquares
-    │   ├── KwazamBoardSquare.java        # Represents individual squares on the board
-    │   ├── KwazamGameManager.java        # Manages game state, player turns, and logic
-    │   ├── TurnLogic.java                # Template Method for defining the turn sequence
-    │   ├── PlayerTurn.java               # Concrete class for player-specific turn logic
-    │   ├── pieces/
-    │   │   ├── KwazamPiece.java          # Abstract base class for all pieces
-    │   │   ├── Ram.java                  # Specific piece subclass (moves forward, reverses at edge)
-    │   │   ├── Biz.java                  # Specific piece subclass (L-shaped movement)
-    │   │   ├── Tor.java                  # Switches to Xor after 2 turns (orthogonal movement)
-    │   │   ├── Xor.java                  # Switches to Tor after 2 turns (diagonal movement)
-    │   │   ├── Sau.java                  # Game-ending piece (moves one step in any direction)
-    │   ├── movements/
-    │   │   ├── MovementStrategy.java     # Strategy Pattern interface for movement
-    │   │   ├── OrthogonalMovement.java   # Movement in orthogonal directions
-    │   │   ├── DiagonalMovement.java     # Movement in diagonal directions
-    │   │   ├── LShapedMovement.java      # L-shaped (knight-like) movement
-    │   │   ├── StepMovement.java         # Single-step movement
-    │   ├── utils/
-    │   │   ├── KwazamConstants.java      # Static constants like board size, piece types
-    │   │   ├── KwazamPieceFactory.java   # Factory Pattern for creating pieces
-    │   │   ├── GameFileHandler.java      # Handles saving/loading games
-    │   ├── exceptions/
-    │   │   ├── InvalidMoveException.java # Exception for invalid moves
-    │   │   ├── GameStateException.java   # Exception for illegal game states
-    ├── view/
-    │   ├── KwazamView.java               # Main game window (JFrame)
-    │   ├── BoardPanel.java               # Displays the board and pieces
-    │   ├── MenuBar.java                  # Contains dropdown menus (e.g., New Game, Quit)
-    │   ├── StartGameDialog.java          # Dialog to input player names for a new game
-    │   ├── PausePanel.java               # Blurs the screen and shows "Pause" overlay
-    │   ├── SavedGamesDialog.java         # Lists saved games to load from
-    │   ├── KwazamHelper.java             # Utility to visually highlight valid moves on the board
-    ├── README.md                         # Instructions and game documentation
-
+    ├── audio
+    │   ├── capture.wav
+    │   └── move.wav
+    ├── controller
+    │   └── KwazamController.java
+    ├── data
+    │   └── savegame.txt
+    ├── images
+    │   ├── b_biz.png
+    │   ├── b_ram.png
+    │   ├── b_sau.png
+    │   ├── b_tor.png
+    │   ├── b_xor.png
+    │   ├── r_biz.png
+    │   ├── r_ram.png
+    │   ├── r_sau.png
+    │   ├── r_tor.png
+    │   └── r_xor.png
+    ├── images.zip
+    ├── Main.java
+    ├── model
+    │   ├── board
+    │   │   └── KwazamBoard.java
+    │   ├── KwazamGameManager.java
+    │   ├── movements
+    │   │   ├── BizMovement.java
+    │   │   ├── MovementStrategy.java
+    │   │   ├── RamMovement.java
+    │   │   ├── SauMovement.java
+    │   │   ├── TorMovement.java
+    │   │   └── XorMovement.java
+    │   └── pieces
+    │       ├── Biz.java
+    │       ├── KwazamPieceFactory.java
+    │       ├── KwazamPiece.java
+    │       ├── Ram.java
+    │       ├── Sau.java
+    │       ├── Tor.java
+    │       └── Xor.java
+    ├── README.md
+    ├── utils
+    │   ├── GameFileHandler.java
+    │   ├── KwazamConstants.java
+    │   ├── KwazamPieceColor.java
+    │   ├── KwazamPieceType.java
+    │   └── SoundEffect.java
+    └── view
+        ├── components
+        │   ├── KwazamMenuBar.java
+        │   └── KwazamRenderPiece.java
+        ├── dialogs
+        │   ├── EndGameDialog.java
+        │   ├── QuitGameDialog.java
+        │   ├── SavedGamesDialog.java
+        │   └── StartGameDialog.java
+        ├── KwazamView.java
+        └── panels
+            ├── KwazamBoardPanel.java
+            └── PausePanel.java
