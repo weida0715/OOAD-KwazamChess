@@ -7,6 +7,7 @@ Videos:
 00. Assignment Briefing: https://drive.google.com/file/d/1bHg6_eUcZYY488Vtvya50ixECpDLL0iU/view?usp=sharing
 01. Project Startup: https://drive.google.com/file/d/12Anw2vmEwZqN8ncCNeV83x2ur9csdRuj/view?usp=sharing
 02. Startup View: https://drive.google.com/file/d/1_uCn9D22SwIQ3RCuLAFz492Xrg8PWknX/view?usp=drive_link
+03. Render Board and Pieces: https://drive.google.com/file/d/1pvVZpk0BU_vrUsDyHvzaZC91CT8XGxMV/view?usp=drive_link
 
 # Rules
 
