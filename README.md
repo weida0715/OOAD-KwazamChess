@@ -3,6 +3,7 @@
 I will include the structure that I used in this project in this README.
 
 Videos:
+
 00. Assignment Briefing: https://drive.google.com/file/d/1bHg6_eUcZYY488Vtvya50ixECpDLL0iU/view?usp=sharing
 01. Project Startup: https://drive.google.com/file/d/12Anw2vmEwZqN8ncCNeV83x2ur9csdRuj/view?usp=sharing
 
