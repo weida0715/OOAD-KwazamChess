@@ -12,6 +12,8 @@ public class BizMovement implements MovementStrategy {
         int x = piece.getX();
         int y = piece.getY();
 
+        System.out.println("x: " + x + ", y: " + y);
+
         int[][] directions = {
                 { 2, 1 }, { 2, -1 }, { -2, 1 }, { -2, -1 },
                 { 1, 2 }, { 1, -2 }, { -1, 2 }, { -1, -2 }
@@ -23,8 +25,9 @@ public class BizMovement implements MovementStrategy {
 
             if (board.isWithinBounds(newX, newY)) {
                 KwazamPiece targetPiece = board.getPiece(newX, newY);
-                if (targetPiece == null || targetPiece.getColor() != piece.getColor())
+                if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
                     validMoves.add(new int[] { newX, newY });
+                }
             }
         }
 

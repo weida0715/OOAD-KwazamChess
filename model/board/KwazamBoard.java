@@ -59,28 +59,28 @@ public class KwazamBoard {
 
     public void setupBoard() {
         // Red Pieces
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.TOR, 0, 0));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 1, 0));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.TOR, 0, 0));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 1, 0));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.SAU, 2, 0));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 3, 0));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.XOR, 4, 0));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 0, 1));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 1, 1));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 2, 1));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 3, 1));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 4, 1));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.BIZ, 3, 0));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.XOR, 4, 0));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 0, 1));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 1, 1));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 2, 1));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 3, 1));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.RED, KwazamPieceType.RAM, 4, 1));
 
         // Blue Pieces
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 0, 6));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 1, 6));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 2, 6));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 3, 6));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 4, 6));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 0, 6));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 1, 6));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 2, 6));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 3, 6));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.RAM, 4, 6));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.XOR, 0, 7));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.BIZ, 1, 7));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.SAU, 2, 7));
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.BIZ, 3, 7));
-        addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.TOR, 4, 7));
+        // addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.TOR, 4, 7));
     }
 
     public void addPiece(KwazamPiece piece) {
@@ -113,10 +113,9 @@ public class KwazamBoard {
     }
 
     public void movePiece(KwazamPiece piece, int targetX, int targetY) {
-        // Update the game board's piece positions
-        getPiece(piece.getX(), piece.getY()).setX(targetX);
-        getPiece(piece.getX(), piece.getY()).setY(targetY);
-    }
+        piece.setX(targetX);
+        piece.setY(targetY);
+    }    
 
     public boolean isWithinBounds(int x, int y) {
         return x >= 0 && x < cols &&
