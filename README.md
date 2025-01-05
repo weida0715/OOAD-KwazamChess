@@ -1,6 +1,7 @@
 # Welcome to OOAD-KwazamChess!
 
 I will include the structure that I used in this project in this README.
+UML: https://lucid.app/lucidchart/a08ebfdf-49c3-47c3-a304-20a842c87c5c/edit?viewport_loc=-5740%2C-2815%2C14899%2C7109%2C0_0&invitationId=inv_e55aa9bd-494e-4bbd-be19-d364b198a25c
 
 Videos:
 
