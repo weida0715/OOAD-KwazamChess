@@ -89,21 +89,30 @@ The **Factory Pattern** is used to create objects without exposing the creation 
 ### 4. Singleton Pattern
 The **Singleton Pattern** ensures that a class has only one instance, providing a global point of access. In your project, the `KwazamController` follows this pattern to ensure there is only one instance of the controller, which manages the interaction between the model and the view.
 
-### 5. Composite Pattern
-The **Composite Pattern** allows individual objects and compositions of objects to be treated uniformly. In your project, the `KwazamBoard` can contain individual pieces and manage them together, letting the board and pieces be treated in the same way when updating or rendering the game state.
+### 5. Mediator Pattern 
+The **Mediator Pattern** defines an object that encapsulates how a set of objects interact. In your project, the `KwazamController` acts as a mediator between the Model (`KwazamGameManager`), View (`KwazamView`), and Handler classes (`KwazamMouseHandler`, `KwazamMenuHandler`, `KwazamWindowHandler`), ensuring loose coupling and centralized communication.
+
+### 6. Command Pattern
+The **Command Pattern** encapsulates a request as an object, allowing for parameterization of clients with queues, requests, and operations. Menu actions (e.g., New Game, Save Game) are implemented as commands, letting the controller handle these actions without complex conditional logic.
 
 ## Folder Structure
 
     .
     ├── audio
+    │   ├── background.wav
     │   ├── capture.wav
-    │   └── move.wav
+    │   ├── move.wav
+    │   └── winning.wav
     ├── controller
-    │   └── KwazamController.java
+    │   ├── KwazamController.java
+    │   ├── KwazamMenuHandler.java
+    │   ├── KwazamMouseHandler.java
+    │   └── KwazamWindowHandler.java
     ├── data
     │   └── savegame.txt
     ├── images
     │   ├── b_biz.png
+    │   ├── board.png
     │   ├── b_ram.png
     │   ├── b_sau.png
     │   ├── b_tor.png
@@ -113,7 +122,6 @@ The **Composite Pattern** allows individual objects and compositions of objects 
     │   ├── r_sau.png
     │   ├── r_tor.png
     │   └── r_xor.png
-    ├── images.zip
     ├── Main.java
     ├── model
     │   ├── board
@@ -147,10 +155,13 @@ The **Composite Pattern** allows individual objects and compositions of objects 
         │   └── KwazamRenderPiece.java
         ├── dialogs
         │   ├── EndGameDialog.java
+        │   ├── NewGameDialog.java
         │   ├── QuitGameDialog.java
+        │   ├── RestartGameDialog.java
+        │   ├── RulesDialog.java
         │   ├── SavedGamesDialog.java
+        │   ├── SaveGameDialog.java
         │   └── StartGameDialog.java
         ├── KwazamView.java
         └── panels
-            ├── KwazamBoardPanel.java
-            └── PausePanel.java
+            └── KwazamBoardPanel.java

@@ -88,6 +88,7 @@ public class KwazamMenuHandler {
             }
         });
 
+        // Toggle Background Music
         menuBar.getToggleBackgroundMusicOption().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,6 +116,9 @@ public class KwazamMenuHandler {
         }
         for (ActionListener listener : menuBar.getRulesOption().getActionListeners()) {
             menuBar.getRulesOption().removeActionListener(listener);
+        }
+        for (ActionListener listener : menuBar.getSaveGameOption().getActionListeners()) {
+            menuBar.getSaveGameOption().removeActionListener(listener);
         }
         for (ActionListener listener : menuBar.getToggleSoundOption().getActionListeners()) {
             menuBar.getToggleSoundOption().removeActionListener(listener);
