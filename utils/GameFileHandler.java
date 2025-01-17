@@ -4,13 +4,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Author(s):
+ * 
+ * Handles saving and loading game states to/from files.
+ * Provides utility methods for file operations.
+ */
 public class GameFileHandler {
-
     /**
+     * Author(s):
+     * 
      * Saves the game state to a file.
-     * @param gameState The 2D array representing the game state.
-     * @param fileName The name of the file to save the game state.
-     * @throws IOException If an I/O error occurs.
+     * 
+     * @param gameState the game state as a 2D array
+     * @param fileName  the name of the file to save
+     * @throws IOException if an I/O error occurs
      */
     public static void saveGameToFile(String[][] gameState, String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -22,10 +30,13 @@ public class GameFileHandler {
     }
 
     /**
+     * Author(s):
+     * 
      * Loads the game state from a file.
-     * @param fileName The name of the file to load the game state from.
-     * @return The 2D array representing the game state.
-     * @throws IOException If an I/O error occurs.
+     * 
+     * @param fileName the name of the file to load
+     * @return the game state as a 2D array
+     * @throws IOException if an I/O error occurs
      */
     public static String[][] loadGameFromFile(String fileName) throws IOException {
         List<String[]> rows = new ArrayList<>();

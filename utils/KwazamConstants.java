@@ -14,6 +14,7 @@ public class KwazamConstants {
     // public static final Color SQUARE_COLOR_2 = Color.WHITE;
     // public static final Color BORDER_COLOR = new Color(56, 93, 138);
     // public static final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
+    public static final Color SAU_CHECKED_COLOR = new Color(255, 182, 193, 180);
     public static final Color SQUARE_HIGHLIGHT_COLOR = new Color(200, 200, 255);
     public static final Color SQUARE_COLOR_1 = new Color(235, 215, 194); // Soft warm peach for alternating squares
     public static final Color SQUARE_COLOR_2 = new Color(201, 222, 195); // Light, muted green for alternating squares

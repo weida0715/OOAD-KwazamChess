@@ -8,11 +8,34 @@ import model.movements.XorMovement;
 import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
+/**
+ * Author(s):
+ * 
+ * Factory class for creating Kwazam pieces.
+ * Provides a method to create pieces based on type, color, and position.
+ */
 public final class KwazamPieceFactory {
-    private KwazamPieceFactory(){}
+    /**
+     * Author(s):
+     * 
+     * Private constructor to prevent instantiation.
+     * This is a utility class with static methods only.
+     */
+    private KwazamPieceFactory() {
+    }
 
-    public static KwazamPiece getPiece(KwazamPieceColor color, KwazamPieceType type, int x, int y)
-    {
+    /**
+     * Author(s):
+     * 
+     * Creates a Kwazam piece of the specified type, color, and position.
+     * 
+     * @param color the color of the piece
+     * @param type  the type of the piece
+     * @param x     the x-coordinate of the piece
+     * @param y     the y-coordinate of the piece
+     * @return the created piece, or null if the type is invalid
+     */
+    public static KwazamPiece getPiece(KwazamPieceColor color, KwazamPieceType type, int x, int y) {
         switch (type) {
             case BIZ:
                 return new Biz(color, x, y, new BizMovement());

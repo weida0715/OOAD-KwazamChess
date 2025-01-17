@@ -2,7 +2,20 @@ package view.dialogs;
 
 import javax.swing.*;
 
+/**
+ * Author(s):
+ * 
+ * Displays a dialog to confirm quitting the game.
+ */
 public class QuitGameDialog {
+    /**
+     * Author(s):
+     * 
+     * Shows the quit game confirmation dialog.
+     * 
+     * @param parent the parent frame for the dialog
+     * @return true if the user confirms, false otherwise
+     */
     public boolean showDialog(JFrame parent) {
         int response = JOptionPane.showConfirmDialog(
                 parent,
