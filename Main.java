@@ -21,11 +21,7 @@
  *    - The `MovementStrategy` interface and its implementations (e.g., `RamMovement`, `BizMovement`, `SauMovement`, `TorMovement`, `XorMovement`) use the Strategy pattern to encapsulate different movement behaviors for pieces.
  *    - Applied in: `MovementStrategy` and its concrete implementations.
  *
- * 5. **Command Pattern**:
- *    - The `KwazamMenuHandler` uses the Command pattern to encapsulate actions like "New Game," "Restart," "Save Game," and "Quit" as separate commands.
- *    - Applied in: `KwazamMenuHandler` methods like `newGame()`, `restartGame()`, `saveGame()`, `quitGame()`.
- *
- * 6. **Mediator Pattern**:
+ * 5. **Mediator Pattern**:
  *    - The `KwazamController` acts as a mediator between the `Model` and `View`. It coordinates communication between the two, ensuring that the model and view remain decoupled.
  *    - Additionally, the `KwazamController` serves as a central connecting point for the handlers (`KwazamMouseHandler`, `KwazamMenuHandler`, and `KwazamWindowHandler`). It manages their interactions and ensures they work together seamlessly.
  *    - Applied in: `KwazamController`, which handles interactions between `KwazamModel`, `KwazamView`, and the handlers.

@@ -92,9 +92,6 @@ The **Singleton Pattern** ensures that a class has only one instance, providing 
 ### 5. Mediator Pattern 
 The **Mediator Pattern** defines an object that encapsulates how a set of objects interact. In your project, the `KwazamController` acts as a mediator between the Model (`KwazamGameManager`), View (`KwazamView`), and Handler classes (`KwazamMouseHandler`, `KwazamMenuHandler`, `KwazamWindowHandler`), ensuring loose coupling and centralized communication.
 
-### 6. Command Pattern
-The **Command Pattern** encapsulates a request as an object, allowing for parameterization of clients with queues, requests, and operations. Menu actions (e.g., New Game, Save Game) are implemented as commands, letting the controller handle these actions without complex conditional logic.
-
 ## Folder Structure
 
     .
