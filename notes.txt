@@ -2,3 +2,21 @@ add mediator
 set game rules window not resizable
 fix game state storing wrong misunderstood ram direction
 renamed KwazamGameManager to KwazamModel
+added comment sections
+
+weida@localhost:/run/media/weida/SSD1/Programming Stuff/OOAD/Chess/v1> cloc .
+      40 text files.
+      40 unique files.                              
+      16 files ignored.
+
+github.com/AlDanial/cloc v 2.00  T=0.09 s (457.1 files/s, 62640.6 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Java                            36            523           2203           2242
+PlantUML                         1             40             10            277
+Markdown                         1             26              0            141
+Text                             2              2              0             18
+-------------------------------------------------------------------------------
+SUM:                            40            591           2213           2678
+-------------------------------------------------------------------------------
