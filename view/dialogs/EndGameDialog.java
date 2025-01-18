@@ -10,6 +10,9 @@ import javax.swing.*;
  * Shows the winner and provides a close button.
  */
 public class EndGameDialog {
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

@@ -8,6 +8,9 @@ import javax.swing.*;
  * Displays a dialog to confirm quitting the game.
  */
 public class QuitGameDialog {
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

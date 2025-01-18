@@ -12,8 +12,14 @@ import model.pieces.KwazamPiece;
  * Handles valid moves for the Xor in a Kwazam game.
  */
 public class XorMovement implements MovementStrategy {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final int[][] directions;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -29,6 +35,9 @@ public class XorMovement implements MovementStrategy {
         };
     }
 
+    // =================================================================
+    // MOVEMENT STRATEGY IMPLEMENTATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -51,6 +60,9 @@ public class XorMovement implements MovementStrategy {
         return validMoves;
     }
 
+    // =================================================================
+    // PRIVATE METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

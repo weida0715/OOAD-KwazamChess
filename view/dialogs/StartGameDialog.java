@@ -10,11 +10,17 @@ import javax.swing.*;
  */
 public class StartGameDialog {
 
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
+     * Author(s):
+     * 
      * Displays the start game dialog to collect player names.
      *
      * @param parent The parent component for the dialog (can be null).
-     * @return An optional array containing the two player names. Empty if the user cancels.
+     * @return An optional array containing the two player names. Empty if the user
+     *         cancels.
      */
     public Optional<String[]> showDialog(JFrame parent) {
         // Create input fields for player names
@@ -47,7 +53,7 @@ public class StartGameDialog {
                 return showDialog(parent); // Retry dialog
             }
 
-            return Optional.of(new String[]{player1Name, player2Name});
+            return Optional.of(new String[] { player1Name, player2Name });
         }
 
         return Optional.empty(); // User cancelled

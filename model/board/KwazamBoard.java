@@ -16,10 +16,16 @@ import utils.KwazamPieceType;
  * Manages pieces, their positions, and board operations.
  */
 public class KwazamBoard {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final int cols;
     private final int rows;
     private final List<KwazamPiece> pieces;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -32,6 +38,9 @@ public class KwazamBoard {
         rows = KwazamConstants.BOARD_ROWS;
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -113,6 +122,9 @@ public class KwazamBoard {
         return null;
     }
 
+    // =================================================================
+    // BOARD SETUP
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -145,6 +157,9 @@ public class KwazamBoard {
         addPiece(KwazamPieceFactory.getPiece(KwazamPieceColor.BLUE, KwazamPieceType.TOR, 4, 7));
     }
 
+    // =================================================================
+    // PIECE MANAGEMENT
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -219,6 +234,9 @@ public class KwazamBoard {
         piece.setY(targetY);
     }
 
+    // =================================================================
+    // BOARD UTILITIES
+    // =================================================================
     /**
      * Author(s):
      * 

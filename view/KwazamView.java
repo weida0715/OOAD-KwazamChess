@@ -23,6 +23,9 @@ import view.panels.KwazamBoardPanel;
  * Manages the game window, board, and dialogs.
  */
 public class KwazamView extends JFrame {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final KwazamBoardPanel boardPanel;
     private final KwazamMenuBar menuBar;
     private final QuitGameDialog quitGameDialog;
@@ -33,6 +36,9 @@ public class KwazamView extends JFrame {
     private final RulesDialog rulesDialog;
     private final SaveGameDialog saveGameDialog;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -51,6 +57,9 @@ public class KwazamView extends JFrame {
         rulesDialog = new RulesDialog();
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -73,6 +82,9 @@ public class KwazamView extends JFrame {
         return menuBar;
     }
 
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -94,6 +106,9 @@ public class KwazamView extends JFrame {
         setVisible(true);
     }
 
+    // =================================================================
+    // BOARD
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -101,15 +116,6 @@ public class KwazamView extends JFrame {
      */
     public void addChessBoard() {
         add(boardPanel, BorderLayout.CENTER);
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Adds the menu bar to the view.
-     */
-    public void addMenuBar() {
-        setJMenuBar(menuBar);
     }
 
     /**
@@ -130,48 +136,30 @@ public class KwazamView extends JFrame {
         boardPanel.clearAvailableMoves();
     }
 
+    // =================================================================
+    // MENU
+    // =================================================================
     /**
      * Author(s):
      * 
-     * Shows the quit game confirmation dialog.
-     * 
-     * @return true if the user confirms, false otherwise
+     * Adds the menu bar to the view.
      */
-    public boolean showQuitDialog() {
-        return quitGameDialog.showDialog(this);
+    public void addMenuBar() {
+        setJMenuBar(menuBar);
     }
 
     /**
      * Author(s):
      * 
-     * Shows the restart game confirmation dialog.
-     * 
-     * @return true if the user confirms, false otherwise
+     * Refreshes the "Load Game" submenu with saved game files.
      */
-    public boolean showRestartDialog() {
-        return restartGameDialog.showDialog(this);
+    public void refreshLoadGameMenu() {
+        menuBar.populateLoadGameMenu();
     }
 
-    /**
-     * Author(s):
-     * 
-     * Shows the new game confirmation dialog.
-     * 
-     * @return true if the user confirms, false otherwise
-     */
-    public boolean showNewGameDialog() {
-        return newGameDialog.showDialog(this);
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Shows the game rules dialog.
-     */
-    public void showRulesDialog() {
-        rulesDialog.showDialog(this);
-    }
-
+    // =================================================================
+    // DIALOGS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -197,6 +185,28 @@ public class KwazamView extends JFrame {
     /**
      * Author(s):
      * 
+     * Shows the new game confirmation dialog.
+     * 
+     * @return true if the user confirms, false otherwise
+     */
+    public boolean showNewGameDialog() {
+        return newGameDialog.showDialog(this);
+    }
+
+    /**
+     * Author(s):
+     * 
+     * Shows the restart game confirmation dialog.
+     * 
+     * @return true if the user confirms, false otherwise
+     */
+    public boolean showRestartDialog() {
+        return restartGameDialog.showDialog(this);
+    }
+
+    /**
+     * Author(s):
+     * 
      * Gets the save game dialog.
      * 
      * @return the save game dialog
@@ -208,9 +218,20 @@ public class KwazamView extends JFrame {
     /**
      * Author(s):
      * 
-     * Refreshes the "Load Game" submenu with saved game files.
+     * Shows the quit game confirmation dialog.
+     * 
+     * @return true if the user confirms, false otherwise
      */
-    public void refreshLoadGameMenu() {
-        menuBar.populateLoadGameMenu();
+    public boolean showQuitDialog() {
+        return quitGameDialog.showDialog(this);
+    }
+
+    /**
+     * Author(s):
+     * 
+     * Shows the game rules dialog.
+     */
+    public void showRulesDialog() {
+        rulesDialog.showDialog(this);
     }
 }

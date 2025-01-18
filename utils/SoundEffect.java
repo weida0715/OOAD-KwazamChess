@@ -14,16 +14,17 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * Provides methods to play sounds for moves, captures, and winning.
  */
 public class SoundEffect {
-    private static final String MOVE_SOUND_PATH = "/audio/move.wav";
-    private static final String CAPTURE_SOUND_PATH = "/audio/capture.wav";
-    private static final String WINNING_SOUND_PATH = "/audio/winning.wav";
-    private static final String BACKGROUND_MUSIC_PATH = "/audio/background.wav"; // Updated path
-
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private static boolean soundEnabled = true;
     private static Clip backgroundMusicClip; // Clip for background music
     private static boolean backgroundMusicEnabled = true; // Toggle for background music
     private static long musicPosition = 0; // Tracks the current position of the music
 
+    // =================================================================
+    // SOUND PLAYBACK
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -52,6 +53,9 @@ public class SoundEffect {
         }
     }
 
+    // =================================================================
+    // SOUND TOGGLES
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -77,6 +81,9 @@ public class SoundEffect {
         }
     }
 
+    // =================================================================
+    // BACKGROUND MUSIC
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -90,7 +97,7 @@ public class SoundEffect {
         try {
             // Load the background music from the classpath
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(
-                    SoundEffect.class.getResourceAsStream(BACKGROUND_MUSIC_PATH));
+                    SoundEffect.class.getResourceAsStream(KwazamConstants.BACKGROUND_MUSIC_PATH));
             backgroundMusicClip = AudioSystem.getClip();
             backgroundMusicClip.open(audioInput);
 
@@ -121,13 +128,16 @@ public class SoundEffect {
         }
     }
 
+    // =================================================================
+    // GAME SOUND EFFECTS
+    // =================================================================
     /**
      * Author(s):
      * 
      * Plays the sound for a move action.
      */
     public static void playMoveSound() {
-        playSound(MOVE_SOUND_PATH);
+        playSound(KwazamConstants.MOVE_SOUND_PATH);
     }
 
     /**
@@ -136,7 +146,7 @@ public class SoundEffect {
      * Plays the sound for a capture action.
      */
     public static void playCaptureSound() {
-        playSound(CAPTURE_SOUND_PATH);
+        playSound(KwazamConstants.CAPTURE_SOUND_PATH);
     }
 
     /**
@@ -145,6 +155,6 @@ public class SoundEffect {
      * Plays the sound for a winning action.
      */
     public static void playWinningSound() {
-        playSound(WINNING_SOUND_PATH);
+        playSound(KwazamConstants.WINNING_SOUND_PATH);
     }
 }

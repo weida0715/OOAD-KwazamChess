@@ -18,6 +18,9 @@ import utils.SoundEffect;
  * settings.
  */
 public class KwazamMenuBar extends JMenuBar {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final JMenu menu;
     private final JMenu help;
     private final JMenu settings;
@@ -30,6 +33,9 @@ public class KwazamMenuBar extends JMenuBar {
     private final JMenuItem toggleBackgroundMusicOption;
     private final JMenuItem rulesOption;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -84,6 +90,9 @@ public class KwazamMenuBar extends JMenuBar {
         this.add(help);
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -172,6 +181,9 @@ public class KwazamMenuBar extends JMenuBar {
         return loadGameMenu;
     }
 
+    // =================================================================
+    // MENU POPULATION
+    // =================================================================
     /**
      * Author(s):
      * 

@@ -13,19 +13,17 @@ import utils.KwazamPieceType;
  * Contains properties like color, type, position, and movement strategy.
  */
 public class KwazamPiece {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     protected KwazamPieceColor color;
     protected KwazamPieceType type;
     protected int x, y;
     protected MovementStrategy movementStrategy;
 
-    /**
-     * Author(s):
-     * 
-     * Constructs a default KwazamPiece.
-     */
-    public KwazamPiece() {
-    }
-
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -45,6 +43,9 @@ public class KwazamPiece {
         this.movementStrategy = movementStrategy;
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -101,6 +102,9 @@ public class KwazamPiece {
         return movementStrategy.getValidMoves(this, board);
     }
 
+    // =================================================================
+    // SETTERS
+    // =================================================================
     /**
      * Author(s):
      * 

@@ -1,0 +1,4 @@
+add mediator
+set game rules window not resizable
+fix game state storing wrong misunderstood ram direction
+renamed KwazamGameManager to KwazamModel

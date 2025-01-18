@@ -8,6 +8,9 @@ import javax.swing.*;
  * Displays a dialog to confirm starting a new game.
  */
 public class NewGameDialog {
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

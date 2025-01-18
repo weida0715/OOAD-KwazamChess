@@ -12,8 +12,14 @@ import model.pieces.KwazamPiece;
  * Handles valid moves for the Sau in a Kwazam game.
  */
 public class SauMovement implements MovementStrategy {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final int[][] directions;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -33,6 +39,9 @@ public class SauMovement implements MovementStrategy {
         };
     }
 
+    // =================================================================
+    // MOVEMENT STRATEGY IMPLEMENTATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -60,6 +69,9 @@ public class SauMovement implements MovementStrategy {
         return validMoves;
     }
 
+    // =================================================================
+    // PRIVATE METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

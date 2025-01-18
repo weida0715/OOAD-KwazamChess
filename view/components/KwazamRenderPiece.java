@@ -13,12 +13,18 @@ import javax.imageio.ImageIO;
  * Handles image loading, flipping, and position management.
  */
 public class KwazamRenderPiece {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final String data;
     private int x;
     private int y;
     private BufferedImage img;
     private boolean flipped;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -43,6 +49,9 @@ public class KwazamRenderPiece {
         }
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -90,6 +99,20 @@ public class KwazamRenderPiece {
     /**
      * Author(s):
      * 
+     * Gets the image of the piece.
+     * 
+     * @return the piece image
+     */
+    public BufferedImage getImage() {
+        return img;
+    }
+
+    // =================================================================
+    // SETTERS
+    // =================================================================
+    /**
+     * Author(s):
+     * 
      * Sets the x-coordinate of the piece.
      * 
      * @param x the new x-coordinate
@@ -109,17 +132,9 @@ public class KwazamRenderPiece {
         this.y = y;
     }
 
-    /**
-     * Author(s):
-     * 
-     * Gets the image of the piece.
-     * 
-     * @return the piece image
-     */
-    public BufferedImage getImage() {
-        return img;
-    }
-
+    // =================================================================
+    // IMAGE MANIPULATION
+    // =================================================================
     /**
      * Author(s):
      * 

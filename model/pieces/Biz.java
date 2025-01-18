@@ -11,6 +11,9 @@ import utils.KwazamPieceType;
  * Inherits from KwazamPiece and uses a specific movement strategy.
  */
 public class Biz extends KwazamPiece {
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 

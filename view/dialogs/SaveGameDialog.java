@@ -11,6 +11,9 @@ import javax.swing.*;
  * Handles filename input and validation.
  */
 public class SaveGameDialog {
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

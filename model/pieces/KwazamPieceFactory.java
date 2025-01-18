@@ -15,6 +15,9 @@ import utils.KwazamPieceType;
  * Provides a method to create pieces based on type, color, and position.
  */
 public final class KwazamPieceFactory {
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -24,6 +27,9 @@ public final class KwazamPieceFactory {
     private KwazamPieceFactory() {
     }
 
+    // =================================================================
+    // FACTORY METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

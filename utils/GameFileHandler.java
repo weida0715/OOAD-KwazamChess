@@ -11,6 +11,9 @@ import java.util.List;
  * Provides utility methods for file operations.
  */
 public class GameFileHandler {
+    // =================================================================
+    // FILE OPERATIONS
+    // =================================================================
     /**
      * Author(s):
      * 

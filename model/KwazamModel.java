@@ -22,7 +22,10 @@ import utils.KwazamPieceType;
  * Manages the Kwazam game logic.
  * Handles game state, piece movement, saving, loading, and win conditions.
  */
-public class KwazamGameManager {
+public class KwazamModel {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final KwazamBoard gameBoard;
     public String[][] gameState;
     private KwazamPieceColor currentColor;
@@ -33,13 +36,16 @@ public class KwazamGameManager {
     private float turn;
     private String currentFilename;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
-     * Constructs a KwazamGameManager.
+     * Constructs a KwazamModel.
      * Initializes the game board, state, and default settings.
      */
-    public KwazamGameManager() {
+    public KwazamModel() {
         this.gameBoard = new KwazamBoard();
         this.gameState = new String[KwazamConstants.BOARD_ROWS][KwazamConstants.BOARD_COLS];
         this.currentColor = KwazamPieceColor.BLUE;
@@ -47,6 +53,9 @@ public class KwazamGameManager {
         this.currentFilename = null;
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -116,6 +125,31 @@ public class KwazamGameManager {
     /**
      * Author(s):
      * 
+     * Checks if the game is running.
+     * 
+     * @return true if the game is running, false otherwise
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Author(s):
+     * 
+     * Gets the current filename for saving/loading.
+     * 
+     * @return the current filename
+     */
+    public String getCurrentFilename() {
+        return currentFilename;
+    }
+
+    // =================================================================
+    // SETTERS
+    // =================================================================
+    /**
+     * Author(s):
+     * 
      * Sets the names of player 1 and player 2.
      * 
      * @param p1 player 1's name
@@ -129,14 +163,17 @@ public class KwazamGameManager {
     /**
      * Author(s):
      * 
-     * Checks if the game is running.
+     * Sets the current filename for saving/loading.
      * 
-     * @return true if the game is running, false otherwise
+     * @param filename the filename to set
      */
-    public boolean isRunning() {
-        return running;
+    public void setCurrentFilename(String filename) {
+        this.currentFilename = filename;
     }
 
+    // =================================================================
+    // GAME INITIALIZATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -160,6 +197,9 @@ public class KwazamGameManager {
         updateGameState();
     }
 
+    // =================================================================
+    // GAME LOGIC
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -177,8 +217,6 @@ public class KwazamGameManager {
             else
                 gameBoard.movePiece(piece, targetX, targetY);
 
-            updateGameState();
-
             // Increment turn count after a move
             turn += 0.5f;
 
@@ -187,17 +225,12 @@ public class KwazamGameManager {
             }
 
             // Check if the opponent's Sau is in check after the move
-            KwazamPieceColor opponentColor = (currentColor == KwazamPieceColor.BLUE) ? KwazamPieceColor.RED
-                    : KwazamPieceColor.BLUE;
-            if (isSauInCheck(opponentColor)) {
-                System.out.println("Opponent's Sau is in check!");
-                // You can notify the player here or handle it in the view
-            }
-
             if (isSauCaptured()) {
                 this.winner = currentColor == KwazamPieceColor.BLUE ? player1Name : player2Name;
                 stopGame();
             }
+
+            updateGameState();
 
             return true;
         }
@@ -321,21 +354,6 @@ public class KwazamGameManager {
     /**
      * Author(s):
      * 
-     * Prints the current game state to the console.
-     */
-    public void printGameState() {
-        for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
-            for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
-                System.out.print(gameState[row][col] + "  ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    /**
-     * Author(s):
-     * 
      * Switches the current player's color.
      */
     public void switchColor() {
@@ -343,34 +361,6 @@ public class KwazamGameManager {
             currentColor = KwazamPieceColor.RED;
         else
             currentColor = KwazamPieceColor.BLUE;
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Updates the game state based on the current board.
-     */
-    public void updateGameState() {
-        for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
-            for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
-                KwazamPiece piece = gameBoard.getPiece(col, row);
-                if (piece != null) {
-                    String colorString = piece.getColor().name().substring(0, 1); // 'R' or 'B'
-                    String typeString = piece.getType().name(); // Piece type like 'SAU', 'TOR'
-
-                    // If the piece is a Ram, append the direction to the string
-                    if (piece.getType() == KwazamPieceType.RAM) {
-                        Ram ramPiece = (Ram) piece;
-                        String directionString = (ramPiece.getDirection() == 1) ? "_U" : "_D";
-                        gameState[row][col] = colorString + "_" + typeString + directionString;
-                    } else {
-                        gameState[row][col] = colorString + "_" + typeString; // Regular piece without direction
-                    }
-                } else {
-                    gameState[row][col] = "....."; // Empty cell
-                }
-            }
-        }
     }
 
     /**
@@ -395,6 +385,103 @@ public class KwazamGameManager {
         return winner != null;
     }
 
+    // =================================================================
+    // GAME STATE MANAGEMENT
+    // =================================================================
+    /**
+     * Author(s):
+     * 
+     * Updates the game state based on the current board.
+     */
+    public void updateGameState() {
+        for (int row = 0; row < KwazamConstants.BOARD_ROWS; row++) {
+            for (int col = 0; col < KwazamConstants.BOARD_COLS; col++) {
+                KwazamPiece piece = gameBoard.getPiece(col, row);
+                if (piece != null) {
+                    String colorString = piece.getColor().name().substring(0, 1); // 'R' or 'B'
+                    String typeString = piece.getType().name(); // Piece type like 'SAU', 'TOR'
+
+                    // If the piece is a Ram, append the direction to the string
+                    if (piece.getType() == KwazamPieceType.RAM) {
+                        Ram ramPiece = (Ram) piece;
+                        String directionString = (ramPiece.getDirection() == 1) ? "_D" : "_U";
+                        gameState[row][col] = colorString + "_" + typeString + directionString;
+                    } else {
+                        gameState[row][col] = colorString + "_" + typeString; // Regular piece without direction
+                    }
+                } else {
+                    gameState[row][col] = "....."; // Empty cell
+                }
+            }
+        }
+    }
+
+    /**
+     * Author(s):
+     * 
+     * Saves the current game state to a file.
+     * 
+     * @param filename the name of the file to save
+     */
+    public void saveGame(String filename) {
+        // If a filename is provided, update the currentFilename
+        if (filename != null) {
+            this.currentFilename = filename + ".txt";
+        }
+
+        // If no filename is set, return (this should not happen if the controller
+        // handles it correctly)
+        if (this.currentFilename == null)
+            return;
+
+        // Ensure the /data folder exists
+        File dataFolder = new File("data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir(); // Create the /data folder if it doesn't exist
+        }
+
+        // Prepend the /data folder path to the filename
+        String filePath = "data/" + this.currentFilename;
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Write title for the save game file
+            writer.write("===== Kwazam Game Save =====");
+            writer.newLine(); // Blank line for separation
+
+            // Write player names
+            writer.write("Player 1 (BLUE): " + player1Name);
+            writer.newLine();
+            writer.write("Player 2 (RED): " + player2Name);
+            writer.newLine(); // Blank line for separation
+
+            // Write current turn color
+            writer.write("Current Turn: " + currentColor);
+            writer.newLine();
+            writer.newLine(); // Blank line for separation
+
+            // Write the game board header
+            writer.write("===== Game Board =====");
+            writer.newLine(); // Blank line for separation
+
+            // Define the width for each cell, based on the longest string in your pieces
+            int cellWidth = 10; // You can adjust this value depending on the longest piece string
+
+            // Loop through the game state array and write each piece with consistent width
+            for (int row = 0; row < gameState.length; row++) {
+                for (int col = 0; col < gameState[row].length; col++) {
+                    String cell = gameState[row][col];
+
+                    // Pad each cell to ensure it's the same width for alignment
+                    writer.write(String.format("%-" + cellWidth + "s", cell)); // Left-align the text within the cell
+                                                                               // width
+                }
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Author(s):
      * 
@@ -403,10 +490,8 @@ public class KwazamGameManager {
     public void loadGame(String filename) {
         this.currentFilename = filename;
         File saveFile = new File("data/" + filename);
-        if (!saveFile.exists()) {
-            System.out.println("No saved game found.");
+        if (!saveFile.exists())
             return;
-        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(saveFile))) {
             String line;
@@ -460,9 +545,9 @@ public class KwazamGameManager {
                             String direction = parts.length > 2 ? parts[2] : ""; // Check for direction (U or D)
                             Ram ramPiece = (Ram) piece;
                             if ("U".equals(direction)) {
-                                ramPiece.setDirection(1); // Up (1)
+                                ramPiece.setDirection(-1); // Up (-1)
                             } else if ("D".equals(direction)) {
-                                ramPiece.setDirection(-1); // Down (-1)
+                                ramPiece.setDirection(1); // Down (1)
                             }
                         }
 
@@ -475,7 +560,6 @@ public class KwazamGameManager {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to load the game.");
         }
     }
 
@@ -535,95 +619,5 @@ public class KwazamGameManager {
      */
     public void stopGame() {
         running = false;
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Saves the current game state to a file.
-     * 
-     * @param filename the name of the file to save
-     */
-    public void saveGame(String filename) {
-        // If a filename is provided, update the currentFilename
-        if (filename != null) {
-            this.currentFilename = filename + ".txt";
-        }
-
-        // If no filename is set, return (this should not happen if the controller
-        // handles it correctly)
-        if (this.currentFilename == null) {
-            System.err.println("No filename provided for saving the game.");
-            return;
-        }
-
-        // Ensure the /data folder exists
-        File dataFolder = new File("data");
-        if (!dataFolder.exists()) {
-            dataFolder.mkdir(); // Create the /data folder if it doesn't exist
-        }
-
-        // Prepend the /data folder path to the filename
-        String filePath = "data/" + this.currentFilename;
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Write title for the save game file
-            writer.write("===== Kwazam Game Save =====");
-            writer.newLine(); // Blank line for separation
-
-            // Write player names
-            writer.write("Player 1 (BLUE): " + player1Name);
-            writer.newLine();
-            writer.write("Player 2 (RED): " + player2Name);
-            writer.newLine(); // Blank line for separation
-
-            // Write current turn color
-            writer.write("Current Turn: " + currentColor);
-            writer.newLine();
-            writer.newLine(); // Blank line for separation
-
-            // Write the game board header
-            writer.write("===== Game Board =====");
-            writer.newLine(); // Blank line for separation
-
-            // Define the width for each cell, based on the longest string in your pieces
-            int cellWidth = 10; // You can adjust this value depending on the longest piece string
-
-            // Loop through the game state array and write each piece with consistent width
-            for (int row = 0; row < gameState.length; row++) {
-                for (int col = 0; col < gameState[row].length; col++) {
-                    String cell = gameState[row][col];
-
-                    // Pad each cell to ensure it's the same width for alignment
-                    writer.write(String.format("%-" + cellWidth + "s", cell)); // Left-align the text within the cell
-                                                                               // width
-                }
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Gets the current filename for saving/loading.
-     * 
-     * @return the current filename
-     */
-    public String getCurrentFilename() {
-        return currentFilename;
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Sets the current filename for saving/loading.
-     * 
-     * @param filename the filename to set
-     */
-    public void setCurrentFilename(String filename) {
-        this.currentFilename = filename;
     }
 }

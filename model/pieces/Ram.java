@@ -11,8 +11,14 @@ import utils.KwazamPieceType;
  * Inherits from KwazamPiece and includes direction for movement.
  */
 public class Ram extends KwazamPiece {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     int direction;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -29,6 +35,9 @@ public class Ram extends KwazamPiece {
         this.direction = color == KwazamPieceColor.RED ? 1 : -1;
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -40,6 +49,9 @@ public class Ram extends KwazamPiece {
         return direction;
     }
 
+    // =================================================================
+    // SETTERS
+    // =================================================================
     /**
      * Author(s):
      * 

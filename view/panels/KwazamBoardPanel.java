@@ -22,6 +22,9 @@ import view.components.KwazamRenderPiece;
  * Handles rendering of the board, pieces, and game state.
  */
 public class KwazamBoardPanel extends JPanel {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private List<KwazamRenderPiece> renderPieces;
     private KwazamRenderPiece selectedPiece, draggingPiece;
     private List<int[]> availableMoves = null;
@@ -36,6 +39,9 @@ public class KwazamBoardPanel extends JPanel {
     private int sauInCheckY = -1; // Y position of the Sau in check
     private boolean boardFlipped;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -50,6 +56,9 @@ public class KwazamBoardPanel extends JPanel {
         this.availableMoves = new ArrayList<>();
     }
 
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -237,6 +246,9 @@ public class KwazamBoardPanel extends JPanel {
         return boardFlipped;
     }
 
+    // =================================================================
+    // SETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -330,6 +342,29 @@ public class KwazamBoardPanel extends JPanel {
         repaint(); // Trigger a repaint to clear the highlight
     }
 
+    /**
+     * Author(s):
+     * 
+     * Sets the available moves for the selected piece.
+     * 
+     * @param moves the list of available moves
+     */
+    public void setAvailableMoves(List<int[]> moves) {
+        this.availableMoves = moves; // Store moves for rendering
+    }
+
+    /**
+     * Author(s):
+     * 
+     * Clears the available moves.
+     */
+    public void clearAvailableMoves() {
+        this.availableMoves = null;
+    }
+
+    // =================================================================
+    // BOARD RENDERING
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -582,6 +617,9 @@ public class KwazamBoardPanel extends JPanel {
         g2.setComposite(originalComposite);
     }
 
+    // =================================================================
+    // BOARD ORIENTATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -594,26 +632,6 @@ public class KwazamBoardPanel extends JPanel {
     /**
      * Author(s):
      * 
-     * Sets the available moves for the selected piece.
-     * 
-     * @param moves the list of available moves
-     */
-    public void setAvailableMoves(List<int[]> moves) {
-        this.availableMoves = moves; // Store moves for rendering
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Clears the available moves.
-     */
-    public void clearAvailableMoves() {
-        this.availableMoves = null;
-    }
-
-    /**
-     * Author(s):
-     * 
      * Flips the board back to the default orientation.
      */
     public void flipBoardToDefault() {
@@ -621,4 +639,5 @@ public class KwazamBoardPanel extends JPanel {
             flipBoard(); // Flip the board back to the default orientation
         }
     }
+
 }

@@ -8,6 +8,9 @@ import javax.swing.*;
  * Displays a dialog to confirm restarting the game.
  */
 public class RestartGameDialog {
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

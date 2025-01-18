@@ -3,7 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import model.KwazamGameManager;
+import model.KwazamModel;
 import model.pieces.KwazamPiece;
 import model.pieces.Ram;
 import utils.KwazamPieceColor;
@@ -13,16 +13,19 @@ import view.KwazamView;
 import view.components.KwazamRenderPiece;
 
 /**
- *  Author(s):
+ * Author(s):
  * 
  * Controller class for the Kwazam game.
  * Acts as a mediator between handlers, model, and view.
  */
 public class KwazamController {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     // MVC variables
     private static KwazamController instance;
     private final KwazamView view;
-    private final KwazamGameManager model;
+    private final KwazamModel model;
 
     // Game Handlers
     private final KwazamMouseHandler mouseHandler;
@@ -34,6 +37,9 @@ public class KwazamController {
     private int pressX, pressY;
     private boolean dragging = false;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -42,7 +48,7 @@ public class KwazamController {
      * @param v the view
      * @param m the model
      */
-    private KwazamController(KwazamView v, KwazamGameManager m) {
+    private KwazamController(KwazamView v, KwazamModel m) {
         this.view = v;
         this.model = m;
         this.mouseHandler = new KwazamMouseHandler(this);
@@ -50,79 +56,9 @@ public class KwazamController {
         this.windowHandler = new KwazamWindowHandler(this);
     }
 
-    /**
-     * Author(s):
-     * 
-     * Static method to get instance of KwazamController
-     * If instance is null, create a new instance of KwazamController
-     * If instance is not null, return existing instance of KwazamController
-     * 
-     * @param v the view
-     * @param m the model
-     * @return KwazamController instance
-     */
-    public static KwazamController getInstance(KwazamView v, KwazamGameManager m) {
-        if (instance == null) {
-            instance = new KwazamController(v, m);
-        }
-        return instance;
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Method used to start the Kwazam Chess game
-     * Initializes model, view and controller
-     */
-    public void startGame() {
-        // Check for saved game and load it if found
-        if (model.hasSavedGame()) {
-            model.loadGame(model.getCurrentFilename());
-            view.initView();
-            initController();
-
-            if (model.getCurrentColor() == KwazamPieceColor.RED)
-                view.getBoardPanel().flipBoard();
-
-            updateView();
-        } else {
-            // Initialize a new game if no saved game exists
-            model.initGame();
-            view.initView();
-            initController();
-            updateView();
-
-            // Ask for player names via the view
-            Optional<String[]> playerNames = view.showStartGameDialog();
-
-            if (playerNames.isPresent()) {
-                // Extract player names
-                String player1 = playerNames.get()[0];
-                String player2 = playerNames.get()[1];
-
-                // Pass names to the model for game initialization
-                model.setPlayerNames(player1, player2);
-            } else {
-                // Exit the game if the dialog is canceled
-                System.exit(0);
-            }
-        }
-
-        SoundEffect.playBackgroundMusic();
-        view.refreshLoadGameMenu();
-    }
-
-    /**
-     * Author(s):
-     * 
-     * Loads a saved game.
-     * 
-     * @param filename the name of the file to load
-     */
-    public void loadGame(String filename) {
-        menuHandler.loadGame(filename);
-    }
-
+    // =================================================================
+    // GETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -141,7 +77,7 @@ public class KwazamController {
      * 
      * @return model variable
      */
-    public KwazamGameManager getModel() {
+    public KwazamModel getModel() {
         return model;
     }
 
@@ -233,6 +169,9 @@ public class KwazamController {
         return dragging;
     }
 
+    // =================================================================
+    // SETTERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -278,6 +217,30 @@ public class KwazamController {
         this.dragging = dragging;
     }
 
+    // =================================================================
+    // SINGLETON INSTANCE
+    // =================================================================
+    /**
+     * Author(s):
+     * 
+     * Static method to get instance of KwazamController
+     * If instance is null, create a new instance of KwazamController
+     * If instance is not null, return existing instance of KwazamController
+     * 
+     * @param v the view
+     * @param m the model
+     * @return KwazamController instance
+     */
+    public static KwazamController getInstance(KwazamView v, KwazamModel m) {
+        if (instance == null) {
+            instance = new KwazamController(v, m);
+        }
+        return instance;
+    }
+
+    // =================================================================
+    // CONTROLLER INITIALIZATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -297,6 +260,70 @@ public class KwazamController {
         windowHandler.initWindowListeners();
     }
 
+    // =================================================================
+    // GAME INITIALIZATION
+    // =================================================================
+    /**
+     * Author(s):
+     * 
+     * Method used to start the Kwazam Chess game
+     * Initializes model, view and controller
+     */
+    public void startGame() {
+        // Check for saved game and load it if found
+        if (model.hasSavedGame()) {
+            model.loadGame(model.getCurrentFilename());
+            view.initView();
+            initController();
+
+            if (model.getCurrentColor() == KwazamPieceColor.RED)
+                view.getBoardPanel().flipBoard();
+
+            updateView();
+        } else {
+            // Initialize a new game if no saved game exists
+            model.initGame();
+            view.initView();
+            initController();
+            updateView();
+
+            // Ask for player names via the view
+            Optional<String[]> playerNames = view.showStartGameDialog();
+
+            if (playerNames.isPresent()) {
+                // Extract player names
+                String player1 = playerNames.get()[0];
+                String player2 = playerNames.get()[1];
+
+                // Pass names to the model for game initialization
+                model.setPlayerNames(player1, player2);
+            } else {
+                // Exit the game if the dialog is canceled
+                System.exit(0);
+            }
+        }
+
+        SoundEffect.playBackgroundMusic();
+        view.refreshLoadGameMenu();
+    }
+
+    // =================================================================
+    // GAME LOADING
+    // =================================================================
+    /**
+     * Author(s):
+     * 
+     * Loads a saved game.
+     * 
+     * @param filename the name of the file to load
+     */
+    public void loadGame(String filename) {
+        menuHandler.loadGame(filename);
+    }
+
+    // =================================================================
+    // VIEW UPDATES
+    // =================================================================
     /**
      * Author(s):
      * 

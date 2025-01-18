@@ -17,8 +17,14 @@ import view.dialogs.SaveGameDialog;
  * Manages listeners for menu options like New Game, Restart, Quit, etc.
  */
 public class KwazamMenuHandler {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final KwazamController controller;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -30,6 +36,9 @@ public class KwazamMenuHandler {
         this.controller = c;
     }
 
+    // =================================================================
+    // MENU LISTENERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -128,6 +137,9 @@ public class KwazamMenuHandler {
         }
     }
 
+    // =================================================================
+    // GAME ACTIONS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -176,8 +188,6 @@ public class KwazamMenuHandler {
                 // Exit the game if the dialog is canceled
                 System.exit(0);
             }
-
-            System.out.println("New Game.");
         }
     }
 
@@ -209,8 +219,6 @@ public class KwazamMenuHandler {
             controller.getView().initView();
             controller.initController();
             controller.updateView();
-
-            System.out.println("Game restarted.");
         }
     }
 

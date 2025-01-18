@@ -13,6 +13,9 @@ import model.pieces.Ram;
  * Handles valid moves for the Ram in a Kwazam game.
  */
 public class RamMovement implements MovementStrategy {
+    // =================================================================
+    // MOVEMENT STRATEGY IMPLEMENTATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -41,6 +44,9 @@ public class RamMovement implements MovementStrategy {
         return validMoves;
     }
 
+    // =================================================================
+    // PRIVATE METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

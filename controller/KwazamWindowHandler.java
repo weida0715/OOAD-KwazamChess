@@ -12,8 +12,14 @@ import javax.swing.WindowConstants;
  * Manages window events like closing the application.
  */
 public class KwazamWindowHandler {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final KwazamController controller;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -25,6 +31,9 @@ public class KwazamWindowHandler {
         this.controller = c;
     }
 
+    // =================================================================
+    // WINDOW LISTENERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -39,7 +48,8 @@ public class KwazamWindowHandler {
                     // Check if the game has been saved
                     if (!controller.getModel().hasSavedGame()) {
                         // Prompt the user to save the game before restarting
-                        boolean saveGame = controller.getView().getSaveGameDialog().promptSaveBeforeAction(controller.getView(), "quit");
+                        boolean saveGame = controller.getView().getSaveGameDialog()
+                                .promptSaveBeforeAction(controller.getView(), "quit");
 
                         if (saveGame) {
                             controller.getMenuHandler().saveGame(); // Save the game if the user chooses "Yes"

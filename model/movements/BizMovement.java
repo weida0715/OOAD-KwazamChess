@@ -12,8 +12,14 @@ import model.pieces.KwazamPiece;
  * Handles valid moves for the Biz in a Kwazam game.
  */
 public class BizMovement implements MovementStrategy {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final int[][] directions;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     public BizMovement() {
         this.directions = new int[][] {
                 { 2, 1 }, // Right 2, Up 1
@@ -27,6 +33,9 @@ public class BizMovement implements MovementStrategy {
         };
     }
 
+    // =================================================================
+    // MOVEMENT STRATEGY IMPLEMENTATION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -54,6 +63,9 @@ public class BizMovement implements MovementStrategy {
         return validMoves;
     }
 
+    // =================================================================
+    // PRIVATE METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

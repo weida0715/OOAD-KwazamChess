@@ -19,6 +19,9 @@ import javax.swing.table.JTableHeader;
  * Includes game introduction, winning conditions, and piece movement rules.
  */
 public class RulesDialog {
+    // =================================================================
+    // PUBLIC METHODS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -29,6 +32,7 @@ public class RulesDialog {
     public void showDialog(JFrame parent) {
         JDialog dialog = new JDialog(parent, "Game Rules", true); // 'true' makes it modal
         dialog.setSize(800, 800);
+        dialog.setResizable(false);
         dialog.setLocationRelativeTo(null); // Center the dialog on the screen
 
         // Create a panel to hold the rules and table
@@ -153,6 +157,9 @@ public class RulesDialog {
         dialog.setVisible(true);
     }
 
+    // =================================================================
+    // PRIVATE METHODS
+    // =================================================================
     /**
      * Author(s):
      * 

@@ -19,8 +19,14 @@ import view.components.KwazamRenderPiece;
  * Manages mouse events like pressing, dragging, and releasing pieces.
  */
 public class KwazamMouseHandler {
+    // =================================================================
+    // ATTRIBUTES
+    // =================================================================
     private final KwazamController controller;
 
+    // =================================================================
+    // CONSTRUCTION
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -32,6 +38,9 @@ public class KwazamMouseHandler {
         this.controller = c;
     }
 
+    // =================================================================
+    // MOUSE LISTENERS
+    // =================================================================
     /**
      * Author(s):
      * 
@@ -64,6 +73,9 @@ public class KwazamMouseHandler {
         });
     }
 
+    // =================================================================
+    // MOUSE EVENT HANDLERS
+    // =================================================================
     /**
      * Author(s):
      * 

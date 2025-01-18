@@ -1,0 +1,14 @@
+===== Kwazam Game Save =====
+Player 1 (BLUE): 1
+Player 2 (RED): 2
+Current Turn: BLUE
+
+===== Game Board =====
+R_TOR     R_RAM_D   R_SAU     .....     R_XOR     
+R_RAM_D   .....     .....     .....     R_RAM_D   
+.....     .....     R_BIZ     .....     .....     
+.....     .....     R_RAM_D   .....     .....     
+.....     .....     B_RAM_U   .....     .....     
+.....     .....     B_BIZ     .....     .....     
+B_RAM_U   .....     .....     .....     B_RAM_U   
+B_XOR     .....     B_SAU     B_RAM_U   B_TOR     
