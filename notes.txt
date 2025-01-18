@@ -1,8 +1,9 @@
-add mediator
-set game rules window not resizable
-fix game state storing wrong misunderstood ram direction
-renamed KwazamGameManager to KwazamModel
-added comment sections
+Milestone:
++ Set game rules window not resizable
++ Fixed game state storing wrong misunderstood ram direction
++ Renamed KwazamGameManager to KwazamModel
++ Added comment sections
++ Refactored some codes
 
 weida@localhost:/run/media/weida/SSD1/Programming Stuff/OOAD/Chess/v1> cloc .
       40 text files.
