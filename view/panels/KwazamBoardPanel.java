@@ -25,7 +25,7 @@ public class KwazamBoardPanel extends JPanel {
     // =================================================================
     private List<KwazamRenderPiece> renderPieces;
     private KwazamRenderPiece selectedPiece, draggingPiece;
-    private List<int[]> availableMoves = null;
+    private List<int[]> availableMoves;
     private int dragX, dragY;
     private int hoveredGridX, hoveredGridY;
     private int panelWidth, panelHeight;
