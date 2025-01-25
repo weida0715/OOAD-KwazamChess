@@ -5,6 +5,8 @@ import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 
 /**
+ * Strategy Pattern
+ * 
  * Defines the movement strategy for Kwazam pieces.
  * Provides a method to calculate valid moves for a piece on the board.
  */

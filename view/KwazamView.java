@@ -18,6 +18,8 @@ import view.dialogs.StartGameDialog;
 import view.panels.KwazamBoardPanel;
 
 /**
+ * MVC Pattern
+ * 
  * Represents the main view for the Kwazam game.
  * Manages the game window, board, and dialogs.
  */

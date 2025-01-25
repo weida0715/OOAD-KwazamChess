@@ -25,7 +25,7 @@
  *                                          KwazamConstants, KwazamPieceColor, KwazamPieceType
  * 
  *  - Willie Teoh Chin Wei: Extra Features
- *              involvement in implementing KwazamMenuHandler, KwazamMouseHandler, 
+ *              involvement in implementing KwazamController, KwazamMenuHandler, KwazamMouseHandler, 
  *                                          KwazamBoard, KwazamPiece
  *                                          KwazamMenuBar, RulesDialog, KwazamBoardPanel, KwazamView
  *                                          KwazamConstants, SoundEffect

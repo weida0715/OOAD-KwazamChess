@@ -9,6 +9,8 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
+ * Factory Pattern
+ * 
  * Factory class for creating Kwazam pieces.
  * Provides a method to create pieces based on type, color, and position.
  */

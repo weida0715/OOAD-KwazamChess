@@ -24,8 +24,8 @@ public class KwazamConstants {
     // =================================================================
     // COLORS
     // =================================================================
-    public static final Color SAU_CHECKED_COLOR = new Color(255, 182, 193, 180);
-    public static final Color SQUARE_HIGHLIGHT_COLOR = new Color(200, 200, 255);
+    public static final Color SAU_CHECKED_COLOR = new Color(255, 182, 193, 180); // Red pink
+    public static final Color SQUARE_HIGHLIGHT_COLOR = new Color(200, 200, 255); // Blue purple
     public static final Color SQUARE_COLOR_1 = new Color(235, 215, 194); // Soft warm peach
     public static final Color SQUARE_COLOR_2 = new Color(201, 222, 195); // Light, muted green
     public static final Color BORDER_COLOR = new Color(82, 125, 107); // Deep, calm forest green

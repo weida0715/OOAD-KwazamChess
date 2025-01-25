@@ -48,12 +48,12 @@ public class StartGameDialog {
                         "Both player names must be provided!",
                         "Invalid Input",
                         JOptionPane.WARNING_MESSAGE);
-                return showDialog(parent); // Retry dialog
+                return showDialog(parent);
             }
 
             return Optional.of(new String[] { player1Name, player2Name });
         }
 
-        return Optional.empty(); // User cancelled
+        return Optional.empty();
     }
 }

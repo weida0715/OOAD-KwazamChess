@@ -181,7 +181,7 @@ public class KwazamBoard {
         for (Iterator<KwazamPiece> iterator = pieces.iterator(); iterator.hasNext();) {
             KwazamPiece piece = iterator.next();
             if (p == piece) {
-                iterator.remove(); // Safe removal using the iterator
+                iterator.remove();
             }
         }
     }
@@ -199,7 +199,7 @@ public class KwazamBoard {
         for (Iterator<KwazamPiece> iterator = pieces.iterator(); iterator.hasNext();) {
             KwazamPiece piece = iterator.next();
             if (piece.getX() == x && piece.getY() == y) {
-                iterator.remove(); // Safe removal using the iterator
+                iterator.remove();
             }
         }
     }

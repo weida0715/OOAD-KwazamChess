@@ -326,7 +326,7 @@ public class KwazamBoardPanel extends JPanel {
     public void setSauInCheck(int x, int y) {
         this.sauInCheckX = x;
         this.sauInCheckY = y;
-        repaint(); // Trigger a repaint to update the board
+        repaint();
     }
 
     /**
@@ -337,7 +337,7 @@ public class KwazamBoardPanel extends JPanel {
     public void clearSauInCheck() {
         this.sauInCheckX = -1;
         this.sauInCheckY = -1;
-        repaint(); // Trigger a repaint to clear the highlight
+        repaint();
     }
 
     /**
@@ -348,7 +348,7 @@ public class KwazamBoardPanel extends JPanel {
      * @param moves the list of available moves
      */
     public void setAvailableMoves(List<int[]> moves) {
-        this.availableMoves = moves; // Store moves for rendering
+        this.availableMoves = moves;
     }
 
     /**
@@ -409,7 +409,7 @@ public class KwazamBoardPanel extends JPanel {
         }
         // Highlight selected piece's grid
         if (selectedPiece != null) {
-            g2.setColor(new Color(200, 200, 255)); // Purple color
+            g2.setColor(KwazamConstants.SQUARE_HIGHLIGHT_COLOR);
             int x = xOffset
                     + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - selectedPiece.getX()) : selectedPiece.getX())
                             * squareSize
@@ -424,7 +424,7 @@ public class KwazamBoardPanel extends JPanel {
 
         // Highlight dragging piece's grid
         if (draggingPiece != null) {
-            g2.setColor(new Color(200, 200, 255)); // Purple color
+            g2.setColor(KwazamConstants.SQUARE_HIGHLIGHT_COLOR);
             int x = xOffset
                     + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - draggingPiece.getX()) : draggingPiece.getX())
                             * squareSize
@@ -439,7 +439,7 @@ public class KwazamBoardPanel extends JPanel {
 
         // Highlight hovered grid
         if (hoveredGridX >= 0 && hoveredGridY >= 0 && draggingPiece != null) {
-            g2.setColor(new Color(200, 200, 255)); // Purple color
+            g2.setColor(KwazamConstants.SQUARE_HIGHLIGHT_COLOR);
             g2.setStroke(new BasicStroke(5)); // Set border thickness
             int hoverX = xOffset
                     + (boardFlipped ? (KwazamConstants.BOARD_COLS - 1 - hoveredGridX) : hoveredGridX) * squareSize;
@@ -634,7 +634,7 @@ public class KwazamBoardPanel extends JPanel {
      */
     public void flipBoardToDefault() {
         if (boardFlipped) {
-            flipBoard(); // Flip the board back to the default orientation
+            flipBoard();
         }
     }
 

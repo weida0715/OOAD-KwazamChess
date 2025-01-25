@@ -82,12 +82,10 @@ public class KwazamMouseHandler {
      * Clears existing listeners to avoid duplication.
      */
     public void removeMouseListeners() {
-        // Check if there are any mouse listeners attached
         if (controller.getView().getBoardPanel().getMouseListeners().length > 0) {
             controller.getView().getBoardPanel()
                     .removeMouseListener(controller.getView().getBoardPanel().getMouseListeners()[0]);
         }
-        // Check if there are any mouse motion listeners attached
         if (controller.getView().getBoardPanel().getMouseMotionListeners().length > 0) {
             controller.getView().getBoardPanel()
                     .removeMouseMotionListener(controller.getView().getBoardPanel().getMouseMotionListeners()[0]);
@@ -122,15 +120,15 @@ public class KwazamMouseHandler {
         if (controller.getDraggedPiece() != null) {
             // Prevent interaction if the piece is not the current player's
             if (controller.getDraggedPiece().getColor() != controller.getModel().getCurrentColor()) {
-                controller.setDraggedPiece(null); // Reset dragged piece if it's an opponent's piece
-                return; // Don't allow further interaction
+                controller.setDraggedPiece(null);
+                return;
             }
 
             // Fetch and display valid moves for the dragged piece
             List<int[]> validMoves = controller.getDraggedPiece().getValidMoves(controller.getModel().getGameBoard());
             controller.getView().showValidMoves(validMoves);
 
-            controller.getView().setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR)); // Change to grabbing cursor
+            controller.getView().setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
         }
     }
 
@@ -167,7 +165,6 @@ public class KwazamMouseHandler {
                     if (controller.getDraggedPiece().getType() == KwazamPieceType.RAM) {
                         Ram ramPiece = (Ram) controller.getDraggedPiece();
 
-                        // Change direction immediately when it reaches the edge
                         if (ramPiece.getY() == 0 && ramPiece.getDirection() == -1) {
                             ramPiece.setDirection(1); // Change direction to down
                         } else if (ramPiece.getY() == KwazamConstants.BOARD_ROWS - 1
@@ -177,10 +174,8 @@ public class KwazamMouseHandler {
                     }
 
                     if (targetPiece != null) {
-                        // Play capture sound if a piece exists on the target square
                         SoundEffect.playCaptureSound();
                     } else {
-                        // Play move sound if the square is empty
                         SoundEffect.playMoveSound();
                     }
                     moved = true;
@@ -192,7 +187,7 @@ public class KwazamMouseHandler {
             controller.setSelectedPiece(null);
             controller.setDraggedPiece(null);
             controller.setIsDragging(false);
-            controller.getView().setCursor(Cursor.getDefaultCursor()); // Restore cursor after drag
+            controller.getView().setCursor(Cursor.getDefaultCursor());
         } else if (!controller.isDragging()) {
             // Handle click-to-move
             if (controller.getSelectedPiece() == null) {
@@ -242,7 +237,7 @@ public class KwazamMouseHandler {
                 controller.setSelectedPiece(null);
             }
 
-            controller.getView().setCursor(Cursor.getDefaultCursor()); // Restore cursor
+            controller.getView().setCursor(Cursor.getDefaultCursor());
         }
 
         controller.updateView();
@@ -269,7 +264,6 @@ public class KwazamMouseHandler {
                         System.exit(0);
                         break;
                     default:
-                        // Do nothing or handle unexpected input
                         break;
                 }
             } else {
@@ -390,7 +384,7 @@ public class KwazamMouseHandler {
         } else {
             // Reset cursor when outside chessboard bounds
             controller.getView().setCursor(Cursor.getDefaultCursor());
-            controller.getView().getBoardPanel().setHoveredGrid(-1, -1); // Clear hover effect
+            controller.getView().getBoardPanel().setHoveredGrid(-1, -1);
         }
     }
 }

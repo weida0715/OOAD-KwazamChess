@@ -145,7 +145,7 @@ public class KwazamRenderPiece {
 
         // Flip vertically
         AffineTransform transform = AffineTransform.getScaleInstance(1, -1); // Flip vertically
-        transform.translate(0, -img.getHeight()); // Translate to avoid cutting off the image
+        transform.translate(0, -img.getHeight());
 
         AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         img = op.filter(img, null); // Apply the transformation

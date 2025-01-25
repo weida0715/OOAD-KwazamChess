@@ -63,7 +63,7 @@ public class SaveGameDialog {
                         "Filename cannot be empty!",
                         "Invalid Filename",
                         JOptionPane.WARNING_MESSAGE);
-                continue; // Prompt the user again
+                continue;
             }
 
             // Check if the file already exists in the /data folder
@@ -74,7 +74,7 @@ public class SaveGameDialog {
                         "A file with this name already exists. Please enter a different filename.",
                         "File Exists",
                         JOptionPane.WARNING_MESSAGE);
-                continue; // Prompt the user again
+                continue;
             }
 
             // If the filename is valid and doesn't exist, return it

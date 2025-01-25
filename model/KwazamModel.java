@@ -17,6 +17,8 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
+ * MVC Pattern
+ * 
  * Manages the Kwazam game logic.
  * Handles game state, piece movement, saving, loading, and win conditions.
  */
@@ -397,7 +399,7 @@ public class KwazamModel {
                 KwazamPiece piece = gameBoard.getPiece(col, row);
                 if (piece != null) {
                     String colorString = piece.getColor().name().substring(0, 1); // 'R' or 'B'
-                    String typeString = piece.getType().name(); // Piece type like 'SAU', 'TOR'
+                    String typeString = piece.getType().name();
 
                     // If the piece is a Ram, append the direction to the string
                     if (piece.getType() == KwazamPieceType.RAM) {
@@ -405,10 +407,10 @@ public class KwazamModel {
                         String directionString = (ramPiece.getDirection() == 1) ? "_D" : "_U";
                         gameState[row][col] = colorString + "_" + typeString + directionString;
                     } else {
-                        gameState[row][col] = colorString + "_" + typeString; // Regular piece without direction
+                        gameState[row][col] = colorString + "_" + typeString;
                     }
                 } else {
-                    gameState[row][col] = "....."; // Empty cell
+                    gameState[row][col] = ".....";
                 }
             }
         }
@@ -444,22 +446,22 @@ public class KwazamModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             // Write title for the save game file
             writer.write("===== Kwazam Game Save =====");
-            writer.newLine(); // Blank line for separation
+            writer.newLine();
 
             // Write player names
             writer.write("Player 1 (BLUE): " + player1Name);
             writer.newLine();
             writer.write("Player 2 (RED): " + player2Name);
-            writer.newLine(); // Blank line for separation
+            writer.newLine();
 
             // Write current turn color
             writer.write("Current Turn: " + currentColor);
             writer.newLine();
-            writer.newLine(); // Blank line for separation
+            writer.newLine();
 
             // Write the game board header
             writer.write("===== Game Board =====");
-            writer.newLine(); // Blank line for separation
+            writer.newLine();
 
             // Define the width for each cell, based on the longest string in your pieces
             int cellWidth = 10; // You can adjust this value depending on the longest piece string
@@ -470,8 +472,7 @@ public class KwazamModel {
                     String cell = gameState[row][col];
 
                     // Pad each cell to ensure it's the same width for alignment
-                    writer.write(String.format("%-" + cellWidth + "s", cell)); // Left-align the text within the cell
-                                                                               // width
+                    writer.write(String.format("%-" + cellWidth + "s", cell));
                 }
                 writer.newLine();
             }
@@ -505,7 +506,7 @@ public class KwazamModel {
                 } else if (line.startsWith("Current Turn")) {
                     this.currentColor = KwazamPieceColor.valueOf(line.split(":")[1].trim());
                 } else if (line.startsWith("===== Game Board =====")) {
-                    break; // Skip the "Game Board:" line
+                    break;
                 }
             }
 
@@ -520,17 +521,17 @@ public class KwazamModel {
                 // Split each line of board into cells
                 String[] cells = line.trim().split("\\s+");
                 for (int col = 0; col < cells.length; col++) {
-                    gameState[row][col] = cells[col]; // Store the game state
+                    gameState[row][col] = cells[col];
                 }
                 row++;
             }
 
             // Reconstruct the game board
-            this.gameBoard.getPieces().clear(); // Clear the current board state
+            this.gameBoard.getPieces().clear();
             for (int i = 0; i < gameState.length; i++) {
                 for (int j = 0; j < gameState[i].length; j++) {
                     String cell = gameState[i][j];
-                    if (!cell.equals(".....")) { // Not an empty cell
+                    if (!cell.equals(".....")) {
                         String[] parts = cell.split("_");
                         KwazamPieceColor color = parts[0].equals("R") ? KwazamPieceColor.RED : KwazamPieceColor.BLUE;
                         KwazamPieceType type = KwazamPieceType.valueOf(parts[1]);
@@ -549,12 +550,12 @@ public class KwazamModel {
                             }
                         }
 
-                        gameBoard.addPiece(piece); // Add the piece to the game board
+                        gameBoard.addPiece(piece);
                     }
                 }
             }
 
-            updateGameState(); // Update the game state after loading the game board
+            updateGameState();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,6 +13,8 @@ import view.KwazamView;
 import view.components.KwazamRenderPiece;
 
 /**
+ * MVC, Singleton, Mediator Patterns
+ * 
  * Controller class for the Kwazam game.
  * Acts as a mediator between handlers, model, and view.
  */
@@ -262,7 +264,7 @@ public class KwazamController {
     // GAME INITIALIZATION
     // =================================================================
     /**
-     * Author(s): Ng Wei Da, Lam Rong Yi
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei, Lam Rong Yi
      * 
      * Method used to start the Kwazam Chess game
      * Initializes model, view and controller
@@ -285,7 +287,7 @@ public class KwazamController {
             initController();
             updateView();
 
-            // Ask for player names via the view
+            // Ask for player names
             Optional<String[]> playerNames = view.showStartGameDialog();
 
             if (playerNames.isPresent()) {
@@ -293,10 +295,9 @@ public class KwazamController {
                 String player1 = playerNames.get()[0];
                 String player2 = playerNames.get()[1];
 
-                // Pass names to the model for game initialization
                 model.setPlayerNames(player1, player2);
             } else {
-                // Exit the game if the dialog is canceled
+                // Exit game
                 System.exit(0);
             }
         }

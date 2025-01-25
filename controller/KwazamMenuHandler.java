@@ -59,13 +59,13 @@ public class KwazamMenuHandler {
                         // Prompt the user to save the game before starting a new game
                         boolean saveGame = controller.getView().getSaveGameDialog().promptSaveBeforeAction(
                                 controller.getView(), "starting a new game");
-        
+
                         if (saveGame) {
                             saveGame(); // Save the game if the user chooses "Yes"
                         }
                         // If the user chooses "No," proceed without saving
                     }
-        
+
                     // Start a new game
                     newGame();
                 }
@@ -78,7 +78,7 @@ public class KwazamMenuHandler {
             public void actionPerformed(ActionEvent e) {
                 boolean confirm = controller.getView().showRestartDialog();
                 if (confirm) {
-                    restartGame(); 
+                    restartGame();
                 }
             }
         });
@@ -89,7 +89,7 @@ public class KwazamMenuHandler {
             public void actionPerformed(ActionEvent e) {
                 boolean confirm = controller.getView().showQuitDialog();
                 if (confirm) {
-                    quitGame(); // Call quitGame() only if the user confirms
+                    quitGame();
                 }
             }
         });
@@ -168,10 +168,8 @@ public class KwazamMenuHandler {
      * Resets the game state, initializes a new game, and prompts for player names.
      */
     public void newGame() {
-
         // Clear the current game state (without deleting the file)
         controller.getModel().resetGame();
-
         controller.getModel().setCurrentFilename(null);
 
         // Initialize a new game
@@ -182,7 +180,7 @@ public class KwazamMenuHandler {
         controller.initController();
         controller.updateView();
 
-        // Ask for player names via the view
+        // Ask for player names
         Optional<String[]> playerNames = controller.getView().showStartGameDialog();
 
         if (playerNames.isPresent()) {
@@ -197,7 +195,6 @@ public class KwazamMenuHandler {
             System.exit(0);
         }
     }
-
 
     /**
      * Author(s): Lam Rong Yi
@@ -226,7 +223,6 @@ public class KwazamMenuHandler {
         controller.initController();
         controller.updateView();
     }
-
 
     /**
      * Author(s): Lam Rong Yi
