@@ -8,8 +8,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Author(s):
- * 
  * Handles sound effects for the Kwazam game.
  * Provides methods to play sounds for moves, captures, and winning.
  */
@@ -26,7 +24,7 @@ public class SoundEffect {
     // SOUND PLAYBACK
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei
      * 
      * Plays a sound from the specified file path.
      * 
@@ -57,7 +55,7 @@ public class SoundEffect {
     // SOUND TOGGLES
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Plays a sound from the specified file path.
      * 
@@ -68,7 +66,7 @@ public class SoundEffect {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Toggles background music on or off.
      */
@@ -85,7 +83,7 @@ public class SoundEffect {
     // BACKGROUND MUSIC
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Plays background music.
      */
@@ -115,7 +113,7 @@ public class SoundEffect {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Stops background music.
      */
@@ -132,7 +130,7 @@ public class SoundEffect {
     // GAME SOUND EFFECTS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Plays the sound for a move action.
      */
@@ -141,7 +139,7 @@ public class SoundEffect {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Plays the sound for a capture action.
      */
@@ -150,7 +148,7 @@ public class SoundEffect {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Plays the sound for a winning action.
      */

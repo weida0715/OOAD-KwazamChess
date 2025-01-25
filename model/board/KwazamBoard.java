@@ -10,8 +10,6 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
- * Author(s):
- * 
  * Represents the game board for Kwazam.
  * Manages pieces, their positions, and board operations.
  */
@@ -27,7 +25,7 @@ public class KwazamBoard {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamBoard with default dimensions.
      * Initializes the board and piece list.
@@ -42,7 +40,7 @@ public class KwazamBoard {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the number of columns on the board.
      * 
@@ -53,7 +51,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the number of rows on the board.
      * 
@@ -64,7 +62,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the list of pieces on the board.
      * 
@@ -75,7 +73,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the red Sau piece.
      * 
@@ -90,7 +88,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the blue Sau piece.
      * 
@@ -105,7 +103,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the piece at the specified coordinates.
      * 
@@ -126,7 +124,7 @@ public class KwazamBoard {
     // BOARD SETUP
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Sets up the board with initial piece positions.
      * Adds red and blue pieces to their starting locations.
@@ -161,7 +159,7 @@ public class KwazamBoard {
     // PIECE MANAGEMENT
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Adds a piece to the board.
      * 
@@ -172,7 +170,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Removes a specific piece from the board.
      * 
@@ -189,7 +187,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Removes the piece at the specified coordinates.
      * 
@@ -207,7 +205,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Captures a piece at the target location and moves the capturing piece.
      * 
@@ -221,7 +219,7 @@ public class KwazamBoard {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Moves a piece to the specified coordinates.
      * 
@@ -238,7 +236,7 @@ public class KwazamBoard {
     // BOARD UTILITIES
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if the coordinates are within the board bounds.
      * 

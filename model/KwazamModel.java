@@ -17,8 +17,6 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
- * Author(s):
- * 
  * Manages the Kwazam game logic.
  * Handles game state, piece movement, saving, loading, and win conditions.
  */
@@ -40,7 +38,7 @@ public class KwazamModel {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamModel.
      * Initializes the game board, state, and default settings.
@@ -57,7 +55,7 @@ public class KwazamModel {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the game board.
      * 
@@ -68,7 +66,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the current game state.
      * 
@@ -79,7 +77,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the current player's color.
      * 
@@ -90,7 +88,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets player 1's name.
      * 
@@ -101,7 +99,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets player 2's name.
      * 
@@ -112,7 +110,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the winner of the game.
      * 
@@ -123,7 +121,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if the game is running.
      * 
@@ -134,7 +132,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Gets the current filename for saving/loading.
      * 
@@ -148,7 +146,7 @@ public class KwazamModel {
     // SETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Sets the names of player 1 and player 2.
      * 
@@ -161,7 +159,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Sets the current filename for saving/loading.
      * 
@@ -175,7 +173,7 @@ public class KwazamModel {
     // GAME INITIALIZATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Initializes the game.
      * Resets the board, sets up pieces, and marks the game as running.
@@ -201,7 +199,7 @@ public class KwazamModel {
     // GAME LOGIC
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon
      * 
      * Moves a piece to the target location.
      * 
@@ -239,7 +237,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon
      * 
      * Swaps all Xor and Tor pieces on the board.
      * Updates the game state after swapping.
@@ -269,7 +267,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if a move is valid for the given piece.
      * 
@@ -292,7 +290,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if an opponent's piece is at the target location.
      * 
@@ -305,7 +303,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if the Sau of the given color is in check.
      * 
@@ -335,7 +333,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the Sau piece for the given color.
      * 
@@ -352,7 +350,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Switches the current player's color.
      */
@@ -364,7 +362,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if a Sau has been captured.
      * 
@@ -375,7 +373,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if a winner has been found.
      * 
@@ -389,7 +387,7 @@ public class KwazamModel {
     // GAME STATE MANAGEMENT
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Updates the game state based on the current board.
      */
@@ -417,7 +415,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lam Rong Yi
      * 
      * Saves the current game state to a file.
      * 
@@ -483,7 +481,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lam Rong Yi
      * 
      * Loads a saved game from a file.
      */
@@ -564,7 +562,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Checks if a saved game exists.
      * 
@@ -580,7 +578,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Clears the saved game file.
      */
@@ -596,7 +594,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Resets the game to its initial state.
      */
@@ -613,7 +611,7 @@ public class KwazamModel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Stops the game.
      */

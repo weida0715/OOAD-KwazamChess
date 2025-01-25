@@ -13,8 +13,6 @@ import view.KwazamView;
 import view.components.KwazamRenderPiece;
 
 /**
- * Author(s):
- * 
  * Controller class for the Kwazam game.
  * Acts as a mediator between handlers, model, and view.
  */
@@ -41,7 +39,7 @@ public class KwazamController {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Construct a Singleton KwazamController class
      * 
@@ -60,7 +58,7 @@ public class KwazamController {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for view variable
      * 
@@ -71,7 +69,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for model variable
      * 
@@ -82,7 +80,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the mouse handler.
      * 
@@ -93,7 +91,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the menu handler.
      * 
@@ -104,7 +102,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the window handler.
      * 
@@ -115,7 +113,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for selectedPiece variable
      * 
@@ -126,7 +124,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for draggedPiece variable
      * 
@@ -137,7 +135,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for pressX variable
      * 
@@ -148,7 +146,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for pressY variable
      * 
@@ -159,7 +157,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Getter for dragging variable
      * 
@@ -173,7 +171,7 @@ public class KwazamController {
     // SETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Setter for selectedPiece variable
      */
@@ -182,7 +180,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Setter for draggedPiece variable
      */
@@ -191,7 +189,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Setter for pressX variable
      */
@@ -200,7 +198,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Setter for pressY variable
      */
@@ -209,7 +207,7 @@ public class KwazamController {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Setter for dragging variable
      */
@@ -221,7 +219,7 @@ public class KwazamController {
     // SINGLETON INSTANCE
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Static method to get instance of KwazamController
      * If instance is null, create a new instance of KwazamController
@@ -242,7 +240,7 @@ public class KwazamController {
     // CONTROLLER INITIALIZATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Initializes all listeners (handlers)
      * First removes all existing listeners, to avoid duplication, then initialized
@@ -264,7 +262,7 @@ public class KwazamController {
     // GAME INITIALIZATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lam Rong Yi
      * 
      * Method used to start the Kwazam Chess game
      * Initializes model, view and controller
@@ -311,7 +309,7 @@ public class KwazamController {
     // GAME LOADING
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Loads a saved game.
      * 
@@ -325,7 +323,7 @@ public class KwazamController {
     // VIEW UPDATES
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon
      * 
      * Update the view
      */

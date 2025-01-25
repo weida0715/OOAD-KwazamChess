@@ -11,8 +11,6 @@ import view.components.KwazamMenuBar;
 import view.dialogs.SaveGameDialog;
 
 /**
- * Author(s):
- * 
  * Handles menu actions for the Kwazam game.
  * Manages listeners for menu options like New Game, Restart, Quit, etc.
  */
@@ -26,7 +24,7 @@ public class KwazamMenuHandler {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamMenuHandler with the given controller.
      * 
@@ -40,7 +38,7 @@ public class KwazamMenuHandler {
     // MENU LISTENERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei, Lam Rong Yi
      * 
      * Initializes listeners for menu options.
      * Sets up actions for New Game, Restart, Quit, Rules, Save Game, and Toggle
@@ -53,7 +51,24 @@ public class KwazamMenuHandler {
         menuBar.getNewGameOption().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newGame();
+                // Prompt the user to confirm starting a new game
+                boolean confirm = controller.getView().showNewGameDialog();
+                if (confirm) {
+                    // Check if the game has been saved
+                    if (!controller.getModel().hasSavedGame()) {
+                        // Prompt the user to save the game before starting a new game
+                        boolean saveGame = controller.getView().getSaveGameDialog().promptSaveBeforeAction(
+                                controller.getView(), "starting a new game");
+        
+                        if (saveGame) {
+                            saveGame(); // Save the game if the user chooses "Yes"
+                        }
+                        // If the user chooses "No," proceed without saving
+                    }
+        
+                    // Start a new game
+                    newGame();
+                }
             }
         });
 
@@ -61,7 +76,10 @@ public class KwazamMenuHandler {
         menuBar.getRestartOption().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                restartGame();
+                boolean confirm = controller.getView().showRestartDialog();
+                if (confirm) {
+                    restartGame(); 
+                }
             }
         });
 
@@ -69,7 +87,10 @@ public class KwazamMenuHandler {
         menuBar.getQuitOption().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                quitGame();
+                boolean confirm = controller.getView().showQuitDialog();
+                if (confirm) {
+                    quitGame(); // Call quitGame() only if the user confirms
+                }
             }
         });
 
@@ -107,7 +128,7 @@ public class KwazamMenuHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei, Lam Rong Yi
      * 
      * Removes all menu listeners.
      * Clears existing listeners to avoid duplication.
@@ -141,89 +162,74 @@ public class KwazamMenuHandler {
     // GAME ACTIONS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Starts a new game.
      * Resets the game state, initializes a new game, and prompts for player names.
      */
-    private void newGame() {
-        // Prompt the user to confirm starting a new game
-        boolean confirm = controller.getView().showNewGameDialog();
-        if (confirm) {
-            // Check if the game has been saved
-            if (!controller.getModel().hasSavedGame()) {
-                // Prompt the user to save the game before starting a new game
-                boolean saveGame = controller.getView().getSaveGameDialog().promptSaveBeforeAction(controller.getView(),
-                        "starting a new game");
+    public void newGame() {
 
-                if (saveGame) {
-                    saveGame(); // Save the game if the user chooses "Yes"
-                }
-                // If the user chooses "No," proceed without saving
-            }
+        // Clear the current game state (without deleting the file)
+        controller.getModel().resetGame();
 
-            // Clear the current game state (without deleting the file)
-            controller.getModel().resetGame();
+        controller.getModel().setCurrentFilename(null);
 
-            controller.getModel().setCurrentFilename(null);
+        // Initialize a new game
+        controller.getModel().initGame();
+        controller.getView().refreshLoadGameMenu();
+        controller.getView().getBoardPanel().flipBoardToDefault();
+        controller.getView().initView();
+        controller.initController();
+        controller.updateView();
 
-            // Initialize a new game
-            controller.getModel().initGame();
-            controller.getView().getBoardPanel().flipBoardToDefault();
-            controller.getView().initView();
-            controller.initController();
-            controller.updateView();
+        // Ask for player names via the view
+        Optional<String[]> playerNames = controller.getView().showStartGameDialog();
 
-            // Ask for player names via the view
-            Optional<String[]> playerNames = controller.getView().showStartGameDialog();
+        if (playerNames.isPresent()) {
+            // Extract player names
+            String player1 = playerNames.get()[0];
+            String player2 = playerNames.get()[1];
 
-            if (playerNames.isPresent()) {
-                // Extract player names
-                String player1 = playerNames.get()[0];
-                String player2 = playerNames.get()[1];
-
-                // Pass names to the model for game initialization
-                controller.getModel().setPlayerNames(player1, player2);
-            } else {
-                // Exit the game if the dialog is canceled
-                System.exit(0);
-            }
+            // Pass names to the model for game initialization
+            controller.getModel().setPlayerNames(player1, player2);
+        } else {
+            // Exit the game if the dialog is canceled
+            System.exit(0);
         }
     }
 
+
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Restarts the current game.
      * Resets the game state and reinitializes the game with default settings.
      */
-    private void restartGame() {
-        // Prompt the user to confirm restarting the game
-        boolean confirm = controller.getView().showRestartDialog();
-        if (confirm) {
-            // Clear the current game state (without deleting the file)
-            controller.getModel().resetGame();
+    public void restartGame() {
+        // Clear the current game state (without deleting the file)
+        controller.getModel().resetGame();
 
-            // Save the reset game state to the file (if a filename exists)
-            if (controller.getModel().getCurrentFilename() != null) {
-                controller.getModel().saveGame(null); // Save the reset game state to the current file
-            }
-
-            // Reinitialize the game with the default chess setup
-            controller.getModel().initGame();
-
-            // Flip the board back to the default orientation (blue at the bottom)
-            controller.getView().getBoardPanel().flipBoardToDefault();
-
-            // Update the view to reflect the new game state
-            controller.getView().initView();
-            controller.initController();
-            controller.updateView();
+        // Save the reset game state to the file (if a filename exists)
+        if (controller.getModel().getCurrentFilename() != null) {
+            controller.getModel().saveGame(null); // Save the reset game state to the current file
         }
+
+        // Reinitialize the game with the default chess setup
+        controller.getModel().initGame();
+        controller.getView().refreshLoadGameMenu();
+
+        // Flip the board back to the default orientation (blue at the bottom)
+        controller.getView().getBoardPanel().flipBoardToDefault();
+
+        // Update the view to reflect the new game state
+        controller.getView().initView();
+        controller.initController();
+        controller.updateView();
     }
 
+
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Saves the current game.
      * Prompts for a filename if not already saved, otherwise saves to the existing
@@ -255,7 +261,7 @@ public class KwazamMenuHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Loads a saved game.
      * 
@@ -292,27 +298,25 @@ public class KwazamMenuHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lam Rong Yi
      * 
      * Quits the game.
      * Prompts for confirmation before exiting the application.
      */
-    private void quitGame() {
-        boolean confirmQuit = controller.getView().showQuitDialog();
-        if (confirmQuit) {
-            // Check if the game has been saved
-            if (!controller.getModel().hasSavedGame()) {
-                // Prompt the user to save the game before restarting
-                boolean saveGame = controller.getView().getSaveGameDialog().promptSaveBeforeAction(controller.getView(),
-                        "quit");
+    public void quitGame() {
+        // Check if the game has been saved
+        if (!controller.getModel().hasSavedGame()) {
+            // Prompt the user to save the game before quitting
+            boolean saveGame = controller.getView().getSaveGameDialog().promptSaveBeforeAction(controller.getView(),
+                    "quit");
 
-                if (saveGame) {
-                    saveGame(); // Save the game if the user chooses "Yes"
-                }
-                // If the user chooses "No," proceed without saving
+            if (saveGame) {
+                saveGame(); // Save the game if the user chooses "Yes"
             }
-
-            System.exit(0);
+            // If the user chooses "No," proceed without saving
         }
+
+        System.exit(0);
     }
+
 }

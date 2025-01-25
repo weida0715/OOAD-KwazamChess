@@ -7,8 +7,6 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
- * Author(s):
- * 
  * Represents a generic piece in Kwazam.
  * Contains properties like color, type, position, and movement strategy.
  */
@@ -25,7 +23,7 @@ public class KwazamPiece {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon
      * 
      * Constructs a KwazamPiece with the given properties.
      * 
@@ -47,7 +45,7 @@ public class KwazamPiece {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets the color of the piece.
      * 
@@ -58,7 +56,7 @@ public class KwazamPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets the type of the piece.
      * 
@@ -69,7 +67,7 @@ public class KwazamPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets the x-coordinate of the piece.
      * 
@@ -80,7 +78,7 @@ public class KwazamPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets the y-coordinate of the piece.
      * 
@@ -91,7 +89,7 @@ public class KwazamPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets all valid moves for the piece.
      * 
@@ -106,7 +104,7 @@ public class KwazamPiece {
     // SETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Sets the x-coordinate of the piece.
      * 
@@ -117,7 +115,7 @@ public class KwazamPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Sets the y-coordinate of the piece.
      * 
@@ -128,7 +126,7 @@ public class KwazamPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Sets the type of the piece.
      * 

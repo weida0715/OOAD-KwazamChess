@@ -6,8 +6,6 @@ import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 
 /**
- * Author(s):
- * 
  * Implements the movement strategy for the Tor piece.
  * Handles valid moves for the Tor in a Kwazam game.
  */
@@ -21,7 +19,7 @@ public class TorMovement implements MovementStrategy {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Constructs a TorMovement.
      * Initializes the possible movement directions for the Tor piece.
@@ -39,7 +37,7 @@ public class TorMovement implements MovementStrategy {
     // MOVEMENT STRATEGY IMPLEMENTATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets all valid moves for the Tor piece.
      * 
@@ -64,7 +62,7 @@ public class TorMovement implements MovementStrategy {
     // PRIVATE METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Checks valid moves in a specific direction for the Tor piece.
      * 

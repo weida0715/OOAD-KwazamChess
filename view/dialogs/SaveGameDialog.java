@@ -5,8 +5,6 @@ import java.util.Optional;
 import javax.swing.*;
 
 /**
- * Author(s):
- * 
  * Displays dialogs for saving the game.
  * Handles filename input and validation.
  */
@@ -15,7 +13,7 @@ public class SaveGameDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Prompts the user to save the game before performing an action.
      * 
@@ -34,6 +32,8 @@ public class SaveGameDialog {
     }
 
     /**
+     * Author(s): Lam Rong Yi
+     * 
      * Displays a dialog to prompt the user for a filename to save the game.
      * If the file already exists in the /data folder, prompts the user to reenter a
      * filename.

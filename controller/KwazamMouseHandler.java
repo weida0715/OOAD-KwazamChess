@@ -11,10 +11,9 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 import utils.SoundEffect;
 import view.components.KwazamRenderPiece;
+import view.dialogs.PostGameDialog;
 
 /**
- * Author(s):
- * 
  * Handles mouse actions for the Kwazam game.
  * Manages mouse events like pressing, dragging, and releasing pieces.
  */
@@ -28,7 +27,7 @@ public class KwazamMouseHandler {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamMouseHandler with the given controller.
      * 
@@ -42,7 +41,7 @@ public class KwazamMouseHandler {
     // MOUSE LISTENERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Initializes mouse listeners for the board.
      * Sets up actions for mouse press, release, drag, and move events.
@@ -77,7 +76,7 @@ public class KwazamMouseHandler {
     // MOUSE EVENT HANDLERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Removes all mouse listeners.
      * Clears existing listeners to avoid duplication.
@@ -96,7 +95,7 @@ public class KwazamMouseHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Handles mouse press events.
      * Selects and prepares a piece for dragging if it belongs to the current
@@ -136,7 +135,7 @@ public class KwazamMouseHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon, Lam Rong Yi
      * 
      * Handles mouse release events.
      * Moves the piece to the target location if valid, or deselects the piece.
@@ -255,19 +254,36 @@ public class KwazamMouseHandler {
                 controller.getView().showEndGameDialog(controller.getModel().getWinner());
                 controller.getModel().clearSavedGame();
 
-                System.exit(0);
+                // Show the PostGameDialog to ask the user what to do next
+                int choice = controller.getView().showPostGameDialog();
+
+                // Handle the user's choice
+                switch (choice) {
+                    case PostGameDialog.RESTART_GAME:
+                        controller.getMenuHandler().restartGame();
+                        break;
+                    case PostGameDialog.NEW_GAME:
+                        controller.getMenuHandler().newGame();
+                        break;
+                    case PostGameDialog.QUIT:
+                        System.exit(0);
+                        break;
+                    default:
+                        // Do nothing or handle unexpected input
+                        break;
+                }
+            } else {
+                controller.getView().getBoardPanel().flipBoard();
+                controller.getModel().switchColor();
+                controller.updateView();
+
+                controller.getModel().saveGame(null);
             }
-
-            controller.getView().getBoardPanel().flipBoard();
-            controller.getModel().switchColor();
-            controller.updateView();
-
-            controller.getModel().saveGame(null);
         }
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei
      * 
      * Handles mouse drag events.
      * Updates the dragged piece's position and hovered grid during dragging.
@@ -333,7 +349,7 @@ public class KwazamMouseHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei
      * 
      * Handles mouse move events.
      * Updates the cursor and hovered grid based on the mouse position.

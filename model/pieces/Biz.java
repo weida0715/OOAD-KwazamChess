@@ -5,8 +5,6 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
- * Author(s):
- * 
  * Represents the Biz piece in Kwazam.
  * Inherits from KwazamPiece and uses a specific movement strategy.
  */
@@ -15,7 +13,7 @@ public class Biz extends KwazamPiece {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Constructs a Biz piece with the given color, position, and movement strategy.
      * 

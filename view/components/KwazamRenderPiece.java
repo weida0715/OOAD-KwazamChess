@@ -7,8 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Author(s):
- * 
  * Represents a renderable piece in Kwazam.
  * Handles image loading, flipping, and position management.
  */
@@ -26,7 +24,7 @@ public class KwazamRenderPiece {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamRenderPiece with the given data and position.
      * 
@@ -53,7 +51,7 @@ public class KwazamRenderPiece {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the piece data.
      * 
@@ -64,7 +62,7 @@ public class KwazamRenderPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the x-coordinate of the piece.
      * 
@@ -75,7 +73,7 @@ public class KwazamRenderPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the y-coordinate of the piece.
      * 
@@ -86,7 +84,7 @@ public class KwazamRenderPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if the piece is flipped.
      * 
@@ -97,7 +95,7 @@ public class KwazamRenderPiece {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the image of the piece.
      * 
@@ -111,7 +109,7 @@ public class KwazamRenderPiece {
     // SETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Sets the x-coordinate of the piece.
      * 
@@ -122,7 +120,7 @@ public class KwazamRenderPiece {
     }
 
     /**
-     * Author(s):
+      * Author(s): Ng Wei Da
      * 
      * Sets the y-coordinate of the piece.
      * 
@@ -136,7 +134,7 @@ public class KwazamRenderPiece {
     // IMAGE MANIPULATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Flips the piece image vertically.
      */

@@ -5,8 +5,6 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
- * Author(s):
- * 
  * Represents the Ram piece in Kwazam.
  * Inherits from KwazamPiece and includes direction for movement.
  */
@@ -20,7 +18,7 @@ public class Ram extends KwazamPiece {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Constructs a Ram piece with the given color, position, and movement strategy.
      * Sets the initial direction based on the piece's color.
@@ -39,7 +37,7 @@ public class Ram extends KwazamPiece {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets the current direction of the Ram piece.
      * 
@@ -53,7 +51,7 @@ public class Ram extends KwazamPiece {
     // SETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Sets the direction of the Ram piece.
      * 

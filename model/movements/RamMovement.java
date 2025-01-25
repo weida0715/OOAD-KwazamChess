@@ -17,7 +17,7 @@ public class RamMovement implements MovementStrategy {
     // MOVEMENT STRATEGY IMPLEMENTATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets all valid moves for the Ram piece.
      * 
@@ -48,7 +48,7 @@ public class RamMovement implements MovementStrategy {
     // PRIVATE METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Updates the Ram's direction if it reaches the top or bottom of the board.
      * 
@@ -67,7 +67,7 @@ public class RamMovement implements MovementStrategy {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Checks if a move is valid for the Ram piece.
      * 

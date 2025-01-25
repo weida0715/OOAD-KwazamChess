@@ -6,8 +6,6 @@ import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 
 /**
- * Author(s):
- * 
  * Implements the movement strategy for the Sau piece.
  * Handles valid moves for the Sau in a Kwazam game.
  */
@@ -21,7 +19,7 @@ public class SauMovement implements MovementStrategy {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Constructs a SauMovement.
      * Initializes the possible movement directions for the Sau piece.
@@ -43,7 +41,7 @@ public class SauMovement implements MovementStrategy {
     // MOVEMENT STRATEGY IMPLEMENTATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets all valid moves for the Sau piece.
      * 
@@ -73,7 +71,7 @@ public class SauMovement implements MovementStrategy {
     // PRIVATE METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Checks if a move is valid for the Sau piece.
      * 

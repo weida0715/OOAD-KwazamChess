@@ -3,8 +3,6 @@ package view.dialogs;
 import javax.swing.*;
 
 /**
- * Author(s):
- * 
  * Displays a dialog to confirm quitting the game.
  */
 public class QuitGameDialog {
@@ -12,7 +10,7 @@ public class QuitGameDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Shows the quit game confirmation dialog.
      * 

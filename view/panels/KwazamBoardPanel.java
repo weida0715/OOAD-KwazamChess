@@ -16,8 +16,6 @@ import utils.KwazamConstants;
 import view.components.KwazamRenderPiece;
 
 /**
- * Author(s):
- * 
  * Represents the game board panel for Kwazam.
  * Handles rendering of the board, pieces, and game state.
  */
@@ -43,7 +41,7 @@ public class KwazamBoardPanel extends JPanel {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamBoardPanel.
      * Initializes the board and game state.
@@ -60,7 +58,7 @@ public class KwazamBoardPanel extends JPanel {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the list of renderable pieces.
      * 
@@ -71,7 +69,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the currently selected piece.
      * 
@@ -82,7 +80,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the piece currently being dragged.
      * 
@@ -93,7 +91,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the x-coordinate of the dragging piece.
      * 
@@ -104,7 +102,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the y-coordinate of the dragging piece.
      * 
@@ -115,7 +113,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the x-coordinate of the hovered grid.
      * 
@@ -126,7 +124,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the y-coordinate of the hovered grid.
      * 
@@ -137,7 +135,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the width of the panel.
      * 
@@ -148,7 +146,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the height of the panel.
      * 
@@ -159,7 +157,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the width of the board.
      * 
@@ -170,7 +168,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the height of the board.
      * 
@@ -181,7 +179,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the size of each square on the board.
      * 
@@ -192,7 +190,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the width of each square on the board.
      * 
@@ -203,7 +201,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the height of each square on the board.
      * 
@@ -214,7 +212,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the x-offset of the board.
      * 
@@ -225,7 +223,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the y-offset of the board.
      * 
@@ -236,7 +234,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Checks if the board is flipped.
      * 
@@ -250,7 +248,7 @@ public class KwazamBoardPanel extends JPanel {
     // SETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Sets the list of renderable pieces.
      * 
@@ -262,7 +260,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Sets the currently selected piece.
      * 
@@ -274,7 +272,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Sets the piece currently being dragged.
      * 
@@ -290,7 +288,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Sets the piece currently being dragged.
      * 
@@ -304,7 +302,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Sets the hovered grid coordinates.
      * 
@@ -318,7 +316,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Highlights the Sau's position if it is in check.
      * 
@@ -332,7 +330,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Clears the Sau in check highlight.
      */
@@ -343,7 +341,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Sets the available moves for the selected piece.
      * 
@@ -354,7 +352,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Clears the available moves.
      */
@@ -366,7 +364,7 @@ public class KwazamBoardPanel extends JPanel {
     // BOARD RENDERING
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon, Willie Teoh Chin Wei
      * 
      * Renders the board, pieces, and game state.
      * 
@@ -504,7 +502,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Draws the game board.
      * 
@@ -536,7 +534,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Draws the board coordinates (letters and numbers).
      * 
@@ -572,7 +570,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Draws a piece on the board with transparency.
      * 
@@ -588,7 +586,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Draws a piece on the board.
      * 
@@ -621,7 +619,7 @@ public class KwazamBoardPanel extends JPanel {
     // BOARD ORIENTATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Flips the board orientation.
      */
@@ -630,7 +628,7 @@ public class KwazamBoardPanel extends JPanel {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Flips the board back to the default orientation.
      */

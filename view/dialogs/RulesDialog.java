@@ -13,8 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
- * Author(s):
- * 
  * Displays a dialog with the rules of the Kwazam game.
  * Includes game introduction, winning conditions, and piece movement rules.
  */
@@ -23,7 +21,7 @@ public class RulesDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Shows the rules dialog.
      * 
@@ -161,7 +159,7 @@ public class RulesDialog {
     // PRIVATE METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Adds a row to the rules table for a specific piece.
      * 

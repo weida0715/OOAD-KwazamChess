@@ -4,8 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * Author(s):
- * 
  * Displays a dialog when the game ends.
  * Shows the winner and provides a close button.
  */
@@ -14,7 +12,7 @@ public class EndGameDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lam Rong Yi
      * 
      * Shows the end game dialog with the winner's name.
      * 

@@ -12,7 +12,7 @@ public class NewGameDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Shows the new game confirmation dialog.
      * 

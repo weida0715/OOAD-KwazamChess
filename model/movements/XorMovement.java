@@ -6,8 +6,6 @@ import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 
 /**
- * Author(s):
- * 
  * Implements the movement strategy for the Xor piece.
  * Handles valid moves for the Xor in a Kwazam game.
  */
@@ -21,7 +19,7 @@ public class XorMovement implements MovementStrategy {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Constructs an XorMovement.
      * Initializes the possible movement directions for the Xor piece.
@@ -39,7 +37,7 @@ public class XorMovement implements MovementStrategy {
     // MOVEMENT STRATEGY IMPLEMENTATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets all valid moves for the Xor piece.
      * 
@@ -64,7 +62,7 @@ public class XorMovement implements MovementStrategy {
     // PRIVATE METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Checks valid moves in a specific direction for the Xor piece.
      * 

@@ -9,6 +9,7 @@ import utils.KwazamConstants;
 import view.components.KwazamMenuBar;
 import view.dialogs.EndGameDialog;
 import view.dialogs.NewGameDialog;
+import view.dialogs.PostGameDialog;
 import view.dialogs.QuitGameDialog;
 import view.dialogs.RestartGameDialog;
 import view.dialogs.RulesDialog;
@@ -17,8 +18,6 @@ import view.dialogs.StartGameDialog;
 import view.panels.KwazamBoardPanel;
 
 /**
- * Author(s):
- * 
  * Represents the main view for the Kwazam game.
  * Manages the game window, board, and dialogs.
  */
@@ -35,12 +34,13 @@ public class KwazamView extends JFrame {
     private final NewGameDialog newGameDialog;
     private final RulesDialog rulesDialog;
     private final SaveGameDialog saveGameDialog;
+    private final PostGameDialog postGameDialog;
 
     // =================================================================
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei, Lam Rong Yi
      * 
      * Constructs a KwazamView.
      * Initializes the board, menu bar, and dialogs.
@@ -55,13 +55,14 @@ public class KwazamView extends JFrame {
         newGameDialog = new NewGameDialog();
         saveGameDialog = new SaveGameDialog();
         rulesDialog = new RulesDialog();
+        postGameDialog = new PostGameDialog();
     }
 
     // =================================================================
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the board panel.
      * 
@@ -72,7 +73,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the menu bar.
      * 
@@ -86,7 +87,7 @@ public class KwazamView extends JFrame {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Initializes the game view.
      * Sets up the window, board, and menu bar.
@@ -110,7 +111,7 @@ public class KwazamView extends JFrame {
     // BOARD
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Adds the chess board to the view.
      */
@@ -119,7 +120,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Adds the menu bar to the view.
      */
@@ -128,7 +129,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Hides the valid moves on the board.
      */
@@ -140,7 +141,7 @@ public class KwazamView extends JFrame {
     // MENU
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Adds the menu bar to the view.
      */
@@ -149,7 +150,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Refreshes the "Load Game" submenu with saved game files.
      */
@@ -161,7 +162,7 @@ public class KwazamView extends JFrame {
     // DIALOGS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Shows the start game dialog to input player names.
      * 
@@ -172,7 +173,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Shows the end game dialog with the winner's name.
      * 
@@ -183,7 +184,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Shows the new game confirmation dialog.
      * 
@@ -194,7 +195,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Shows the restart game confirmation dialog.
      * 
@@ -205,7 +206,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Gets the save game dialog.
      * 
@@ -216,7 +217,7 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Shows the quit game confirmation dialog.
      * 
@@ -227,11 +228,22 @@ public class KwazamView extends JFrame {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Shows the game rules dialog.
      */
     public void showRulesDialog() {
         rulesDialog.showDialog(this);
+    }
+
+    /**
+     * Author(s): Lam Rong Yi
+    * 
+    * Shows the post game dialog.
+    * 
+    * @return the user's choice as integer.
+    */
+    public int showPostGameDialog() {
+        return postGameDialog.showDialog(this);
     }
 }

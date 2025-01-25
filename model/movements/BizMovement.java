@@ -6,8 +6,6 @@ import model.board.KwazamBoard;
 import model.pieces.KwazamPiece;
 
 /**
- * Author(s):
- * 
  * Implements the movement strategy for the Biz piece.
  * Handles valid moves for the Biz in a Kwazam game.
  */
@@ -20,6 +18,12 @@ public class BizMovement implements MovementStrategy {
     // =================================================================
     // CONSTRUCTION
     // =================================================================
+    /**
+     * Author(s): Lim Kar Joon
+     * 
+     * Constructs an BizMovement.
+     * Initializes the possible movement directions for the Biz piece.
+     */
     public BizMovement() {
         this.directions = new int[][] {
                 { 2, 1 }, // Right 2, Up 1
@@ -37,7 +41,7 @@ public class BizMovement implements MovementStrategy {
     // MOVEMENT STRATEGY IMPLEMENTATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Gets all valid moves for the Biz piece.
      * 
@@ -67,7 +71,7 @@ public class BizMovement implements MovementStrategy {
     // PRIVATE METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lim Kar Joon
      * 
      * Checks if a move is valid for the Biz piece.
      * 

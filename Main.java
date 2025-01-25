@@ -1,30 +1,39 @@
 
-// =================================================================
-// DESIGN PATTERNS USED IN THE PROJECT
-// =================================================================
 /**
- * 1. **Model-View-Controller (MVC) Pattern**:
- *    - The project is structured using the MVC pattern to separate concerns:
- *      - **Model**: Handles game logic, state, and data (e.g., `KwazamModel`, `KwazamBoard`, `KwazamPiece`).
- *      - **View**: Manages the user interface and rendering (e.g., `KwazamView`, `KwazamBoardPanel`, `KwazamRenderPiece`).
- *      - **Controller**: Acts as the mediator between the model and view, handling user input and updating the model and view (e.g., `KwazamController`, `KwazamMouseHandler`, `KwazamMenuHandler`).
- *
- * 2. **Singleton Pattern**:
- *    - The `KwazamController` class uses the Singleton pattern to ensure only one instance of the controller exists throughout the application.
- *    - Applied in: `KwazamController.getInstance()`.
- *
- * 3. **Factory Pattern**:
- *    - The `KwazamPieceFactory` class uses the Factory pattern to create instances of different piece types (e.g., `Ram`, `Biz`, `Sau`, `Tor`, `Xor`).
- *    - Applied in: `KwazamPieceFactory.getPiece()`.
- *
- * 4. **Strategy Pattern**:
- *    - The `MovementStrategy` interface and its implementations (e.g., `RamMovement`, `BizMovement`, `SauMovement`, `TorMovement`, `XorMovement`) use the Strategy pattern to encapsulate different movement behaviors for pieces.
- *    - Applied in: `MovementStrategy` and its concrete implementations.
- *
- * 5. **Mediator Pattern**:
- *    - The `KwazamController` acts as a mediator between the `Model` and `View`. It coordinates communication between the two, ensuring that the model and view remain decoupled.
- *    - Additionally, the `KwazamController` serves as a central connecting point for the handlers (`KwazamMouseHandler`, `KwazamMenuHandler`, and `KwazamWindowHandler`). It manages their interactions and ensures they work together seamlessly.
- *    - Applied in: `KwazamController`, which handles interactions between `KwazamModel`, `KwazamView`, and the handlers.
+ * CCP2201 Project
+ * Trimester 2310
+ * by Group F
+ * 
+ * Team Leader: 
+ *  - Ng Wei Da, 0165297743, 1211107034@student.mmu.edu.my
+ * Team members:
+ *  - Lim Kar Joon, 01136118955, 1211108893@student.mmu.edu.my
+ *  - Willie Teoh Chin Wei, 0102020873, 1211106712@student.mmu.edu.my
+ *  - Lam Rong Yi, 0176952983, 1211107112@student.mmu.edu.my
+ * 
+ * Task Distributions:
+ *  - Ng Wei Da: Project structure initializations, design patterns decision, 
+ *              involvement in implementing KwazamController, KwazamMouseHandler, KwazamMenuHandler,
+ *                                          KwazamBoard, KwazamPiece, KwazamModel, 
+ *                                          KwazamMenuBar, KwazamRenderPiece, StartGameDialog, QuitGameDialog, KwazamBoardPanel, KwazamView, 
+ *                                          KwazamConstants, SoundEffect
+ * 
+ *  - Lim Kar Joon: Code refactoring
+ *              involvement in implementing KwazamController, KwazamMouseHandler, 
+ *                                          BizMovement, RamMovement, SauMovement, TorMovement, XorMovement, KwazamPiece, Biz, Ram, Sau, Tor, Xor
+ *                                          KwazamBoardPanel
+ *                                          KwazamConstants, KwazamPieceColor, KwazamPieceType
+ * 
+ *  - Willie Teoh Chin Wei: Extra Features
+ *              involvement in implementing KwazamMenuHandler, KwazamMouseHandler, 
+ *                                          KwazamBoard, KwazamPiece
+ *                                          KwazamMenuBar, RulesDialog, KwazamBoardPanel, KwazamView
+ *                                          KwazamConstants, SoundEffect
+ * 
+ *  - Lam Rong Yi: Core Features Extensions
+ *              involvement in implementing KwazamController, KwazamMouseHandler, KwazamMenuHandler, KwazamWindowHandler,
+ *                                          KwazamModel, 
+ *                                          KwazamMenuBar, EndGameDialog, NewGameDialog, PostGameDialog, RestartGameDialog, SaveGameDialog, KwazamRenderPiece, KwazamView
  */
 
 import controller.KwazamController;
@@ -32,14 +41,12 @@ import model.KwazamModel;
 import view.KwazamView;
 
 /**
- * Author(s):
- * 
  * Main class to start the Kwazam game.
  * Initializes the model, view, and controller.
  */
 public class Main {
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Lim Kar Joon, Willie Teoh Chin Wei, Lam Rong Yi
      * 
      * Entry point for the Kwazam game.
      * 

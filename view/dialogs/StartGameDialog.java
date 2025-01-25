@@ -4,8 +4,6 @@ import java.util.Optional;
 import javax.swing.*;
 
 /**
- * Author(s):
- * 
  * Displays a dialog to collect player names at the start of the game.
  */
 public class StartGameDialog {
@@ -14,7 +12,7 @@ public class StartGameDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Displays the start game dialog to collect player names.
      *

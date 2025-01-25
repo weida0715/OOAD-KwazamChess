@@ -6,8 +6,6 @@ import java.awt.event.WindowListener;
 import javax.swing.WindowConstants;
 
 /**
- * Author(s):
- * 
  * Handles window actions for the Kwazam game.
  * Manages window events like closing the application.
  */
@@ -21,7 +19,7 @@ public class KwazamWindowHandler {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Constructs a KwazamWindowHandler with the given controller.
      * 
@@ -35,7 +33,7 @@ public class KwazamWindowHandler {
     // WINDOW LISTENERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Initializes window listeners.
      * Sets up actions for window closing events.
@@ -68,7 +66,7 @@ public class KwazamWindowHandler {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Removes all window listeners.
      * Clears existing listeners to avoid duplication.

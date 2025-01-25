@@ -9,8 +9,6 @@ import utils.KwazamPieceColor;
 import utils.KwazamPieceType;
 
 /**
- * Author(s):
- * 
  * Factory class for creating Kwazam pieces.
  * Provides a method to create pieces based on type, color, and position.
  */
@@ -19,7 +17,7 @@ public final class KwazamPieceFactory {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Private constructor to prevent instantiation.
      * This is a utility class with static methods only.
@@ -31,7 +29,7 @@ public final class KwazamPieceFactory {
     // FACTORY METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Creates a Kwazam piece of the specified type, color, and position.
      * 

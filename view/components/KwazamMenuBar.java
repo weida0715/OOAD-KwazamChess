@@ -11,8 +11,6 @@ import controller.KwazamController;
 import utils.SoundEffect;
 
 /**
- * Author(s):
- * 
  * Represents the menu bar for the Kwazam game.
  * Contains options for new game, restart, save, quit, rules, and sound
  * settings.
@@ -37,7 +35,7 @@ public class KwazamMenuBar extends JMenuBar {
     // CONSTRUCTION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da, Willie Teoh Chin Wei, Lam Rong Yi
      * 
      * Constructs a KwazamMenuBar.
      * Initializes menu items and adds them to the menu bar.
@@ -94,7 +92,7 @@ public class KwazamMenuBar extends JMenuBar {
     // GETTERS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Gets the "New Game" menu item.
      * 
@@ -105,7 +103,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Gets the "Restart" menu item.
      * 
@@ -116,7 +114,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Gets the "Save Game" menu item.
      * 
@@ -127,7 +125,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Ng Wei Da
      * 
      * Gets the "Quit Game" menu item.
      * 
@@ -138,7 +136,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Gets the "Game Rules" menu item.
      * 
@@ -149,7 +147,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Gets the "Toggle Sound" menu item.
      * 
@@ -160,7 +158,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Willie Teoh Chin Wei
      * 
      * Gets the "Toggle Background Music" menu item.
      * 
@@ -171,7 +169,7 @@ public class KwazamMenuBar extends JMenuBar {
     }
 
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Gets the "Load Game" submenu.
      * 
@@ -185,7 +183,7 @@ public class KwazamMenuBar extends JMenuBar {
     // MENU POPULATION
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Populates the "Load Game" submenu with saved game files.
      */

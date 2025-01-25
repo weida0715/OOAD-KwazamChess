@@ -3,8 +3,6 @@ package view.dialogs;
 import javax.swing.*;
 
 /**
- * Author(s):
- * 
  * Displays a dialog to confirm restarting the game.
  */
 public class RestartGameDialog {
@@ -12,7 +10,7 @@ public class RestartGameDialog {
     // PUBLIC METHODS
     // =================================================================
     /**
-     * Author(s):
+     * Author(s): Lam Rong Yi
      * 
      * Shows the restart game confirmation dialog.
      * 
